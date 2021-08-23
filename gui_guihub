@@ -1,0 +1,216 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local GuiHub = Instance.new("Frame")
+local scriptsHolder = Instance.new("ScrollingFrame")
+local UIGridLayout = Instance.new("UIGridLayout")
+local guiHubTemp = Instance.new("Frame")
+local guiHubTempBG = Instance.new("ImageLabel")
+local Title = Instance.new("TextLabel")
+local guiIcon = Instance.new("ImageLabel")
+local UICorner = Instance.new("UICorner")
+local executeBtnBG = Instance.new("ImageLabel")
+local executeBtnMAIN = Instance.new("TextButton")
+local roundBackground_GHSH = Instance.new("ImageLabel")
+local SearchBar = Instance.new("TextBox")
+local searchBarIcon = Instance.new("ImageLabel")
+
+--Properties:
+
+GuiHub.Name = "Gui Hub"
+GuiHub.Parent = game.StarterGui.dietLib.mainFrame.tabHolder
+GuiHub.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+GuiHub.BackgroundTransparency = 1.000
+GuiHub.Position = UDim2.new(0.00847569946, 0, 0.0153375855, 0)
+GuiHub.Size = UDim2.new(0.991524398, 0, 0.984662414, 0)
+GuiHub.Visible = false
+
+scriptsHolder.Name = "scriptsHolder"
+scriptsHolder.Parent = GuiHub
+scriptsHolder.Active = true
+scriptsHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+scriptsHolder.BackgroundTransparency = 1.000
+scriptsHolder.BorderSizePixel = 0
+scriptsHolder.Position = UDim2.new(0.0268248525, 0, 0.176109433, 0)
+scriptsHolder.Size = UDim2.new(0.973175347, 0, 0.823890567, 0)
+scriptsHolder.ZIndex = 6
+scriptsHolder.CanvasSize = UDim2.new(0, 0, 6, 0)
+
+UIGridLayout.Parent = scriptsHolder
+UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIGridLayout.CellSize = UDim2.new(0, 150, 0, 175)
+
+guiHubTemp.Name = "guiHubTemp"
+guiHubTemp.Parent = UIGridLayout
+guiHubTemp.AnchorPoint = Vector2.new(0.5, 0.5)
+guiHubTemp.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+guiHubTemp.BackgroundTransparency = 1.000
+guiHubTemp.BorderSizePixel = 0
+guiHubTemp.Position = UDim2.new(0.483600855, 0, 0.107235089, 0)
+guiHubTemp.Size = UDim2.new(0.939999998, 0, 0.0599999987, 0)
+guiHubTemp.ZIndex = 25
+
+guiHubTempBG.Name = "guiHubTempBG"
+guiHubTempBG.Parent = guiHubTemp
+guiHubTempBG.AnchorPoint = Vector2.new(0.5, 0.5)
+guiHubTempBG.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+guiHubTempBG.BackgroundTransparency = 1.000
+guiHubTempBG.Position = UDim2.new(0.497819245, 0, 0.505919874, 0)
+guiHubTempBG.Size = UDim2.new(1, 0, 0.986908913, 0)
+guiHubTempBG.ZIndex = 0
+guiHubTempBG.Image = "rbxassetid://3570695787"
+guiHubTempBG.ImageColor3 = Color3.fromRGB(25, 25, 25)
+guiHubTempBG.ImageTransparency = 0.100
+guiHubTempBG.ScaleType = Enum.ScaleType.Slice
+guiHubTempBG.SliceCenter = Rect.new(100, 100, 100, 100)
+guiHubTempBG.SliceScale = 0.120
+
+Title.Name = "Title"
+Title.Parent = guiHubTemp
+Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Title.BackgroundTransparency = 1.000
+Title.Position = UDim2.new(4.06901052e-07, 0, 0.0398742668, 0)
+Title.Size = UDim2.new(0, 149, 0, 23)
+Title.ZIndex = 4
+Title.Font = Enum.Font.ArialBold
+Title.Text = "Infinite Yield"
+Title.TextColor3 = Color3.fromRGB(122, 122, 122)
+Title.TextScaled = true
+Title.TextSize = 14.000
+Title.TextWrapped = true
+
+guiIcon.Name = "guiIcon"
+guiIcon.Parent = guiHubTemp
+guiIcon.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+guiIcon.Position = UDim2.new(0.132666826, 0, 0.191428393, 0)
+guiIcon.Size = UDim2.new(0, 109, 0, 109)
+guiIcon.ZIndex = 25
+guiIcon.Image = "http://www.roblox.com/asset/?id=45678134"
+
+UICorner.CornerRadius = UDim.new(0.100000001, 0)
+UICorner.Parent = guiIcon
+
+executeBtnBG.Name = "executeBtnBG"
+executeBtnBG.Parent = guiHubTemp
+executeBtnBG.AnchorPoint = Vector2.new(0.5, 0.5)
+executeBtnBG.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+executeBtnBG.BackgroundTransparency = 1.000
+executeBtnBG.ClipsDescendants = true
+executeBtnBG.Position = UDim2.new(0.497278243, 0, 0.900214136, 0)
+executeBtnBG.Size = UDim2.new(0.849223018, 0, 0.128086478, 0)
+executeBtnBG.ZIndex = 11
+executeBtnBG.Image = "rbxassetid://3570695787"
+executeBtnBG.ImageColor3 = Color3.fromRGB(34, 34, 34)
+executeBtnBG.ImageTransparency = 0.100
+executeBtnBG.ScaleType = Enum.ScaleType.Slice
+executeBtnBG.SliceCenter = Rect.new(100, 100, 100, 100)
+executeBtnBG.SliceScale = 0.120
+
+executeBtnMAIN.Name = "executeBtnMAIN"
+executeBtnMAIN.Parent = executeBtnBG
+executeBtnMAIN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+executeBtnMAIN.BackgroundTransparency = 1.000
+executeBtnMAIN.Size = UDim2.new(1, 0, 1.04669595, 0)
+executeBtnMAIN.Font = Enum.Font.ArialBold
+executeBtnMAIN.Text = "Execute"
+executeBtnMAIN.TextColor3 = Color3.fromRGB(122, 122, 122)
+executeBtnMAIN.TextScaled = true
+executeBtnMAIN.TextSize = 14.000
+executeBtnMAIN.TextWrapped = true
+
+roundBackground_GHSH.Name = "roundBackground_GHSH"
+roundBackground_GHSH.Parent = GuiHub
+roundBackground_GHSH.AnchorPoint = Vector2.new(0.5, 0.5)
+roundBackground_GHSH.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+roundBackground_GHSH.BackgroundTransparency = 1.000
+roundBackground_GHSH.Position = UDim2.new(0.498162419, 0, 0.0860301107, 0)
+roundBackground_GHSH.Size = UDim2.new(0.942675173, 0, 0.110276565, 0)
+roundBackground_GHSH.ZIndex = 0
+roundBackground_GHSH.Image = "rbxassetid://3570695787"
+roundBackground_GHSH.ImageColor3 = Color3.fromRGB(25, 25, 25)
+roundBackground_GHSH.ImageTransparency = 0.100
+roundBackground_GHSH.ScaleType = Enum.ScaleType.Slice
+roundBackground_GHSH.SliceCenter = Rect.new(100, 100, 100, 100)
+roundBackground_GHSH.SliceScale = 0.120
+
+SearchBar.Name = "SearchBar"
+SearchBar.Parent = roundBackground_GHSH
+SearchBar.BackgroundColor3 = Color3.fromRGB(200, 185, 255)
+SearchBar.BackgroundTransparency = 1.000
+SearchBar.BorderSizePixel = 0
+SearchBar.Position = UDim2.new(0.104378402, 0, 0, 0)
+SearchBar.Size = UDim2.new(0.895621598, 0, 1, 0)
+SearchBar.Font = Enum.Font.ArialBold
+SearchBar.PlaceholderColor3 = Color3.fromRGB(85, 85, 85)
+SearchBar.PlaceholderText = "Search"
+SearchBar.Text = ""
+SearchBar.TextColor3 = Color3.fromRGB(255, 255, 255)
+SearchBar.TextScaled = true
+SearchBar.TextSize = 14.000
+SearchBar.TextWrapped = true
+
+searchBarIcon.Name = "searchBarIcon"
+searchBarIcon.Parent = roundBackground_GHSH
+searchBarIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+searchBarIcon.BackgroundTransparency = 1.000
+searchBarIcon.Position = UDim2.new(0.0335000008, 0, 0, 0)
+searchBarIcon.Size = UDim2.new(0, 33, 0, 33)
+searchBarIcon.ZIndex = 25
+searchBarIcon.Image = "rbxassetid://3192528333"
+
+-- Scripts:
+
+local function WOAWQJA_fake_script() -- SearchBar.searchBarHandler 
+	local script = Instance.new('LocalScript', SearchBar)
+
+	--[[ Made by @LuaBearyGood ]]--
+	
+	local ObjectHolder = script.Parent.Parent.Parent.scriptsHolder
+	local Objects = {['TextLabel'] = true, ['ImageButton'] = true, ['Frame'] = true}
+	local Type = 1
+	--[[
+		Types:
+		1 - Makes objects that do not fit search invisible
+		2 - makes objects that fit search move higher on list, and those that don't go to the bottom
+		
+		
+	--]]
+		
+	
+	
+	function Filter(Text)
+		for i,v in pairs(ObjectHolder:GetChildren()) do
+			if Objects[v.ClassName] then
+				if string.match(string.lower(v.Name), Text) then
+					if Type == 1 then
+						v.Visible = true
+					end
+					v.LayoutOrder = 1
+				else
+					if Type == 1 then
+						v.Visible = false
+					end
+					v.LayoutOrder = 0
+				end
+			end
+		end
+	end
+	
+	
+	script.Parent:GetPropertyChangedSignal('Text'):Connect(function()
+		local CurrentText = script.Parent.Text
+		
+		if CurrentText == "" then
+			for i,v in pairs(ObjectHolder:GetChildren()) do
+				if Objects[v.ClassName] then
+					v.Visible = true
+				end
+			end
+		else
+			Filter(string.lower(CurrentText))
+		end
+	end)
+end
+coroutine.wrap(WOAWQJA_fake_script)()
