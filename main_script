@@ -1,0 +1,3634 @@
+--script.Parent = game:GetService('Players').LocalPlayer.PlayerGui:FindFirstChild('dietLib')
+
+--VARIABLES
+local Players = game:GetService('Players')
+localPlr = Players.LocalPlayer
+
+plrMouse = localPlr:GetMouse()
+tweenService = game:GetService('TweenService')
+UserInputService = game:GetService("UserInputService")
+COREGUI = game:GetService("CoreGui")
+--
+
+
+--GUI VARIALBES
+local mainFrame = script.Parent:WaitForChild('mainFrame')
+local topBar = mainFrame.topBar
+local sideBar = mainFrame.sideBar
+local tabHolder = mainFrame.tabHolder
+local backgroundFrames = mainFrame.backgroundFrames
+--Gui>Tabs
+	local settingsTab = tabHolder['Settings']
+	local characterTab = tabHolder['Character']
+    local toolConfigTab = tabHolder['Tool Config']
+	local playersTab = tabHolder['Players']
+	local gameTab = tabHolder['Game Stuff']
+	local guiHubTab = tabHolder['Gui Hub']
+	local emotesTab = tabHolder['Emotes']
+
+
+--Theme Handler
+
+--objects
+mainColor  = {} --RGB: 40, 40, 40
+mainShade  = {} --RGB: 25, 25, 25
+lightText  = {} --RGB: 122, 122, 122
+darkText   = {} --RGB: 100, 100, 100
+whiteColor = {} --RGB: 255, 255, 255
+checkedBox = {} --RGB: 44, 174, 255
+sliderBall = {} --RGB: 38, 38, 38
+lightGrey  = {} --RGB: 139, 139, 139
+--objects
+
+--colors
+mainColorRGB  	   = Color3.fromRGB(40,40,40) 
+mainShadeRGB  	   = Color3.fromRGB(25,25,25) 
+lightTextRGB  	   = Color3.fromRGB(122,122,122) 
+darkTextRGB        = Color3.fromRGB(100,100,100) 
+whiteRGB           = Color3.fromRGB(255,255,255) 
+checkboxCheckedRGB = Color3.fromRGB(44,174,255) 
+sliderBallRGB      = Color3.fromRGB(38, 38, 38)
+lightGreyRGB       = Color3.fromRGB(139, 139, 139)
+placeholderTextRGB = Color3.fromRGB(85, 85, 85)
+--colors
+
+
+--Load Hub Scripts
+guiHub = {
+
+	InfiniteYield = {'Infinite Yield', 'rbxassetid://1352543873', 'https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'};
+	SimpleSpy     = {'Simply Spy', 'http://www.roblox.com/asset/?id=45678134', 'https://gist.githubusercontent.com/luatsuki/c75a272fb67bccc22bd1b6add92ee267/raw/56375f8536aeca0cc84b44032312efb0fa5b7fa0/Spy'};
+	OwlHub        = {'Owl Hub', 'http://www.roblox.com/asset/?id=2016095', 'https://raw.githubusercontent.com/SiLeNSwOrD/OwlHub/master/OwlHub.txt'};
+	DarkDex       = {'Dark Dex', 'rbxassetid://493608750', 'https://raw.githubusercontent.com/mikelmikelmikelkikel/scripts/main/darkdex'};
+}
+
+
+scriptHub = {}
+
+
+function loadString(stringLink)
+	loadstring(game:HttpGet(tostring(stringLink)))()
+end
+
+
+for _, hubInfo in pairs(guiHub) do
+
+	local guiHubTempClone = guiHubTab.scriptsHolder.UIGridLayout.guiHubTemp:Clone()
+
+	guiHubTempClone.Title.Text = hubInfo[1]
+	guiHubTempClone.guiIcon.Image = hubInfo[2]
+
+	guiHubTempClone.executeBtnBG.executeBtnMAIN.MouseButton1Click:Connect(function()
+
+		loadString(hubInfo[3])
+
+	end)
+
+	guiHubTempClone.Name = hubInfo[1]
+	guiHubTempClone.Parent = guiHubTab.scriptsHolder
+
+end
+
+
+r6Emotes = {
+	
+	DefaultDance1 = {'rbxassetid://182491037', 'Default Dance 1'};
+	DefaultDance2 = {'rbxassetid://182491248', 'Default Dance 2'};
+	DefaultDance3 = {'rbxassetid://182436935', 'Default Dance 3'};
+	DefaultWave = {'rbxassetid://128777973', 'Default Wave'};
+	DefaultCheer = {'rbxassetid://129423030', 'Default Cheer'};
+	DefaultPoint = {'rbxassetid://128853357', 'Default Point'};
+	DefaultLaugh = {'rbxassetid://129423131', 'Default Laugh'};
+	
+	MonsterMash = {'rbxassetid://27789359', 'Monster Mash'};
+	MoonWalk = {'rbxassetid://30196114', 'Moon Walk'};
+	InfiniteDab = {'rbxassetid://248263260', 'Infinite Dab'};
+	Disco2 = {'rbxassetid://45834924', 'Disco 2'};
+	PartyAnim = {'rbxassetid://33796059', 'Party Anim'};
+	Goal = {'rbxassetid://28488254', 'Goal'};
+	FluteDance = {'rbxassetid://52155728', 'Flute Dance'};
+	ZombieIdle = {'rbxassetid://187562176', 'Zombie / Arms Out'};
+	CallMe = {'rbxassetid://87684948', 'Call Me'};
+	MenacingPoint = {'rbxassetid://86504773', 'Menacing Point'};
+	PenguinWalk = {'rbxassetid://46196182', 'Penguin Walk?'};
+	BikeSit = {'rbxassetid://168138731', 'Bike Sit'};
+	HyperbikeV2 = {'rbxassetid://214738896', 'Hyperbike v2 Sit'};
+	OhNo = {'rbxassetid://170720901', 'Oh No!'};
+	Salute = {'rbxassetid://32729592', 'Salute'};
+	CymbalsSlam = {'rbxassetid://162250536', 'Cymbals Slam'};
+	Uppercut = {'rbxassetid://28160593', 'Uppercut'};
+	SmellyRun = {'rbxassetid://30235165', 'Smelly Run'};
+	HeadThrow = {'rbxassetid://35154961', 'Head Throw'};
+	FloatingHead = {'rbxassetid://121572214', 'Floating Head'};
+	Crawl = {'rbxassetid://282574440', 'Crawl / Flail'};
+	DinoWalk = {'rbxassetid://204328711', 'Dino Walk'};
+	SwordSlam = {'rbxassetid://184574340', 'Sword Slam'};
+	LayOnFloor = {'rbxassetid://181526230', 'Lay Down'};
+	FallOntoFloor = {'rbxassetid://181525546', 'Fall Onto Floor'};
+	Hover = {'rbxassetid://313762630', 'Hover / Levitate'};
+	AutisticDab = {'rbxassetid://183412246', 'Catch The Woh'};
+	Spin = {'rbxassetid://188632011', 'You Spin Me Right Round'};
+	FloatSit = {'rbxassetid://179224234', 'Float Sit'};
+	TheCharleston = {'rbxassetid://429703734', 'The Charleston'};
+	Schmoovin = {'rbxassetid://215384594', 'Schmoovin'};
+	Twirl = {'rbxassetid://429730430', 'Twirl'};
+	Slap = {'rbxassetid://204062532', 'Slap'};
+	SickSpinBro = {'rbxassetid://186934910', 'Sick Spin'};
+	SwordLunge = {'rbxassetid://204292303', 'Cool Sword Lunge'};
+	BellyFlop = {'rbxassetid://204295235', 'Belly Flop'};
+	MultiPunch = {'rbxassetid://126753849', 'Multi Punch'};
+	SlapV2 = {'rbxassetid://218504594', 'Backhanded Slap'};
+	Windmill = {'rbxassetid://259438880', 'Windmill Arms'};
+	BarrelRoll = {'rbxassetid://136801964', 'Barrel Roll'};
+	CurlledUp = {'rbxassetid://180612465', 'Cry On Floor'};
+	ChainsawSwing = {'rbxassetid://33169583', 'Chainsaw Swing'};
+	KnightSomeone = {'rbxassetid://35978879', 'Knight Someone'};
+	PowerUpStaff = {'rbxassetid://27432691', 'PowerUpStaff'};
+	NinjaJump = {'rbxassetid://4499200944', 'Ninja Jump Kick'};
+	FunnyBalloonFloat = {'rbxassetid://148840371', 'Funny Balloon Float'};
+	Scream = {'rbxassetid://180611870', 'Scream'};
+	GunCrouch = {'rbxassetid://182724289', 'Gun Crouch'};
+	SoldierGunAim = {'rbxassetid://183817498', 'Soldier Gun Aim'};
+	
+	
+}
+
+r15Emotes = {
+	
+	UdzalsSummoming = {'rbxassetid://3303161675', "Ud'zal's Summoning"};
+	BorocksRage = {'rbxassetid://3236842542', "Borock's Rage"};
+	Curtsy = {'rbxassetid://4555816777', 'Curtsy'};
+	Monkey = {'rbxassetid://3333499508', 'Monkey'};
+	Happy = {'rbxassetid://4841405708', 'Happy'};
+	Floss = {'rbxassetid://5917459365', 'Floss'};
+	Sleep = {'rbxassetid://4686925579', 'Sleep'};
+	HighWave = {'rbxassetid://5915690960', 'High Wave'};
+	Shy = {'rbxassetid://3337978742', 'Shy'};
+	Tilt = {'rbxassetid://3334538554', 'Tilt'};
+	Salute = {'rbxassetid://3333474484', 'Salute'};
+	Applaud = {'rbxassetid://5915693819', 'Applaud'};
+	GodLike = {'rbxassetid://3337994105', 'God Like'};
+	Bored = {'rbxassetid://5230599789', 'Bored'};
+	HeroLanding = {'rbxassetid://5104344710', 'Backflip / Hero Landing'};
+	ShowDemWristsKSI = {'rbxassetid://7198989668', 'KSI Show Dem Wrists'};
+	Cower = {'rbxassetid://4940563117', 'Cower'};
+	BabyDance = {'rbxassetid://4265725525', 'Baby Dance'};
+	Celebrate = {'rbxassetid://3338097973', 'Celebrate'};
+	Samba = {'rbxassetid://6869766175', 'Samba'};
+	ZaraLarssonHipsPoppin = {'rbxassetid://6797888062', "Zara Larsson Hips Poppin'"};
+	LineDance = {'rbxassetid://4049037604', 'Line Dance'};
+	LNXOldTownRoad = {'rbxassetid://5937560570', 'LNX Old Town Road'};
+	HahaLaugh = {'rbxassetid://4102315500', 'Haha Laugh'};
+	ChaCha = {'rbxassetid://6862001787', 'Cha Cha'};
+	Shrug = {'rbxassetid://3334392772', 'Shrug'};
+	Point2 = {'rbxassetid://3344585679', 'Point 2'};
+	Stadium = {'rbxassetid://3338055167', 'Stadium'};
+	SideToSide = {'rbxassetid://3333136415', 'Side To Side / Disco'};
+	KSIBoxingPunch = {'rbxassetid://7202863182', 'KSI Boxing Punch'};
+	HelloWave = {'rbxassetid://3344650532', 'Hello / Wave'};
+	LNXHoliday = {'rbxassetid://5937558680', 'LNX Holiday'};
+	ZaraLarssonTakeMeUnder = {'rbxassetid://6797938823', 'Zara Larsson Take Me Under'};
+	Confused = {'rbxassetid://4940592718', 'Confused / Anxious'};
+	Shuffle = {'rbxassetid://4349242221', 'Shuffle'};
+	WakeupCallKSI = {'rbxassetid://7199000883', 'KSI Wake Up Call'};
+	BreakDance = {'rbxassetid://5915648917', 'Break Dance'};
+	Sad = {'rbxassetid://4841407203', 'Sad / Tired'};
+	Dolphin = {'rbxassetid://5918726674', 'Dolphin'};
+	EggBeater = {'rbxassetid://4265701731', 'Fast Hands / Egg Beater'};
+	BlockPartier = {'rbxassetid://6862022283', 'Block Partier'};
+	PonyMove = {'rbxassetid://5918728267', 'LNX Rodeo'};
+	Fashionable = {'rbxassetid://3333331310', 'Fashionable / Model'};
+	Beckon = {'rbxassetid://5230598276', 'Beckon'};
+	JumpingWave = {'rbxassetid://4940564896', 'Jumping Wave'};
+	Greatest = {'rbxassetid://3338042785', 'Greatest'};
+	Disagree = {'rbxassetid://4841401869', 'Disagree'};
+	BodyBuilder = {'rbxassetid://3333387824', 'Body Builder'};
+	Agree = {'rbxassetid://4841397952', 'Agree'};
+	Dizzy = {'rbxassetid://3361426436', 'Dizzy / Head Spin'};
+	GuitarPlay = {'rbxassetid://5915714366', 'Guitar Play / Rocker'};
+	Hadouken = {'rbxassetid://4841403964', 'Hadouken / Power Blast'};
+	Tree = {'rbxassetid://4049551434', 'Tree / Yoga'};
+	JumpingCheer = {'rbxassetid://5895009708', 'Jumping Cheer'};
+	ZaraLarssonItAintMyFault = {'rbxassetid://6797891807', "Zara Larsson It Ain't My Fault"};
+	Zombie = {'rbxassetid://4210116953', 'Zombie'};
+	LNXPanini = {'rbxassetid://5915713518', 'LNX Panini'};
+	LetterT = {'rbxassetid://3338010159', 'Letter T / T-Pose'};
+	DorkyDance = {'rbxassetid://4212455378', 'Dorky Dance'};
+	TopRock = {'rbxassetid://3361276673', 'Top Rock'};
+	Tantrum = {'rbxassetid://5104341999', 'Tantrum'};
+	RoyalBloodDrumMaster = {'rbxassetid://6531483720', 'Royal Blood Drum Master'};
+	KeepingTime = {'rbxassetid://4555808220', 'Keeping Time / Clap Dance'};
+	BringItAroundTown = {'rbxassetid://3303391864', 'Bring It Around Town'};
+	Robot = {'rbxassetid://3338025566', 'Robot'};
+	FancyFeet = {'rbxassetid://3333432454', 'Fancy Feet'};
+	GetOut = {'rbxassetid://3333272779', 'Get Out'};
+	RoyalBloodDrumSolo = {'rbxassetid://6532839007', 'Royal Blood Drum Solo'};
+	FishingPole = {'rbxassetid://3334832150', 'Fishing Pole'};
+	AirDance = {'rbxassetid://4555782893', 'AirDance'};
+	JumpingJacks = {'rbxassetid://3338066331', 'Jumping Jacks'};
+	Idol = {'rbxassetid://4101966434', 'Idol / Boy Band'};
+	Swish = {'rbxassetid://3361481910', 'When The Shot Is Swishy But You Want That Chocolate Chippy'};
+	LetterY = {'rbxassetid://4349285876', 'Letter Y / Y-Pose'};
+	RoyalBloodRockGuitar = {'rbxassetid://6532134724', 'Royal Blood Rock Guitar'};
+	RoyalBloodRockStar = {'rbxassetid://6533093212', 'Royal Blood Rock Star'};
+	Sneaky = {'rbxassetid://3334424322', 'Sneaky'};
+	Louder = {'rbxassetid://3338083565', 'Shrug'};
+	NFLHeismanPose = {'rbxassetid://3695263073', 'NFL Heisman Pose'};
+	NFLChaCha = {'rbxassetid://3695322025', 'NFL Cha-Cha'};
+	NFLHype = {'rbxassetid://3695333486', 'NFL Hype'};
+	NFLSuperheroReveal = {'rbxassetid://3695373233', 'NFL Superhero Reveal'};
+	LNXLineDance = {'rbxassetid://5915712534', 'LNX Line Dance'};
+	NFLAirGuitar = {'rbxassetid://3695300085', 'NFL Air Guitar'};
+	
+	DefaultCheer = {'rbxassetid://507770677', 'Default Cheer'};
+	DefaultDance1 = {'rbxassetid://507771019', 'Default Dance 1'};
+	DefaultDance2 = {'rbxassetid://507776043', 'Default Dance 2'};
+	DefaultDance3 = {'rbxassetid://507777268', 'Default Dance 3'};
+	DefaultLaugh = {'rbxassetid://507770818', 'Default Laugh'};
+	DefaultPoint = {'rbxassetid://507770453', 'Default Point'};
+	DefaultWave = {'rbxassetid://507770239', 'Default Wave'};
+	
+	ToolLunge = {'rbxassetid://522638767', 'Tool Lunge'};
+	ToolSlash = {'rbxassetid://522635514', 'Tool Slash'};
+	
+	RagdollDeath = {'rbxassetid://3716468774', 'Zombie Death / Ragdoll Death'};
+	ZombieAttack = {'rbxassetid://3489169607', 'Zombie Attack'};
+	CustomZombieIdle = {'rbxassetid://3489171152', 'Zombie Rthro Idle'};
+	CustomZombieWalk = {'rbxassetid://3489174223', 'Zombie Rthro Walk'};
+	CustomZombieRun = {'rbxassetid://3489173414', 'Zombie Rthro Run'};
+	GunAim = {'rbxassetid://4713633512', 'Gun Aim'};
+	GunFire = {'rbxassetid://4713811763', 'Gun Fire / Shoot'};
+	CarSeatDriver = {'rbxassetid://3360694441', 'Car Seat Driver'};
+	CarSeatPassanger = {'rbxassetid://3360695880', 'Car Seat Passanger'};
+	OverheadSlash = {'rbxassetid://674871189', 'Overhead Slash'};
+	WeirdClap = {'rbxassetid://582855105', 'Weird Clap'};
+	AwkwardSpin = {'rbxassetid://754658275', 'Awkward Spin'};
+	SpearStab = {'rbxassetid://582384156', 'Spear Stab'};
+	TennisRacket = {'rbxassetid://717879555', 'Tennis Racket Swing'};
+	ZombieArmsOut = {'rbxassetid://708553116', 'Zombie Arms Out'};
+	WeakSlap = {'rbxassetid://746398327', 'Weak Slap'};
+	MalletHit = {'rbxassetid://675025795', 'Club Whack'};
+	BugNetSwing = {'rbxassetid://698251653', 'Bug Net Swing'};
+	HunchOver = {'rbxassetid://696096087', 'Bend Over'};
+	AutisticClap = {'rbxassetid://754656200', 'Autistic Clap'}
+	
+}
+
+
+--Name, Run, Walk, Fall, Jump, Idle, Idle2, Swim, SwimIdle, Climb, ThumbImage
+animationPacks = {
+	
+	OldschoolAP = {'Oldschool', '5319844329', '5319847204', '5319839762', '5319841935', '5319828216', '5319831086', '5319850266', '5319852613', '5319816685', 'rbxassetid://7166972269'};
+	ToyAP = {'Toy', '782842708', '782843345', '782846423', '782847020', '782841498', '782845736', '782844582', '782845186', '782843869', 'rbxassetid://1327464676'};
+	StylishAP = {'Stylish', '616140816', '616146177', '616134815', '616139451', '616136790', '616138447', '616143378', '616144772', '616133594', 'rbxassetid://2699740858'};
+	RobotAP = {'Robot', '616091570', '616095330', '616087089', '616090535', '616088211', '616089559', '616092998', '616094091', '616086039', 'rbxassetid://1353173182'};
+	BubblyAP = {'Bubbly', '910025107', '910034870', '910001910', '910016857', '910004836', '910009958', '910028158', '910030921', '909997997', 'rbxassetid://7307861632'};
+	RthroAP = {'Rthro', '2510198475', '2510202577', '2510195892', '2510197830', '2510196951', '2510197257', '2510199791', '2510201162', '2510192778', 'rbxassetid://7307903437'};
+	CartoonyAP = {'Cartoony', '742638842', '742640026', '742637151', '742637942', '742637544', '742638445', '742639220', '742639812', '742636889', 'rbxassetid://3192265302'};
+	ZombieAP = {'Zombie', '616163682', '616168032', '616157476', '616161997', '616158929', '616160636', '616165109', '616166655', '616156119', 'rbxassetid://1453264240'};
+	MageAP = {'Mage', '707861613', '707897309', '707829716', '707853694', '707742142', '707855907', '707876443', '707894699', '707826056', 'rbxassetid://1327470294'};
+	NinjaAP = {'Ninja', '656118852', '656121766', '656115606', '656117878', '656117400', '656118341', '656119721', '656121397', '656114359', 'rbxassetid://1271245757'};
+	ElderAP = {'Elder', '845386501', '845403856', '845396048', '845398858', '845397899', '845400520', '845401742', '845403127', '845392038', 'rbxassetid://1080030824'};
+	SuperHeroAP = {'Superhero', '616117076', '616122287', '616108001', '616115533', '616111295', '616113536', '616119360', '616120861', '616104706', 'rbxassetid://1491600634'};
+	VampireAP = {'Vampire', '1083462077', '1083473930', '1083443587', '1083455352', '1083445855', '1083450166', '1083464683', '1083467779', '1083439238', 'rbxassetid://1346293251'};
+	WerewolfAP = {'Werewolf', '1083216690', '1083178339', '1083189019', '1083218792', '1083195517', '1083214717', '1083222527', '1083225406', '1083182000', 'rbxassetid://1214477566'};
+	AstronautAP = {'Astronaut', '891636393', '891636393', '891617961', '891627522', '891621366', '891633237', '891639666', '891663592', '891609353', 'rbxassetid://7308072231'};
+	LevitationAP = {'Levitation', '616010382', '616013216', '616005863', '616008936', '616006778', '616008087', '616011509', '616012453', '616003713', 'rbxassetid://1491766835'};
+	KnightAP = {'Knight', '657564596', '657552124', '657600338', '658409194', '657595757', '657568135', '657560551', '657557095', '658360781', 'rbxassetid://1327453333'};
+	PirateAP = {'Knight', '750783738', '750785693', '750780242', '750782230', '750781874', '750782770', '750784579', '750785176', '750779899', 'rbxassetid://1327447637'};
+	RthroZombieAP = {'Rthro Zombie', '3489173414', '3489174223', '616157476', '616161997', '3489171152', '3489171152', '616165109', '616166655', '616156119', 'rbxassetid://7308151351', '3489169607'};
+	
+}
+
+for animationPacks, animPack in pairs(animationPacks) do
+
+	local animPackTemp = emotesTab.animSettings.animSettingsHolder['3_bundleCustomize'].ScrollingFrame.UIGridLayout.animationPackBackground:Clone()
+
+	animPackTemp.Name = animPack[1]
+	animPackTemp.animationPackImage.Image = animPack[11]
+	animPackTemp.Parent = emotesTab.animSettings.animSettingsHolder['3_bundleCustomize'].ScrollingFrame
+
+	animPackTemp.animationPackImage.MouseButton1Click:Connect(function()
+
+		if localPlr.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 ~= true then
+			game.StarterGui:SetCore("SendNotification", {
+				Title = "cola.zip",
+				Text = '"' .. animPack[1] .. '" Is R15 Exclusive'
+			})
+
+		else
+
+			emotesTab.animSettings.animSettingsHolder['3_bundleCustomize'].animPackDisplayImage.Image = animPack[11]
+			emotesTab.animSettings.animSettingsHolder['3_bundleCustomize'].packNameLabel.Text = animPack[1]
+
+			local animateScript = localPlr.Character:FindFirstChild('Animate')
+
+			animateScript.run.RunAnim.AnimationId = 'http://www.roblox.com/asset/?id=' .. animPack[2]
+			animateScript.walk.WalkAnim.AnimationId = 'http://www.roblox.com/asset/?id=' .. animPack[3]
+			animateScript.fall.FallAnim.AnimationId = 'http://www.roblox.com/asset/?id=' .. animPack[4]
+			animateScript.jump.JumpAnim.AnimationId = 'http://www.roblox.com/asset/?id=' .. animPack[5]
+			animateScript.idle.Animation1.AnimationId = 'http://www.roblox.com/asset/?id=' .. animPack[6]
+			animateScript.idle.Animation2.AnimationId = 'http://www.roblox.com/asset/?id=' .. animPack[7]
+			animateScript.swim.Swim.AnimationId = 'http://www.roblox.com/asset/?id=' .. animPack[8]
+			animateScript.swimidle.SwimIdle.AnimationId = 'http://www.roblox.com/asset/?id=' .. animPack[9]
+			animateScript.climb.ClimbAnim.AnimationId = 'http://www.roblox.com/asset/?id=' .. animPack[10]
+			
+			if animationPacks == 'RthroZombieAP' then 
+				animateScript.toolslash.ToolSlashAnim.AnimationId = 'http://www.roblox.com/asset/?id=' .. animPack[12]
+				animateScript.toollunge.ToolLungeAnim.AnimationId = 'http://www.roblox.com/asset/?id=' .. animPack[12]
+			end
+		end
+
+	end)
+
+end
+
+for _, emote in pairs(r6Emotes) do
+	local emoteTemplate = emotesTab.r6emotes.r6emotesHolder.UIGridLayout.emoteTemplate:Clone()
+
+	emoteTemplate.Parent = emotesTab.r6emotes.r6emotesHolder
+	emoteTemplate.emoteName.Text = emote[2]
+
+	emoteTemplate.Name = emote[2]
+
+	emoteTemplate.clickBtn.MouseButton1Click:Connect(function()
+
+		if localPlr.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 == true then
+			game.StarterGui:SetCore("SendNotification", {
+				Title = "cola.zip",
+				Text = '"' .. emote[2] .. '" Is R6 Exclusive'
+			})
+		else
+
+			if animTrack ~= nil then
+				animTrack:Stop()
+				animTrack:Destroy()
+			end
+
+			if emoteTemplate.selectedImg.Visible ~= true then
+				emoteTemplate.selectedImg.Visible = true
+
+				local animation = Instance.new("Animation")
+				animation.AnimationId = emote[1]
+				animTrack = localPlr.Character.Humanoid:LoadAnimation(animation)
+				animTrack:Play()
+				animTrack:AdjustSpeed(round(emotesTab.animSettings.animSettingsHolder['2_emoteSpeed'].Slider.Value.Value))
+				
+				local animSettingsHolder = emotesTab.animSettings.animSettingsHolder
+				
+				emotesTab.animSettings.animSettingsHolder['2_emoteSpeed'].Slider.Value:GetPropertyChangedSignal('Value'):Connect(function()
+					animTrack:AdjustSpeed(round(emotesTab.animSettings.animSettingsHolder['2_emoteSpeed'].Slider.Value.Value))
+				end)
+
+				for _, instance in pairs(emotesTab.r6emotes.r6emotesHolder:GetDescendants()) do
+					if instance.Name == 'selectedImg' then instance.Visible = false end
+					if instance.Name == 'emoteName' then instance.TextColor3 = selectedTheme[4] end
+				end
+
+				emoteTemplate.selectedImg.Visible = true
+				emoteTemplate.emoteName.TextColor3 = selectedTheme[5]
+
+			else
+
+				animTrack:Stop()
+				animTrack:Destroy()
+				emoteTemplate.selectedImg.Visible = false
+				emoteTemplate.emoteName.TextColor3 = selectedTheme[4]
+
+			end
+
+		end
+	end)
+end
+
+
+for _, emote in pairs(r15Emotes) do
+	local emoteTemplate = emotesTab.r15emotes.r15emotesHolder.UIGridLayout.emoteTemplate:Clone()
+
+	emoteTemplate.Parent = emotesTab.r15emotes.r15emotesHolder
+	emoteTemplate.emoteName.Text = emote[2]
+
+	emoteTemplate.Name = emote[2]
+
+	emoteTemplate.clickBtn.MouseButton1Click:Connect(function()
+
+		if localPlr.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R6 then
+			game.StarterGui:SetCore("SendNotification", {
+				Title = "cola.zip",
+				Text = '"' .. emote[2] .. '" Is R15 Exclusive'
+			})
+		else
+
+			if animTrack ~= nil then
+				animTrack:Stop()
+				animTrack:Destroy()
+			end
+
+			if emoteTemplate.selectedImg.Visible ~= true then
+				emoteTemplate.selectedImg.Visible = true
+
+				local animation = Instance.new("Animation")
+				animation.AnimationId = emote[1]
+				animTrack = localPlr.Character.Humanoid:LoadAnimation(animation)
+				animTrack:Play()
+				animTrack:AdjustSpeed(round(emotesTab.animSettings.animSettingsHolder['2_emoteSpeed'].Slider.Value.Value))
+
+				emotesTab.animSettings.animSettingsHolder['2_emoteSpeed'].Slider.Value:GetPropertyChangedSignal('Value'):Connect(function()
+					animTrack:AdjustSpeed(round(emotesTab.animSettings.animSettingsHolder['2_emoteSpeed'].Slider.Value.Value))
+				end)
+
+				for _, instance in pairs(emotesTab.r15emotes.r15emotesHolder:GetDescendants()) do
+					if instance.Name == 'selectedImg' then instance.Visible = false end
+					if instance.Name == 'emoteName' then instance.TextColor3 = selectedTheme[4] end
+				end
+
+				emoteTemplate.selectedImg.Visible = true
+				emoteTemplate.emoteName.TextColor3 = selectedTheme[5]
+
+			else
+
+				animTrack:Stop()
+				animTrack:Destroy()
+				emoteTemplate.selectedImg.Visible = false
+				emoteTemplate.emoteName.TextColor3 = selectedTheme[4]
+
+			end
+
+		end
+	end)
+end
+
+emotesTab.btnHolder.r6BtnBG.r6BtnMAIN.MouseButton1Click:Connect(function()
+	emotesTab.animSettings.Visible = false
+	emotesTab.r6emotes.Visible = true
+	emotesTab.r15emotes.Visible = false
+	emotesTab.btnHolder.animSettingsBG.animSettingsMain.ImageColor3 = selectedTheme[3]
+	emotesTab.btnHolder.r6BtnBG.r6BtnMAIN.TextColor3 = selectedTheme[5]
+	emotesTab.btnHolder.r15BtnBG.r15BtnMAIN.TextColor3 = selectedTheme[3]
+end)
+
+emotesTab.btnHolder.r15BtnBG.r15BtnMAIN.MouseButton1Click:Connect(function()
+	emotesTab.animSettings.Visible = false
+	emotesTab.r6emotes.Visible = false
+	emotesTab.r15emotes.Visible = true
+	emotesTab.btnHolder.animSettingsBG.animSettingsMain.ImageColor3 = selectedTheme[3]
+	emotesTab.btnHolder.r6BtnBG.r6BtnMAIN.TextColor3 = selectedTheme[3]
+	emotesTab.btnHolder.r15BtnBG.r15BtnMAIN.TextColor3 = selectedTheme[5]
+end)
+
+emotesTab.btnHolder.animSettingsBG.animSettingsMain.MouseButton1Click:Connect(function()
+	emotesTab.animSettings.Visible = true
+	emotesTab.r6emotes.Visible = false
+	emotesTab.r15emotes.Visible = false
+	emotesTab.btnHolder.animSettingsBG.animSettingsMain.ImageColor3 = selectedTheme[5]
+	emotesTab.btnHolder.r6BtnBG.r6BtnMAIN.TextColor3 = selectedTheme[3]
+	emotesTab.btnHolder.r15BtnBG.r15BtnMAIN.TextColor3 = selectedTheme[3]
+end)
+
+local Slider = emotesTab.animSettings.animSettingsHolder['2_emoteSpeed'].Slider
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local Dragging = false
+
+local Player = game.Players.LocalPlayer
+local Character = Player.Character
+
+local MaxValue = 100
+local MinValue = 1
+
+local currentSlideValue = Instance.new("NumberValue")
+currentSlideValue.Value = 1
+currentSlideValue.Parent = Slider
+
+local function Update_EMOTE()
+	local Character = Player.Character
+	if Dragging == true then
+		local MousePos = UserInputService:GetMouseLocation()
+		local MinPoint = (Slider.AbsolutePosition.X)
+		local MaxPoint = (Slider.AbsolutePosition.X + Slider.AbsoluteSize.X)
+
+		if MousePos.X < MinPoint then
+			Slider.Indicator:TweenSize(UDim2.fromScale(0, 1), "Out", "Sine", 0.1, true)
+		elseif MousePos.X > MaxPoint then
+			Slider.Indicator:TweenSize(UDim2.fromScale(1, 1), "Out", "Sine", 0.1, true)
+		else
+			Slider.Indicator:TweenSize(UDim2.fromScale((MousePos.X - Slider.AbsolutePosition.X) / Slider.AbsoluteSize.X, 1), "Out", "Sine", 0.1, true)
+		end
+
+		wait(0.1)
+
+		local Percent = (Slider.Indicator.HolderButton.AbsolutePosition.X - Slider.AbsolutePosition.X) / (Slider.AbsoluteSize.X - Slider.Indicator.HolderButton.Size.X.Offset) * MaxValue
+
+		Slider.Value.Value = Percent
+
+		if math.floor(Slider.Value.Value) < MinValue then
+			Slider.Value.Value = MinValue
+		elseif math.floor(Slider.Value.Value) > MaxValue then
+			Slider.Value.Value = MaxValue
+		end
+
+
+		Slider.Indicator.HolderButton.Value.Text = tostring(math.floor(Slider.Value.Value))
+
+	end
+end
+
+Slider.MouseEnter:Connect(function()
+	if Dragging == false then
+		TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 130, 0)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(200, 200, 200)}):Play()
+	end
+end)
+
+Slider.MouseLeave:Connect(function()
+	if Dragging == false then
+		TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 170, 0)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+	end	
+end)
+
+Slider.MouseButton1Down:Connect(function()
+	Dragging = true
+	TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 190, 0)}):Play()
+	TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+	TweenService:Create(Slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
+	Update_EMOTE()
+end)
+
+UserInputService.InputEnded:Connect(function(Input)
+	if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+		Dragging = false
+		TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 170, 0)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
+	end
+end)
+
+UserInputService.InputChanged:Connect(Update_EMOTE)
+
+local Percent = (Slider.Indicator.HolderButton.AbsolutePosition.X - Slider.AbsolutePosition.X) / (Slider.AbsoluteSize.X - Slider.Indicator.HolderButton.Size.X.Offset) * MaxValue
+if math.floor(Slider.Value.Value) < MinValue then
+	Slider.Value.Value = MinValue
+elseif math.floor(Slider.Value.Value) > MaxValue then
+	Slider.Value.Value = MaxValue
+end
+Slider.Indicator.HolderButton.Value.Text = tostring(math.floor(Slider.Value.Value))
+
+
+for _, instance in pairs(mainFrame:GetDescendants()) do
+	
+	if instance:IsA('Frame') then
+		if instance.BackgroundColor3 == Color3.fromRGB(40, 40, 40) or instance.BackgroundColor3 == Color3.fromRGB(34, 34, 34) then table.insert(mainColor, instance) end
+		if instance.BackgroundColor3 == Color3.fromRGB(25, 25, 25) then table.insert(mainShade, instance) end
+		if instance.BackgroundColor3 == Color3.fromRGB(100, 100, 100) then table.insert(darkText, instance) end
+		if instance.BackgroundColor3 == Color3.fromRGB(122, 122, 122) then table.insert(lightText, instance) end
+		if instance.BackgroundColor3 == Color3.fromRGB(255, 255, 255) then table.insert(whiteColor, instance) end
+	end
+	
+	if instance:IsA('ImageButton') or instance:IsA('ImageLabel') then
+		if instance.Parent.Name ~= 'themeTemplate' and instance.Name ~= 'cursorDisplayImage' and instance.Name ~= 'duckGif' and instance.Name ~= 'guiIcon' then
+		if instance.ImageColor3 == Color3.fromRGB(40, 40, 40) or instance.ImageColor3 == Color3.fromRGB(34, 34, 34) then table.insert(mainColor, instance) end
+		if instance.ImageColor3 == Color3.fromRGB(25, 25, 25) then table.insert(mainShade, instance) end
+		if instance.ImageColor3 == Color3.fromRGB(100, 100, 100) then table.insert(darkText, instance) end
+		if instance.ImageColor3 == Color3.fromRGB(122, 122, 122) then table.insert(lightText, instance) end
+		if instance.ImageColor3 == Color3.fromRGB(255, 255, 255) then table.insert(whiteColor, instance) end
+		if instance.Name == 'checkedBox' then table.insert(checkedBox, instance) end
+		if instance.Name == 'SliderImg' then table.insert(sliderBall, instance) end
+		if instance.ImageColor3 == Color3.fromRGB(139, 139, 139) then table.insert(lightGrey, instance) end
+	end end
+	
+	if instance:IsA('TextButton') or instance:IsA('TextLabel') or instance:IsA('TextBox') then
+		if instance.TextColor3 == Color3.fromRGB(40, 40, 40) or instance.TextColor3 == Color3.fromRGB(34, 34, 34) then table.insert(mainColor, instance) end
+		if instance.TextColor3 == Color3.fromRGB(25, 25, 25) then table.insert(mainShade, instance) end
+		if instance.TextColor3 == Color3.fromRGB(100, 100, 100) then table.insert(darkText, instance) end
+		if instance.TextColor3 == Color3.fromRGB(122, 122, 122) then table.insert(lightText, instance) end
+		if instance.TextColor3 == Color3.fromRGB(255, 255, 255) then table.insert(whiteColor, instance) end
+	end
+	
+end
+
+
+function applyRGB(instance, rgbcolor)
+	if instance:IsA('Frame') then
+		instance.BackgroundColor3 = rgbcolor
+	end
+
+	if instance:IsA('ImageButton') or instance:IsA('ImageLabel') then 
+		if instance.Name ~= 'cursorImage' or instance.Name ~= 'duckGif' and instance.Name ~= 'animPackDisplayImage' then
+		instance.ImageColor3 = rgbcolor
+	end end
+
+	if instance:IsA('TextButton') or instance:IsA('TextLabel') or instance:IsA('TextBox') then
+		instance.TextColor3 = rgbcolor
+	end
+end
+
+
+function findTabValue(tableName, value)
+	for place, value in pairs(tableName) do
+		if value == value then
+			return value
+		end
+	end
+end
+
+function applyTheme(themetab)
+	
+	local selectedTheme = themetab
+	
+	mainColorRGB 		 = selectedTheme[1]
+	mainShadeRGB 		 = selectedTheme[2]
+	lightTextRGB 		 = selectedTheme[3]
+	darkTextRGB 		 = selectedTheme[4]
+	whiteRGB 		     = selectedTheme[5]
+	checkboxCheckedRGB   = selectedTheme[6]
+	sliderBallRGB        = selectedTheme[7]
+	lightGreyRGB         = selectedTheme[8]
+	placeholderTextRGB   = selectedTheme[9]
+	
+	for _, instance in pairs(mainColor) do
+		applyRGB(instance, mainColorRGB)
+	end
+
+	for _, instance in pairs(mainShade) do
+		applyRGB(instance, mainShadeRGB)
+	end
+
+	for _, instance in pairs(lightText) do
+		applyRGB(instance, lightTextRGB)
+	end
+
+	for _, instance in pairs(darkText) do
+		if instance.Name ~= 'settingsBtn' then
+			applyRGB(instance, darkTextRGB)
+		else
+			instance.ImageColor3 = whiteRGB
+		end
+	end
+	
+	for _, instance in pairs(whiteColor) do
+		applyRGB(instance, whiteRGB)
+	end
+	
+	for _, instance in pairs(checkedBox) do
+		applyRGB(instance, checkboxCheckedRGB)
+	end
+	
+	for _, instance in pairs(sliderBall) do
+		applyRGB(instance, sliderBallRGB)
+	end
+		
+	for _, instance in pairs(lightGrey) do
+		applyRGB(instance, lightGreyRGB)
+	end
+		
+	for _, instance in pairs(mainFrame:GetDescendants()) do
+		if instance:IsA('TextBox') then 
+		instance.PlaceholderColor3 = placeholderTextRGB
+	end end
+		
+	--print('Applied "' .. themeName .. '" As The New Theme')
+end
+
+themes = {
+	
+		Default = {Color3.fromRGB(40,40,40), Color3.fromRGB(25,25,25), Color3.fromRGB(122,122,122), Color3.fromRGB(100,100,100), Color3.fromRGB(255,255,255), Color3.fromRGB(255, 0, 4), Color3.fromRGB(38, 38, 38), Color3.fromRGB(139, 139, 139),Color3.fromRGB(85, 85, 85),"Default"};
+	GreenIsLean = {Color3.fromRGB(0, 255, 0), Color3.fromRGB(0, 255, 0), Color3.fromRGB(0, 255, 0), Color3.fromRGB(0, 255, 0), Color3.fromRGB(0, 255, 0), Color3.fromRGB(0, 255, 0), Color3.fromRGB(0, 255, 0), Color3.fromRGB(0, 255, 0),Color3.fromRGB(0, 255, 0),"Green Is Lean"};
+	
+}
+
+for _, theme in pairs(themes) do
+	local themeTempClone = settingsTab['1_theme'].ScrollingFrame.UIGridLayout.themeTemplate:Clone()
+	themeTempClone.themeTitle.Text = theme[10]
+	
+	themeTempClone.mainColor.ImageColor3 	   = theme[1]
+	themeTempClone.mainShade.ImageColor3  	   = theme[2]
+	themeTempClone.lightText.ImageColor3  	   = theme[3]
+	themeTempClone.darkText.ImageColor3   	   = theme[4]
+	themeTempClone.whiteColor.ImageColor3	   = theme[5]
+	themeTempClone.checkedBox.ImageColor3	   = theme[6]
+	themeTempClone.sliderBall.ImageColor3	   = theme[7]
+	themeTempClone.lightGrey.ImageColor3       = theme[8]
+	themeTempClone.placeholderText.ImageColor3 = theme[9]
+	
+	themeTempClone.Parent = settingsTab['1_theme'].ScrollingFrame
+	
+	themeTempClone.applyBtnBackground.applyBtnMain.MouseButton1Click:Connect(function()
+		
+		applyTheme(theme)
+		
+		selectedTheme = theme
+		
+		rippleEffect(themeTempClone.applyBtnBackground)
+	end)
+end
+
+
+
+--FUNCTIONS
+local info1_checkpoint = TweenInfo.new(.2, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0) local goals1_checkpoint = {ImageTransparency = 1} local goals2_checkpoint = {ImageTransparency = 0}
+function checkboxHandler(checkBoxInstance, Bool)
+	if Bool == true then
+		local checkBox_checkTween = tweenService:Create(checkBoxInstance, info1_checkpoint, goals2_checkpoint)
+		checkBox_checkTween:Play()
+	else
+		local checkBox_uncheckTween = tweenService:Create(checkBoxInstance, info1_checkpoint, goals1_checkpoint)
+		checkBox_uncheckTween:Play()
+	end
+end
+
+function getRoot(char)
+	local rootPart = char:FindFirstChild('HumanoidRootPart') or char:FindFirstChild('Torso') or char:FindFirstChild('UpperTorso')
+	return rootPart
+end
+
+local sample = mainFrame:WaitForChild('Sample')
+function rippleEffect(btn)
+	local c = sample:Clone()
+	c.Parent = btn
+	local x, y = (plrMouse.X - c.AbsolutePosition.X), (plrMouse.Y - c.AbsolutePosition.Y)
+	c.Position = UDim2.new(0, x, 0, y)
+	local len, size = 0.35, nil
+	if btn.AbsoluteSize.X >= btn.AbsoluteSize.Y then
+		size = (btn.AbsoluteSize.X * 1.5)
+	else
+		size = (btn.AbsoluteSize.Y * 1.5)
+	end
+	c:TweenSizeAndPosition(UDim2.new(0, size, 0, size), UDim2.new(0.5, (-size / 2), 0.5, (-size / 2)), 'Out', 'Quad', len, true, nil)
+	for i = 1, 10 do
+		c.ImageTransparency = c.ImageTransparency + 0.05
+		wait(len / 12)
+	end
+	c:Destroy()
+end
+
+function round(num, numDecimalPlaces)
+	local mult = 10^(numDecimalPlaces or 0)
+	return math.floor(num * mult + 0.5) / mult
+end
+
+local function findValue(whichArray, itemName)
+	for currentIndex = 1, #whichArray do
+		if whichArray[currentIndex] == itemName then
+			return currentIndex
+		end
+	end
+end
+
+function resetCamera()
+	repeat wait() until localPlr.Character ~= nil
+	workspace.CurrentCamera.CameraSubject = localPlr.Character:FindFirstChildWhichIsA('Humanoid')
+	workspace.CurrentCamera.CameraType = "Custom"
+	localPlr.CameraMinZoomDistance = 0.5
+	localPlr.CameraMaxZoomDistance = 400
+	localPlr.CameraMode = "Classic"
+	localPlr.Character.Head.Anchored = false
+end
+
+function Locate(plr)
+	spawn(function()
+		for i,v in pairs(COREGUI:GetChildren()) do
+			if v.Name == plr.Name..'_LC' then
+				v:Destroy()
+			end
+		end
+		wait()
+		if plr.Character and plr.Name ~= Players.LocalPlayer.Name and not COREGUI:FindFirstChild(plr.Name..'_LC') then
+			local ESPholder = Instance.new("Folder")
+			ESPholder.Name = plr.Name..'_LC'
+			ESPholder.Parent = COREGUI
+			repeat wait(1) until plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChild('Humanoid')
+			for b,n in pairs (plr.Character:GetChildren()) do
+				if (n:IsA("BasePart")) then
+					local a = Instance.new("BoxHandleAdornment")
+					a.Name = plr.Name
+					a.Parent = ESPholder
+					a.Adornee = n
+					a.AlwaysOnTop = true
+					a.ZIndex = 10
+					a.Size = n.Size
+					a.Transparency = 0.3
+					a.Color = plr.TeamColor
+				end
+			end
+			if plr.Character and plr.Character:FindFirstChild('Head') then
+				local BillboardGui = Instance.new("BillboardGui")
+				local TextLabel = Instance.new("TextLabel")
+				BillboardGui.Adornee = plr.Character.Head
+				BillboardGui.Name = plr.Name
+				BillboardGui.Parent = ESPholder
+				BillboardGui.Size = UDim2.new(0, 100, 0, 150)
+				BillboardGui.StudsOffset = Vector3.new(0, 1, 0)
+				BillboardGui.AlwaysOnTop = true
+				TextLabel.Parent = BillboardGui
+				TextLabel.BackgroundTransparency = 1
+				TextLabel.Position = UDim2.new(0, 0, 0, -50)
+				TextLabel.Size = UDim2.new(0, 100, 0, 100)
+				TextLabel.Font = Enum.Font.SourceSansSemibold
+				TextLabel.TextSize = 20
+				TextLabel.TextColor3 = Color3.new(1, 1, 1)
+				TextLabel.TextStrokeTransparency = 0
+				TextLabel.TextYAlignment = Enum.TextYAlignment.Bottom
+				TextLabel.Text = 'Name: '..plr.Name
+				TextLabel.ZIndex = 10
+				local lcLoopFunc
+				local addedFunc
+				local teamChange
+				addedFunc = plr.CharacterAdded:Connect(function()
+					if ESPholder ~= nil and ESPholder.Parent ~= nil then
+						lcLoopFunc:Disconnect()
+						teamChange:Disconnect()
+						ESPholder:Destroy()
+						repeat wait(1) until getRoot(plr.Character) and plr.Character:FindFirstChild('Humanoid')
+						Locate(plr)
+						addedFunc:Disconnect()
+					else
+						teamChange:Disconnect()
+						addedFunc:Disconnect()
+					end
+				end)
+				teamChange = plr:GetPropertyChangedSignal("TeamColor"):Connect(function()
+					if ESPholder ~= nil and ESPholder.Parent ~= nil then
+						lcLoopFunc:Disconnect()
+						addedFunc:Disconnect()
+						ESPholder:Destroy()
+						repeat wait(1) until getRoot(plr.Character) and plr.Character:FindFirstChild('Humanoid')
+						Locate(plr)
+						teamChange:Disconnect()
+					else
+						teamChange:Disconnect()
+					end
+				end)
+				local function lcLoop()
+					if COREGUI:FindFirstChild(plr.Name..'_LC') then
+						if plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChild('Humanoid') and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChild('Humanoid') then
+							local pos = math.floor((getRoot(Players.LocalPlayer.Character).Position - getRoot(plr.Character).Position).magnitude)
+							TextLabel.Text = 'Name: '..plr.Name..' | Health: '..round(plr.Character:FindFirstChildOfClass('Humanoid').Health, 1)..' | Studs: '..pos
+						end
+					else
+						teamChange:Disconnect()
+						addedFunc:Disconnect()
+						lcLoopFunc:Disconnect()
+					end
+				end
+				lcLoopFunc = game:GetService("RunService").RenderStepped:Connect(lcLoop)
+			end
+		end
+	end)
+end
+
+function r15(plr)
+	if plr.Character:FindFirstChildOfClass('Humanoid').RigType == Enum.HumanoidRigType.R15 then
+		return true
+	end
+end
+
+function tools(plr)
+	if plr:FindFirstChildOfClass("Backpack"):FindFirstChildOfClass('Tool') or plr.Character:FindFirstChildOfClass('Tool') then
+		return true
+	end
+end
+
+function respawn(plr)
+	--if invisRunning then TurnVisible() end
+	local char = plr.Character
+	if char:FindFirstChildOfClass("Humanoid") then char:FindFirstChildOfClass("Humanoid"):ChangeState(15) end
+	char:ClearAllChildren()
+	local newChar = Instance.new("Model")
+	newChar.Parent = workspace
+	plr.Character = newChar
+	wait()
+	plr.Character = char
+	newChar:Destroy()
+end
+
+local refreshCmd = false
+function refresh(plr)
+	refreshCmd = true
+	local Human = plr.Character and plr.Character:FindFirstChildOfClass("Humanoid", true)
+	local pos = Human and Human.RootPart and Human.RootPart.CFrame
+	local pos1 = workspace.CurrentCamera.CFrame
+	respawn(plr)
+	spawn(function()
+		plr.CharacterAdded:Wait():WaitForChild("Humanoid").RootPart.CFrame, workspace.CurrentCamera.CFrame = pos, wait() and pos1
+		refreshCmd = false
+	end)
+end
+
+function attach(speaker,target)
+	if tools(speaker) then
+		local char = speaker.Character
+		local tchar = target.Character
+		local hum = speaker.Character:FindFirstChildOfClass("Humanoid")
+		local hrp = getRoot(speaker.Character)
+		local hrp2 = getRoot(target.Character)
+		hum.Name = "1"
+		local newHum = hum:Clone()
+		newHum.Parent = char
+		newHum.Name = "Humanoid"
+		wait()
+		hum:Destroy()
+		workspace.CurrentCamera.CameraSubject = char
+		newHum.DisplayDistanceType = "None"
+		local tool = speaker:FindFirstChildOfClass("Backpack"):FindFirstChildOfClass("Tool") or speaker.Character:FindFirstChildOfClass("Tool")
+		tool.Parent = char
+		hrp.CFrame = hrp2.CFrame * CFrame.new(0, 0, 0) * CFrame.new(math.random(-100, 100)/200,math.random(-100, 100)/200,math.random(-100, 100)/200)
+		local n = 0
+		repeat
+			wait(.1)
+			n = n + 1
+			hrp.CFrame = hrp2.CFrame
+		until (tool.Parent ~= char or not hrp or not hrp2 or not hrp.Parent or not hrp2.Parent or n > 250) and n > 2
+	end
+end
+
+function bring(speaker,target,fast)
+	if tools(speaker) then
+		if target ~= nil then
+			local NormPos = getRoot(speaker.Character).CFrame
+			if not fast then
+				refresh(speaker)
+				wait()
+				repeat wait() until speaker.Character ~= nil and getRoot(speaker.Character)
+				wait(0.3)
+			end
+			local hrp = getRoot(speaker.Character)
+			attach(speaker,target)
+			repeat
+				wait()
+				hrp.CFrame = NormPos
+			until not getRoot(target.Character) or not getRoot(speaker.Character)
+			wait(1)
+			speaker.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = NormPos
+		end
+	end
+end
+
+function kill(speaker,target,fast)
+	if tools(speaker) then
+		if target ~= nil then
+			local NormPos = getRoot(speaker.Character).CFrame
+			if not fast then
+				refresh(speaker)
+				wait()
+				repeat wait() until speaker.Character ~= nil and getRoot(speaker.Character)
+				wait(0.3)
+			end
+			local hrp = getRoot(speaker.Character)
+			attach(speaker,target)
+			repeat
+				wait()
+				hrp.CFrame = CFrame.new(999999, workspace.FallenPartsDestroyHeight + 5,999999)
+			until not getRoot(target.Character) or not getRoot(speaker.Character)
+			wait(1)
+			speaker.CharacterAdded:Wait():WaitForChild("HumanoidRootPart").CFrame = NormPos
+		end
+	end
+end
+
+function randomString()
+	local length = math.random(10,20)
+	local array = {}
+	for i = 1, length do
+		array[i] = string.char(math.random(32, 126))
+	end
+	return table.concat(array)
+end
+--FUNCTIONS
+
+
+
+
+
+--Top Bar Scripts
+function startup()
+	
+	mainFrame.startupAnim.Visible = true
+	
+	wait(.69420)
+	
+	local fadeInfo = TweenInfo.new(1.69, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0)
+	local fadeGoals2 = {ImageTransparency = 1}
+	
+	local slideInInfo = TweenInfo.new(.95, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0)
+	local uiTitle_Goals = {Position = UDim2.new(0.317, 0,0.43, 0)}
+	local uiSubTitle_Goals = {Position = UDim2.new(0.317, 0,0.527, 0)}
+	
+	local uiTitle_Goals2 = {Position = UDim2.new(-0.366, 0,0.42, 0)}
+	local uiSubTitle_Goals2 = {Position = UDim2.new(0.999, 0,0.534, 0)}
+	
+	local fadeTween = tweenService:Create(mainFrame.startupAnim.animBG, fadeInfo, fadeGoals2)
+	
+	local uiTitleTween = tweenService:Create(mainFrame.startupAnim.uiTitle, slideInInfo, uiTitle_Goals)
+	local uiSubTitleTween = tweenService:Create(mainFrame.startupAnim.uiSubTitle, slideInInfo, uiSubTitle_Goals)
+	
+	uiTitleTween:Play()
+	uiSubTitleTween:Play()
+	
+	mainFrame.startupAnim.uiTitle.rgb.Disabled = false
+	mainFrame.startupAnim.uiSubTitle.rgb.Disabled = false
+	wait(2)
+	
+	local slideInInfo = TweenInfo.new(.95, Enum.EasingStyle.Quad, Enum.EasingDirection.In, 0, false, 0)
+	local uiTitleTween = tweenService:Create(mainFrame.startupAnim.uiTitle, slideInInfo, uiTitle_Goals2)
+	local uiSubTitleTween = tweenService:Create(mainFrame.startupAnim.uiSubTitle, slideInInfo, uiSubTitle_Goals2)
+
+	uiTitleTween:Play()
+	uiSubTitleTween:Play()
+	
+	wait(.4)
+	
+	fadeTween:Play()
+	
+	local fadeTween = tweenService:Create(mainFrame.startupAnim.duckGif, fadeInfo, fadeGoals2)
+	fadeTween:Play()
+	
+	wait(1.69)
+	
+	mainFrame.startupAnim:Destroy()
+end
+startup()
+
+topBar.closeBtn.MouseButton1Click:Connect(function()
+	mainFrame.Parent:Destroy()
+end)
+
+topBar.minimizeBtn.MouseButton1Click:Connect(function()
+	local info = TweenInfo.new(.05, Enum.EasingStyle.Quart, Enum.EasingDirection.In, 0, false, 0)
+	local goals = {Position = UDim2.new(0, 0,0.952, 0)}
+	local minimizeTween = tweenService:Create(mainFrame, info, goals)
+	minimizeTween:Play()
+end)
+
+topBar.refreshBtn.MouseButton1Click:Connect(function()
+	topBar.welcomeLabel.Text = 'Refreshing ' .. localPlr.Name .. "'s Character" 
+	topBar.welcomeLabel.Visible = true
+	topBar.welcomeLabel.TextTransparency = 0
+	local fadeInfo = TweenInfo.new(2, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0)
+	local fadeGoals = {TextTransparency = 1}
+	local fadeTween = tweenService:Create(topBar.welcomeLabel, fadeInfo, fadeGoals)
+	fadeTween:Play()
+	refresh(localPlr)
+end)
+--Top Bar Scripts
+
+
+
+selectedTheme = findTabValue(themes, 'Default')
+--Side Bar Scripts
+local lineHoverInfo = TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0)
+local lineHoverGoalsTop = {Size = UDim2.new(0, 147,0, 1), Position = UDim2.new(0.156, 0,-0.047, 0), BackgroundColor3 = selectedTheme[5]}
+local lineHoverGoalsBottom = {Size = UDim2.new(0, 147,0, 1), Position = UDim2.new(0.156, 0,0.953, 0), BackgroundColor3 = selectedTheme[5]}
+local textSizeGoals = {Size = UDim2.new(0, 181,0, 39), Position = UDim2.new(0.215, 0,0.03, 0), TextColor3 = selectedTheme[5]}
+local imageSizeGoals = {Size = UDim2.new(0, 39,0, 39), Position = UDim2.new(0.021, 0,0.023, 0), ImageColor3 = selectedTheme[5]}
+local lineHoverInfo2 = TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0)
+local lineHoverGoalsTop2 = {Size = UDim2.new(0, 21,0, 1), Position = UDim2.new(0.5, 0,0, 0), BackgroundColor3 = selectedTheme[4]}
+local lineHoverGoalsBottom2 = {Size = UDim2.new(0, 21,0, 1), Position = UDim2.new(0.5, 0,1, 0), BackgroundColor3 = selectedTheme[4]}
+local textSizeGoals2 = {Size = UDim2.new(0, 154,0, 33), Position = UDim2.new(0.225, 0,0.11, 0), TextColor3 = selectedTheme[4]}
+local imageSizeGoals2 = {Size = UDim2.new(0, 31,0, 31), Position = UDim2.new(0.062, 0,0.116, 0), ImageColor3 = selectedTheme[4]}
+
+for tabs, thingInTab in pairs(sideBar:GetDescendants()) do
+	if thingInTab.Name == 'clickBtn' then 
+		local currentlySelectedVal = Instance.new('BoolValue')
+		currentlySelectedVal.Parent = thingInTab
+		currentlySelectedVal.Name = 'CurrentlySelected'
+	end
+	if thingInTab.Name ~= 'bottomBar' and thingInTab.Name ~= 'topBar' and thingInTab:IsA('Frame') then
+		
+		thingInTab.clickBtn.MouseEnter:Connect(function()
+			
+			 lineHoverInfo = TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0)
+			 lineHoverGoalsTop = {Size = UDim2.new(0, 147,0, 1), Position = UDim2.new(0.156, 0,-0.047, 0), BackgroundColor3 = selectedTheme[5]}
+			 lineHoverGoalsBottom = {Size = UDim2.new(0, 147,0, 1), Position = UDim2.new(0.156, 0,0.953, 0), BackgroundColor3 = selectedTheme[5]}
+			 textSizeGoals = {Size = UDim2.new(0, 181,0, 39), Position = UDim2.new(0.215, 0,0.03, 0), TextColor3 = selectedTheme[5]}
+			 imageSizeGoals = {Size = UDim2.new(0, 39,0, 39), Position = UDim2.new(0.021, 0,0.023, 0), ImageColor3 = selectedTheme[5]}
+			 lineHoverInfo2 = TweenInfo.new(.1, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0)
+			 lineHoverGoalsTop2 = {Size = UDim2.new(0, 21,0, 1), Position = UDim2.new(0.5, 0,0, 0), BackgroundColor3 = selectedTheme[4]}
+			 lineHoverGoalsBottom2 = {Size = UDim2.new(0, 21,0, 1), Position = UDim2.new(0.5, 0,1, 0), BackgroundColor3 = selectedTheme[4]}
+			 textSizeGoals2 = {Size = UDim2.new(0, 154,0, 33), Position = UDim2.new(0.225, 0,0.11, 0), TextColor3 = selectedTheme[4]}
+			 imageSizeGoals2 = {Size = UDim2.new(0, 31,0, 31), Position = UDim2.new(0.062, 0,0.116, 0), ImageColor3 = selectedTheme[4]}
+			
+			if thingInTab.clickBtn.CurrentlySelected.Value == false then
+				thingInTab.topBar.Visible = true
+				thingInTab.bottomBar.Visible = true
+				local topBarHover = tweenService:Create(thingInTab.topBar, lineHoverInfo, lineHoverGoalsTop)
+				topBarHover:Play()
+				local bottomBarHover = tweenService:Create(thingInTab.bottomBar, lineHoverInfo, lineHoverGoalsBottom)
+				bottomBarHover:Play()
+				local textSizeHover = tweenService:Create(thingInTab.tabLabel, lineHoverInfo, textSizeGoals)
+				textSizeHover:Play()
+				local imageSizeHover = tweenService:Create(thingInTab.tabIcon, lineHoverInfo, imageSizeGoals)
+				imageSizeHover:Play()
+			end
+		end)
+		
+		thingInTab.clickBtn.MouseLeave:Connect(function()
+			if thingInTab.clickBtn.CurrentlySelected.Value == false then
+				local topBarLeave = tweenService:Create(thingInTab.topBar, lineHoverInfo2, lineHoverGoalsTop2)
+				topBarLeave:Play()
+				local bottomBarLeave = tweenService:Create(thingInTab.bottomBar, lineHoverInfo2, lineHoverGoalsBottom2)
+				bottomBarLeave:Play()
+				local textSizeLeave = tweenService:Create(thingInTab.tabLabel, lineHoverInfo2, textSizeGoals2)
+				textSizeLeave:Play()
+				local imageSizeLeave = tweenService:Create(thingInTab.tabIcon, lineHoverInfo2, imageSizeGoals2)
+				imageSizeLeave:Play()
+				wait(.1)
+				thingInTab.topBar.Visible = false
+				thingInTab.bottomBar.Visible = false
+			end
+		end)
+		
+		thingInTab.clickBtn.MouseButton1Click:Connect(function()
+			backgroundFrames.tabName.Text = thingInTab.Name
+			for tabs, thingInTab in pairs(sideBar:GetDescendants()) do
+				if thingInTab.Name == 'CurrentlySelected' then thingInTab.Value = false --print('value updated')
+				elseif thingInTab.Name == 'bottomBar' then 	
+					local bottomBarLeave = tweenService:Create(thingInTab, lineHoverInfo2, lineHoverGoalsBottom2)
+					bottomBarLeave:Play()
+				elseif thingInTab.Name == 'topBar' then 
+					local topBarLeave = tweenService:Create(thingInTab, lineHoverInfo2, lineHoverGoalsTop2)
+					topBarLeave:Play()
+				elseif thingInTab.Name == 'tabLabel' then 
+					local textSizeLeave = tweenService:Create(thingInTab, lineHoverInfo2, textSizeGoals2)
+					textSizeLeave:Play()
+				elseif thingInTab.Name == 'tabIcon' then
+					local imageSizeLeave = tweenService:Create(thingInTab, lineHoverInfo2, imageSizeGoals2)
+					imageSizeLeave:Play()
+				end
+			end
+			thingInTab.clickBtn.CurrentlySelected.Value = true
+			mainFrame.backgroundFrames.settingsBtn.ImageColor3 = darkTextRGB
+			for tabs, tab in pairs(tabHolder:GetChildren()) do
+				tab.Visible = false
+			end
+			tabHolder[thingInTab.Name].Visible = true
+			local topBarLeave = tweenService:Create(thingInTab.topBar, lineHoverInfo2, lineHoverGoalsTop2)
+			topBarLeave:Play()
+			local bottomBarLeave = tweenService:Create(thingInTab.bottomBar, lineHoverInfo2, lineHoverGoalsBottom2)
+			bottomBarLeave:Play()
+			local textSizeHover = tweenService:Create(thingInTab.tabLabel, lineHoverInfo, textSizeGoals)
+			textSizeHover:Play()
+			local imageSizeHover = tweenService:Create(thingInTab.tabIcon, lineHoverInfo, imageSizeGoals)
+			imageSizeHover:Play()
+			wait(.1)
+			thingInTab.topBar.Visible = false
+			thingInTab.bottomBar.Visible = false
+		end)
+	end
+end
+
+
+mainFrame.backgroundFrames.settingsBtn.MouseButton1Click:Connect(function()
+	for tabs, thingInTab in pairs(sideBar:GetDescendants()) do
+		if thingInTab.Name == 'CurrentlySelected' then thingInTab.Value = false --print('value updated')
+		elseif thingInTab.Name == 'bottomBar' then 	
+			local bottomBarLeave = tweenService:Create(thingInTab, lineHoverInfo2, lineHoverGoalsBottom2)
+			bottomBarLeave:Play()
+		elseif thingInTab.Name == 'topBar' then 
+			local topBarLeave = tweenService:Create(thingInTab, lineHoverInfo2, lineHoverGoalsTop2)
+			topBarLeave:Play()
+		elseif thingInTab.Name == 'tabLabel' then 
+			local textSizeLeave = tweenService:Create(thingInTab, lineHoverInfo2, textSizeGoals2)
+			textSizeLeave:Play()
+		elseif thingInTab.Name == 'tabIcon' then
+			local imageSizeLeave = tweenService:Create(thingInTab, lineHoverInfo2, imageSizeGoals2)
+			imageSizeLeave:Play()
+		end
+	end
+	
+	for _, mainTab in pairs(mainFrame.tabHolder:GetChildren()) do
+		if mainTab:IsA('Frame') or mainTab:IsA('ScrollingFrame') then mainTab.Visible = false
+		end
+	end
+	
+	mainFrame.backgroundFrames.settingsBtn.ImageColor3 = selectedTheme[5]
+	mainFrame.backgroundFrames.tabName.Text = 'Settings'
+	
+	mainFrame.tabHolder.Settings.Visible = true
+	
+end)
+--Side Bar Scripts
+
+
+
+
+--Settings Tab Scripts
+
+--SettingsTab>RainOptions
+
+rainEnabled = true
+settingsTab['5_rainOptions'].checkboxHolder.rainEnabledCheckBox.rainEnabledCheckBox.checkedBox.MouseButton1Click:Connect(function()
+	if rainEnabled == true then
+		rainEnabled = false
+		mainFrame.backgroundFrames.rainHolderHolder.rainHandler.Disabled = true
+		mainFrame.backgroundFrames.rainHolderHolder.thunderHandler.thunderFrame.Visible = false
+		--mainFrame.backgroundFrames.rainHolderHolder.rainHandler.rainSound.Playing = false
+		checkboxHandler(settingsTab['5_rainOptions'].checkboxHolder.rainEnabledCheckBox.rainEnabledCheckBox.checkedBox, false)
+		for _, drop in pairs(backgroundFrames.rainHolderHolder:GetChildren()) do
+			if drop:IsA('ImageLabel') then drop:Destroy()
+			end
+		end
+	else
+		rainEnabled = true
+		checkboxHandler(settingsTab['5_rainOptions'].checkboxHolder.rainEnabledCheckBox.rainEnabledCheckBox.checkedBox, true)
+		mainFrame.backgroundFrames.rainHolderHolder.rainHandler.Disabled = false
+		mainFrame.backgroundFrames.rainHolderHolder.thunderHandler.thunderFrame.Visible = true
+		--mainFrame.backgroundFrames.rainHolderHolder.rainHandler.rainSound.Playing = true
+	end
+end)
+
+rainSoundsEnabled = true
+settingsTab['5_rainOptions'].checkboxHolder.soundEnabledCheckBox.rainEnabledCheckBox.checkedBox.MouseButton1Click:Connect(function()
+	if rainSoundsEnabled == true then
+		rainSoundsEnabled = false
+		mainFrame.backgroundFrames.rainHolderHolder.rainHandler.rainSound.Playing = false
+		mainFrame.backgroundFrames.rainHolderHolder.thunderHandler.thunderSound.Volume = 0
+		checkboxHandler(settingsTab['5_rainOptions'].checkboxHolder.soundEnabledCheckBox.rainEnabledCheckBox.checkedBox, false)
+	else
+		rainSoundsEnabled = true
+		checkboxHandler(settingsTab['5_rainOptions'].checkboxHolder.soundEnabledCheckBox.rainEnabledCheckBox.checkedBox, true)
+		mainFrame.backgroundFrames.rainHolderHolder.rainHandler.rainSound.Playing = true
+		mainFrame.backgroundFrames.rainHolderHolder.thunderHandler.thunderSound.Volume = 0.5
+	end
+end)
+
+rgbGuisEnabled = true
+settingsTab['2_rgb'].rgbCheckboxHolder.rgbEnabledCheckbox.checkedBox.MouseButton1Click:Connect(function()
+	if rgbGuisEnabled == true then
+		rgbGuisEnabled = false
+		backgroundFrames.rgbBar.rgb.Disabled = true
+		backgroundFrames.rgbBar.BackgroundColor3 = selectedTheme[5]
+		topBar.uiTitle.rgb.Disabled = true
+		topBar.uiTitle.ImageColor3 = selectedTheme[5]
+		checkboxHandler(settingsTab['2_rgb'].rgbCheckboxHolder.rgbEnabledCheckbox.checkedBox, false)
+	else
+		rgbGuisEnabled = true
+		backgroundFrames.rgbBar.rgb.Disabled = false
+		topBar.uiTitle.rgb.Disabled = false
+		checkboxHandler(settingsTab['2_rgb'].rgbCheckboxHolder.rgbEnabledCheckbox.checkedBox, true)
+	end
+end)
+
+customNotificationsEnabled = true
+settingsTab['3_customNotifications'].cnCheckboxHolder.cnEnabledCheckbox.checkedBox.MouseButton1Click:Connect(function()
+	if customNotificationsEnabled == true then
+		customNotificationsEnabled = false
+		checkboxHandler(settingsTab['3_customNotifications'].cnCheckboxHolder.cnEnabledCheckbox.checkedBox, false)
+	else
+		customNotificationsEnabled = true
+		checkboxHandler(settingsTab['3_customNotifications'].cnCheckboxHolder.cnEnabledCheckbox.checkedBox, true)
+	end
+end)
+
+--local notifFrame = COREGUI.RobloxGui.NotificationFrame
+
+--[[
+notifFrame.ChildAdded:Connect(function(child_instance)
+	if customNotificationsEnabled == true then
+		if child_instance.Name == 'Notification' then
+
+			child_instance.ClipsDescendants = true
+
+			local TopBar = Instance.new("Frame")
+			local UICorner = Instance.new("UICorner")
+			local UICorner2 = Instance.new('UICorner')
+
+			TopBar.Name = "TopBar"
+			TopBar.Parent = child_instance
+			TopBar.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+			TopBar.BorderColor3 = Color3.fromRGB(27, 42, 53)
+			TopBar.Size = UDim2.new(0, 200, 0, 20)
+
+			UICorner.Parent = TopBar
+			UICorner2.Parent = child_instance
+
+			local NotificationTitle = child_instance.NotificationTitle
+			NotificationTitle.BackgroundTransparency = 1.000
+			NotificationTitle.Position = UDim2.new(0, 0, 0.1875, -12)
+			NotificationTitle.Size = UDim2.new(1, 0, 0.3125, 0)
+			NotificationTitle.ZIndex = 5
+			NotificationTitle.Font = Enum.Font.SourceSansBold
+			NotificationTitle.TextColor3 = Color3.fromRGB(247, 247, 247)
+			NotificationTitle.TextSize = 18.000
+			NotificationTitle.TextXAlignment = Enum.TextXAlignment.Center
+
+
+			if child_instance:FindFirstChild('NotificationImage') == nil then
+				local NotificationText = child_instance.NotificationText
+				NotificationText.BackgroundTransparency = 1.000
+				NotificationText.Position = UDim2.new(0, 10, 0.296875, 1)
+				NotificationText.Size = UDim2.new(1, -20, 0.203125, 28)
+				NotificationText.Font = Enum.Font.SourceSans
+				NotificationText.TextColor3 = Color3.fromRGB(234, 234, 234)
+				NotificationText.TextScaled = true
+				NotificationText.TextSize = 14.000
+				NotificationText.TextWrapped = true
+				NotificationText.TextXAlignment = Enum.TextXAlignment.Center
+			else 
+				local NotificationText = child_instance.NotificationText
+				NotificationText.BackgroundTransparency = 1.000
+				NotificationText.Position = UDim2.new(0.265, 10, 0.296875, 1)
+				NotificationText.Size = UDim2.new(0.735, -20,0.203, 28)
+				NotificationText.Font = Enum.Font.SourceSans
+				NotificationText.TextColor3 = Color3.fromRGB(234, 234, 234)
+				NotificationText.TextScaled = true
+				NotificationText.TextSize = 14.000
+				NotificationText.TextWrapped = true
+				NotificationText.TextXAlignment = Enum.TextXAlignment.Left
+
+				local NotificationImage = child_instance.NotificationImage
+				NotificationImage.BackgroundTransparency = 1.000
+				NotificationImage.Position = UDim2.new(0, 11, 0, 20)
+				NotificationImage.Size = UDim2.new(0, 41, 0, 41)
+			end
+		end
+	end
+end)
+]]
+
+--[[
+plrMouse:GetPropertyChangedSignal('Icon'):Connect(function()
+	plrMouse.Icon = settingsTab['6_cursorCustomize'].cursorDisplayImage.Image 
+end)
+]]
+
+local cursorImgs = {935397740, 7254137546, 1492235317, 5888516926, 7025168168, 978766003, 7087896355, 7100723518, 442132512, 4894154250, 5025970007, 61868588}
+local defaultCursor = 7253968926
+
+settingsTab['6_cursorCustomize'].refreshBtn.MouseButton1Click:Connect(function()
+	plrMouse.Icon = 'rbxassetid://' .. defaultCursor
+	settingsTab['6_cursorCustomize'].cursorDisplayImage.Image = 'rbxassetid://' .. defaultCursor
+end)
+
+for _, cursorImg in pairs(cursorImgs) do
+	local cursorTempClone = settingsTab['6_cursorCustomize'].ScrollingFrame.UIGridLayout.cursorBackground:Clone()
+	cursorTempClone.cursorImage.Image = 'rbxassetid://' .. cursorImg
+	cursorTempClone.Parent = settingsTab['6_cursorCustomize'].ScrollingFrame
+end
+
+for _, cursor in pairs(settingsTab["6_cursorCustomize"].ScrollingFrame:GetDescendants()) do
+	if cursor:IsA('ImageButton') then
+		cursor.MouseButton1Click:Connect(function()
+			settingsTab['6_cursorCustomize'].cursorDisplayImage.Image = cursor.Image
+			plrMouse.Icon = cursor.Image
+		end)
+	end
+end
+
+
+--Character Tab Scripts
+
+--CharacterTab>WalkSpeedSlider
+	local Slider = characterTab['1_walkspeedSlider'].Slider
+	local UserInputService = game:GetService("UserInputService")
+	local TweenService = game:GetService("TweenService")
+	local Dragging = false
+
+	local Player = game.Players.LocalPlayer
+	local Character = Player.Character
+
+	local MaxValue = 250
+	local MinValue = 16
+
+	local currentSlideValue = Instance.new("IntValue")
+	currentSlideValue.Value = 16
+	currentSlideValue.Parent = Slider
+
+	local function Update_WS()
+		local Character = Player.Character
+		if Dragging == true then
+			local MousePos = UserInputService:GetMouseLocation()
+			local MinPoint = (Slider.AbsolutePosition.X)
+			local MaxPoint = (Slider.AbsolutePosition.X + Slider.AbsoluteSize.X)
+
+			if MousePos.X < MinPoint then
+				Slider.Indicator:TweenSize(UDim2.fromScale(0, 1), "Out", "Sine", 0.1, true)
+			elseif MousePos.X > MaxPoint then
+				Slider.Indicator:TweenSize(UDim2.fromScale(1, 1), "Out", "Sine", 0.1, true)
+			else
+				Slider.Indicator:TweenSize(UDim2.fromScale((MousePos.X - Slider.AbsolutePosition.X) / Slider.AbsoluteSize.X, 1), "Out", "Sine", 0.1, true)
+			end
+
+			wait(0.1)
+
+			local Percent = (Slider.Indicator.HolderButton.AbsolutePosition.X - Slider.AbsolutePosition.X) / (Slider.AbsoluteSize.X - Slider.Indicator.HolderButton.Size.X.Offset) * MaxValue
+
+			Slider.Value.Value = Percent
+
+			if math.floor(Slider.Value.Value) < MinValue then
+				Slider.Value.Value = MinValue
+			elseif math.floor(Slider.Value.Value) > MaxValue then
+				Slider.Value.Value = MaxValue
+			end
+
+
+			Slider.Indicator.HolderButton.Value.Text = tostring(math.floor(Slider.Value.Value))
+			Slider.Parent.Value.Text = tostring(math.floor(Slider.Value.Value)).." | "..MaxValue
+
+			Character.Humanoid.WalkSpeed = Slider.Value.Value
+		end
+	end
+
+	Slider.MouseEnter:Connect(function()
+		if Dragging == false then
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 130, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(200, 200, 200)}):Play()
+		end
+	end)
+
+	Slider.MouseLeave:Connect(function()
+		if Dragging == false then
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 170, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+		end	
+	end)
+
+	Slider.MouseButton1Down:Connect(function()
+		Dragging = true
+		TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 190, 0)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
+		Update_WS()
+	end)
+
+	UserInputService.InputEnded:Connect(function(Input)
+		if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+			Dragging = false
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 170, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
+		end
+	end)
+
+	UserInputService.InputChanged:Connect(Update_WS)
+
+	local Percent = (Slider.Indicator.HolderButton.AbsolutePosition.X - Slider.AbsolutePosition.X) / (Slider.AbsoluteSize.X - Slider.Indicator.HolderButton.Size.X.Offset) * MaxValue
+
+	Slider.Value.Value = Percent
+
+	if math.floor(Slider.Value.Value) < MinValue then
+		Slider.Value.Value = MinValue
+	elseif math.floor(Slider.Value.Value) > MaxValue then
+		Slider.Value.Value = MaxValue
+	end
+
+	Slider.Indicator.HolderButton.Value.Text = tostring(math.floor(Slider.Value.Value))
+	Slider.Parent.Value.Text = tostring(math.floor(Slider.Value.Value)).." | "..MaxValue
+
+
+--CharacterTab>JumpHeightSlider
+	local Slider = characterTab['2_jumpheightSlider'].Slider
+	local UserInputService = game:GetService("UserInputService")
+	local TweenService = game:GetService("TweenService")
+	local Dragging = false
+
+	local Player = game.Players.LocalPlayer
+	local Character = Player.Character
+
+	local MaxValue = 500
+	local MinValue = 50
+
+	local currentSlideValue = Instance.new("IntValue")
+	currentSlideValue.Value = 50
+	currentSlideValue.Parent = Slider
+
+	local function Update_JH()
+		local Character = Player.Character
+		if Dragging == true then
+			local MousePos = UserInputService:GetMouseLocation()
+			local MinPoint = (Slider.AbsolutePosition.X)
+			local MaxPoint = (Slider.AbsolutePosition.X + Slider.AbsoluteSize.X)
+
+			if MousePos.X < MinPoint then
+				Slider.Indicator:TweenSize(UDim2.fromScale(0, 1), "Out", "Sine", 0.1, true)
+			elseif MousePos.X > MaxPoint then
+				Slider.Indicator:TweenSize(UDim2.fromScale(1, 1), "Out", "Sine", 0.1, true)
+			else
+				Slider.Indicator:TweenSize(UDim2.fromScale((MousePos.X - Slider.AbsolutePosition.X) / Slider.AbsoluteSize.X, 1), "Out", "Sine", 0.1, true)
+			end
+
+			wait(0.1)
+
+			local Percent = (Slider.Indicator.HolderButton.AbsolutePosition.X - Slider.AbsolutePosition.X) / (Slider.AbsoluteSize.X - Slider.Indicator.HolderButton.Size.X.Offset) * MaxValue
+
+			Slider.Value.Value = Percent
+
+			if math.floor(Slider.Value.Value) < MinValue then
+				Slider.Value.Value = MinValue
+			elseif math.floor(Slider.Value.Value) > MaxValue then
+				Slider.Value.Value = MaxValue
+			end
+
+
+			Slider.Indicator.HolderButton.Value.Text = tostring(math.floor(Slider.Value.Value))
+			Slider.Parent.Value.Text = tostring(math.floor(Slider.Value.Value)).." | "..MaxValue
+
+			Character.Humanoid.JumpPower = Slider.Value.Value
+		end
+	end
+
+	Slider.MouseEnter:Connect(function()
+		if Dragging == false then
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 130, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(200, 200, 200)}):Play()
+		end
+	end)
+
+	Slider.MouseLeave:Connect(function()
+		if Dragging == false then
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 170, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+		end	
+	end)
+
+	Slider.MouseButton1Down:Connect(function()
+		Dragging = true
+		TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 190, 0)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
+		Update_JH()
+	end)
+
+	UserInputService.InputEnded:Connect(function(Input)
+		if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+			Dragging = false
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 170, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
+		end
+	end)
+
+	UserInputService.InputChanged:Connect(Update_JH)
+
+	local Percent = (Slider.Indicator.HolderButton.AbsolutePosition.X - Slider.AbsolutePosition.X) / (Slider.AbsoluteSize.X - Slider.Indicator.HolderButton.Size.X.Offset) * MaxValue
+
+	Slider.Value.Value = Percent
+
+	if math.floor(Slider.Value.Value) < MinValue then
+		Slider.Value.Value = MinValue
+	elseif math.floor(Slider.Value.Value) > MaxValue then
+		Slider.Value.Value = MaxValue
+	end
+
+	Slider.Indicator.HolderButton.Value.Text = tostring(math.floor(Slider.Value.Value))
+	Slider.Parent.Value.Text = tostring(math.floor(Slider.Value.Value)).." | "..MaxValue
+
+
+--CharacterTab>Fly
+	speedget = 1
+	speedfly = 1
+	flying = false
+	flyToggle_checkboxToggled = false
+
+	local flySpeedValue = Instance.new('NumberValue')
+	flySpeedValue.Parent = characterTab['3_flyToggle']
+	flySpeedValue.Name = 'FlySpeed'
+	flySpeedValue.Value = 1
+
+	flySpeedValue:GetPropertyChangedSignal("Value"):Connect(function()
+		speedfly = flySpeedValue.Value
+	end)
+
+	characterTab['3_flyToggle'].checkBox.checkedBox.MouseButton1Click:Connect(function()
+		if flyToggle_checkboxToggled == false 
+		then flyToggle_checkboxToggled = true 
+			checkboxHandler(characterTab['3_flyToggle'].checkBox.checkedBox, true)
+		else flyToggle_checkboxToggled = false 
+			checkboxHandler(characterTab['3_flyToggle'].checkBox.checkedBox, false)
+			flying = false
+
+			localPlr.Character.Humanoid.PlatformStand = false
+		end
+		plrMouse.KeyDown:Connect(function(k)
+			if k == "x" then
+				if flyToggle_checkboxToggled == true then
+					if flying == false then
+						flying = true 
+						repeat wait() until localPlr and localPlr.Character and localPlr.Character:FindFirstChild('HumanoidRootPart') and localPlr.Character:FindFirstChild('Humanoid')
+						repeat wait() until plrMouse
+
+						local T = localPlr.Character.HumanoidRootPart
+						local CONTROL = {F = 0, B = 0, L = 0, R = 0}
+						local lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+						local SPEED = speedget
+
+						local function fly()
+							local BG = Instance.new('BodyGyro', T)
+							local BV = Instance.new('BodyVelocity', T)
+							BG.P = 9e4
+							BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+							BG.cframe = T.CFrame
+							BV.velocity = Vector3.new(0, 0.1, 0)
+							BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+							spawn(function()
+								repeat wait()
+									localPlr.Character.Humanoid.PlatformStand = true
+									if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 then
+										SPEED = 50
+									elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0) and SPEED ~= 0 then
+										SPEED = 0
+									end
+									if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 then
+										BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+										lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+									elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and SPEED ~= 0 then
+										BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+									else
+										BV.velocity = Vector3.new(0, 0.1, 0)
+									end
+									BG.cframe = workspace.CurrentCamera.CoordinateFrame
+								until not flying
+								CONTROL = {F = 0, B = 0, L = 0, R = 0}
+								lCONTROL = {F = 0, B = 0, L = 0, R = 0}
+								SPEED = 0
+								BG:destroy()
+								BV:destroy()
+								localPlr.Character.Humanoid.PlatformStand = false
+							end)
+						end
+						plrMouse.KeyDown:connect(function(KEY)
+							if KEY:lower() == 'w' then
+								CONTROL.F = speedfly
+							elseif KEY:lower() == 's' then
+								CONTROL.B = -speedfly
+							elseif KEY:lower() == 'a' then
+								CONTROL.L = -speedfly 
+							elseif KEY:lower() == 'd' then 
+								CONTROL.R = speedfly
+							end
+						end)
+						plrMouse.KeyUp:connect(function(KEY)
+							if KEY:lower() == 'w' then
+								CONTROL.F = 0
+							elseif KEY:lower() == 's' then
+								CONTROL.B = 0
+							elseif KEY:lower() == 'a' then
+								CONTROL.L = 0
+							elseif KEY:lower() == 'd' then
+								CONTROL.R = 0
+							end
+						end)
+						fly()
+					else
+						flying = false
+
+						localPlr.Character.Humanoid.PlatformStand = false
+					end
+
+				end
+			end
+		end)
+	end)
+
+	local Slider = characterTab['3_flyToggle'].Slider
+	local UserInputService = game:GetService("UserInputService")
+	local TweenService = game:GetService("TweenService")
+	local Dragging = false
+
+	local Player = game.Players.LocalPlayer
+	local Character = Player.Character
+
+	local MaxValue = 25
+	local MinValue = 1
+
+	local currentSlideValue = Instance.new("IntValue")
+	currentSlideValue.Value = 1
+	currentSlideValue.Parent = Slider
+
+	local function Update_FLYSPD()
+		local Character = Player.Character
+		if Dragging == true then
+			local MousePos = UserInputService:GetMouseLocation()
+			local MinPoint = (Slider.AbsolutePosition.X)
+			local MaxPoint = (Slider.AbsolutePosition.X + Slider.AbsoluteSize.X)
+
+			if MousePos.X < MinPoint then
+				Slider.Indicator:TweenSize(UDim2.fromScale(0, 1), "Out", "Sine", 0.1, true)
+			elseif MousePos.X > MaxPoint then
+				Slider.Indicator:TweenSize(UDim2.fromScale(1, 1), "Out", "Sine", 0.1, true)
+			else
+				Slider.Indicator:TweenSize(UDim2.fromScale((MousePos.X - Slider.AbsolutePosition.X) / Slider.AbsoluteSize.X, 1), "Out", "Sine", 0.1, true)
+			end
+
+			wait(0.1)
+
+			local Percent = (Slider.Indicator.HolderButton.AbsolutePosition.X - Slider.AbsolutePosition.X) / (Slider.AbsoluteSize.X - Slider.Indicator.HolderButton.Size.X.Offset) * MaxValue
+
+			Slider.Value.Value = Percent
+
+			if math.floor(Slider.Value.Value) < MinValue then
+				Slider.Value.Value = MinValue
+			elseif math.floor(Slider.Value.Value) > MaxValue then
+				Slider.Value.Value = MaxValue
+			end
+
+
+			Slider.Indicator.HolderButton.Value.Text = tostring(math.floor(Slider.Value.Value))
+
+
+			local flySpeedValue = characterTab['3_flyToggle']:WaitForChild('FlySpeed')
+			flySpeedValue.Value = Slider.Value.Value
+		end
+	end
+
+	Slider.MouseEnter:Connect(function()
+		if Dragging == false then
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 130, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(200, 200, 200)}):Play()
+		end
+	end)
+
+	Slider.MouseLeave:Connect(function()
+		if Dragging == false then
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 170, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+		end	
+	end)
+
+	Slider.MouseButton1Down:Connect(function()
+		Dragging = true
+		TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 190, 0)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
+		Update_FLYSPD()
+	end)
+
+	UserInputService.InputEnded:Connect(function(Input)
+		if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+			Dragging = false
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 170, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
+		end
+	end)
+
+	UserInputService.InputChanged:Connect(Update_FLYSPD)
+
+	local Percent = (Slider.Indicator.HolderButton.AbsolutePosition.X - Slider.AbsolutePosition.X) / (Slider.AbsoluteSize.X - Slider.Indicator.HolderButton.Size.X.Offset) * MaxValue
+
+
+
+	if math.floor(Slider.Value.Value) < MinValue then
+		Slider.Value.Value = MinValue
+	elseif math.floor(Slider.Value.Value) > MaxValue then
+		Slider.Value.Value = MaxValue
+	end
+
+	Slider.Indicator.HolderButton.Value.Text = tostring(math.floor(Slider.Value.Value))
+
+
+--CharacterTab>VehicleOptions
+
+	local vNoclipping = nil
+	local currentlyVNC = false
+
+	function activateRegularNC()
+		Clip = false
+		wait(0.1)
+		local function NoclipLoop()
+			if Clip == false and localPlr.Character ~= nil then
+				for _, child in pairs(localPlr.Character:GetDescendants()) do
+					if child:IsA("BasePart") and child.CanCollide == true then
+						child.CanCollide = false
+					end
+				end
+			end
+		end
+		vNoclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
+	end
+
+	vnoclipParts = {}
+
+	function activateVehicleNC()
+		vnoclipParts = {}
+		local seat = localPlr.Character.Humanoid.SeatPart
+		local vehicleModel = seat.Parent
+		repeat
+			if vehicleModel.ClassName ~= "Model" then
+				vehicleModel = vehicleModel.Parent
+			end
+		until vehicleModel.ClassName == "Model"
+		wait(0.1)
+		activateRegularNC()
+		for i,v in pairs(vehicleModel:GetDescendants()) do
+			if v:IsA("BasePart") and v.CanCollide then
+				table.insert(vnoclipParts,v)
+				v.CanCollide = false
+			end
+		end
+	end
+
+	function disableRegularNC()
+		if vNoclipping then
+			vNoclipping:Disconnect()
+		end
+		Clip = true
+	end
+
+	function disableVehicleNC()
+		disableRegularNC()
+		for i,v in pairs(vnoclipParts) do
+			v.CanCollide = true
+		end
+		vnoclipParts = {}
+	end
+
+	characterTab['3_vehicleOptions'].vNoClip_CheckBox.checkedBox.MouseButton1Click:Connect(function()
+		if currentlyVNC == false 
+		then currentlyVNC = true 
+			checkboxHandler(characterTab['3_vehicleOptions'].vNoClip_CheckBox.checkedBox, true)
+			activateVehicleNC()
+		else currentlyVNC = false 
+			checkboxHandler(characterTab['3_vehicleOptions'].vNoClip_CheckBox.checkedBox, false)
+			disableVehicleNC()
+		end
+	end)
+
+
+	vFLYING = false
+	vFLYING_toggle = false
+	QEfly = true
+	vehicleflyspeed = 1
+
+	local flySpeedValue = Instance.new('NumberValue')
+	flySpeedValue.Parent = characterTab['3_vehicleOptions']
+	flySpeedValue.Name = 'vFlySpeed'
+	flySpeedValue.Value = 1
+
+	flySpeedValue:GetPropertyChangedSignal("Value"):Connect(function()
+		vehicleflyspeed = flySpeedValue.Value
+	end)
+
+	function sFLY(vfly)
+
+		if vFLYING_toggle == true then
+
+			repeat wait() until Players.LocalPlayer and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChild('Humanoid')
+			repeat wait() until plrMouse
+			if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
+
+			local T = getRoot(Players.LocalPlayer.Character)
+			local CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+			local lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+			local SPEED = 0
+
+			local function FLY()
+				vFLYING = true
+				local BG = Instance.new('BodyGyro')
+				local BV = Instance.new('BodyVelocity')
+				BG.P = 9e4
+				BG.Parent = T
+				BV.Parent = T
+				BG.maxTorque = Vector3.new(9e9, 9e9, 9e9)
+				BG.cframe = T.CFrame
+				BV.velocity = Vector3.new(0, 0, 0)
+				BV.maxForce = Vector3.new(9e9, 9e9, 9e9)
+				spawn(function()
+					repeat wait()
+						if not vfly and Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+							Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = true
+						end
+						if CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0 then
+							SPEED = 50
+						elseif not (CONTROL.L + CONTROL.R ~= 0 or CONTROL.F + CONTROL.B ~= 0 or CONTROL.Q + CONTROL.E ~= 0) and SPEED ~= 0 then
+							SPEED = 0
+						end
+						if (CONTROL.L + CONTROL.R) ~= 0 or (CONTROL.F + CONTROL.B) ~= 0 or (CONTROL.Q + CONTROL.E) ~= 0 then
+							BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (CONTROL.F + CONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(CONTROL.L + CONTROL.R, (CONTROL.F + CONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+							lCONTROL = {F = CONTROL.F, B = CONTROL.B, L = CONTROL.L, R = CONTROL.R}
+						elseif (CONTROL.L + CONTROL.R) == 0 and (CONTROL.F + CONTROL.B) == 0 and (CONTROL.Q + CONTROL.E) == 0 and SPEED ~= 0 then
+							BV.velocity = ((workspace.CurrentCamera.CoordinateFrame.lookVector * (lCONTROL.F + lCONTROL.B)) + ((workspace.CurrentCamera.CoordinateFrame * CFrame.new(lCONTROL.L + lCONTROL.R, (lCONTROL.F + lCONTROL.B + CONTROL.Q + CONTROL.E) * 0.2, 0).p) - workspace.CurrentCamera.CoordinateFrame.p)) * SPEED
+						else
+							BV.velocity = Vector3.new(0, 0, 0)
+						end
+						BG.cframe = workspace.CurrentCamera.CoordinateFrame
+					until not vFLYING
+					CONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+					lCONTROL = {F = 0, B = 0, L = 0, R = 0, Q = 0, E = 0}
+					SPEED = 0
+					BG:Destroy()
+					BV:Destroy()
+					if Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+						Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+					end
+				end)
+			end
+			flyKeyDown = plrMouse.KeyDown:Connect(function(KEY)
+				if KEY:lower() == 'w' then
+					CONTROL.F = (vfly and vehicleflyspeed)
+				elseif KEY:lower() == 's' then
+					CONTROL.B = - (vfly and vehicleflyspeed)
+				elseif KEY:lower() == 'a' then
+					CONTROL.L = - (vfly and vehicleflyspeed)
+				elseif KEY:lower() == 'd' then 
+					CONTROL.R = (vfly and vehicleflyspeed)
+				elseif QEfly and KEY:lower() == 'e' then
+					CONTROL.Q = (vfly and vehicleflyspeed)*2
+				elseif QEfly and KEY:lower() == 'q' then
+					CONTROL.E = -(vfly and vehicleflyspeed)*2
+				end
+				pcall(function() workspace.CurrentCamera.CameraType = Enum.CameraType.Track end)
+			end)
+			flyKeyUp = plrMouse.KeyUp:Connect(function(KEY)
+				if KEY:lower() == 'w' then
+					CONTROL.F = 0
+				elseif KEY:lower() == 's' then
+					CONTROL.B = 0
+				elseif KEY:lower() == 'a' then
+					CONTROL.L = 0
+				elseif KEY:lower() == 'd' then
+					CONTROL.R = 0
+				elseif KEY:lower() == 'e' then
+					CONTROL.Q = 0
+				elseif KEY:lower() == 'q' then
+					CONTROL.E = 0
+				end
+			end)
+			FLY()
+		end
+
+
+	end
+
+	function NOFLY()
+		vFLYING = false
+		if flyKeyDown or flyKeyUp then flyKeyDown:Disconnect() flyKeyUp:Disconnect() end
+		if Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid') then
+			Players.LocalPlayer.Character:FindFirstChildOfClass('Humanoid').PlatformStand = false
+		end
+		pcall(function() workspace.CurrentCamera.CameraType = Enum.CameraType.Custom end)
+	end
+
+	characterTab['3_vehicleOptions'].vFly_CheckBox.checkedBox.MouseButton1Click:Connect(function()
+		if vFLYING_toggle == false 
+		then vFLYING_toggle = true 
+			checkboxHandler(characterTab['3_vehicleOptions'].vFly_CheckBox.checkedBox, true)
+			sFLY(true)
+		else vFLYING_toggle = false 
+			checkboxHandler(characterTab['3_vehicleOptions'].vFly_CheckBox.checkedBox, false)
+			NOFLY()
+		end
+	end)
+
+	local Slider = characterTab['3_vehicleOptions'].Slider
+	local UserInputService = game:GetService("UserInputService")
+	local TweenService = game:GetService("TweenService")
+	local Dragging = false
+
+	local Player = game.Players.LocalPlayer
+	local Character = Player.Character
+
+	local MaxValue = 25
+	local MinValue = 1
+
+	local currentSlideValue = Instance.new("IntValue")
+	currentSlideValue.Value = 1
+	currentSlideValue.Parent = Slider
+
+	local function Update_VFLYSPD()
+		local Character = Player.Character
+		if Dragging == true then
+			local MousePos = UserInputService:GetMouseLocation()
+			local MinPoint = (Slider.AbsolutePosition.X)
+			local MaxPoint = (Slider.AbsolutePosition.X + Slider.AbsoluteSize.X)
+
+			if MousePos.X < MinPoint then
+				Slider.Indicator:TweenSize(UDim2.fromScale(0, 1), "Out", "Sine", 0.1, true)
+			elseif MousePos.X > MaxPoint then
+				Slider.Indicator:TweenSize(UDim2.fromScale(1, 1), "Out", "Sine", 0.1, true)
+			else
+				Slider.Indicator:TweenSize(UDim2.fromScale((MousePos.X - Slider.AbsolutePosition.X) / Slider.AbsoluteSize.X, 1), "Out", "Sine", 0.1, true)
+			end
+
+			wait(0.1)
+
+			local Percent = (Slider.Indicator.HolderButton.AbsolutePosition.X - Slider.AbsolutePosition.X) / (Slider.AbsoluteSize.X - Slider.Indicator.HolderButton.Size.X.Offset) * MaxValue
+
+			Slider.Value.Value = Percent
+
+			if math.floor(Slider.Value.Value) < MinValue then
+				Slider.Value.Value = MinValue
+			elseif math.floor(Slider.Value.Value) > MaxValue then
+				Slider.Value.Value = MaxValue
+			end
+
+
+			Slider.Indicator.HolderButton.Value.Text = tostring(math.floor(Slider.Value.Value))
+
+
+			local flySpeedValue = characterTab['3_vehicleOptions']:WaitForChild('vFlySpeed')
+			flySpeedValue.Value = Slider.Value.Value
+		end
+	end
+
+	Slider.MouseEnter:Connect(function()
+		if Dragging == false then
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 130, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(200, 200, 200)}):Play()
+		end
+	end)
+
+	Slider.MouseLeave:Connect(function()
+		if Dragging == false then
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 170, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+		end	
+	end)
+
+	Slider.MouseButton1Down:Connect(function()
+		Dragging = true
+		TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 190, 0)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
+		Update_VFLYSPD()
+	end)
+
+	UserInputService.InputEnded:Connect(function(Input)
+		if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+			Dragging = false
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 170, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
+		end
+	end)
+
+	UserInputService.InputChanged:Connect(Update_VFLYSPD)
+
+	local Percent = (Slider.Indicator.HolderButton.AbsolutePosition.X - Slider.AbsolutePosition.X) / (Slider.AbsoluteSize.X - Slider.Indicator.HolderButton.Size.X.Offset) * MaxValue
+
+
+
+	if math.floor(Slider.Value.Value) < MinValue then
+		Slider.Value.Value = MinValue
+	elseif math.floor(Slider.Value.Value) > MaxValue then
+		Slider.Value.Value = MaxValue
+	end
+
+	Slider.Indicator.HolderButton.Value.Text = tostring(math.floor(Slider.Value.Value))
+
+
+
+--CharacterTab>NoClip
+	local noclip = false
+	function noClip()
+		Clip = false
+		wait(0.1)
+		local function NoclipLoop()
+			if Clip == false and localPlr.Character ~= nil then
+				for _, child in pairs(localPlr.Character:GetDescendants()) do
+					if child:IsA("BasePart") and child.CanCollide == true then
+						child.CanCollide = false
+					end
+				end
+			end
+		end
+		Noclipping = game:GetService('RunService').Stepped:Connect(NoclipLoop)
+	end
+
+	function clip()
+		if Noclipping then
+			Noclipping:Disconnect()
+		end
+		Clip = true
+	end
+
+	characterTab['4_noClip'].checkBox.checkedBox.MouseButton1Click:Connect(function()
+		if noclip == false 
+		then noclip = true 
+			checkboxHandler(characterTab['4_noClip'].checkBox.checkedBox, true)
+			noClip()
+		else noclip = false 
+			checkboxHandler(characterTab['4_noClip'].checkBox.checkedBox, false)
+			clip()
+		end
+	end)
+
+
+--CharacterTab>ClickTP
+
+	local HoldingControl = false
+	local clickTpEnabled = false
+
+	plrMouse.Button1Down:connect(function()
+		if HoldingControl and clickTpEnabled then
+			Player.Character:MoveTo(plrMouse.Hit.p)
+		end
+	end)
+
+	UserInputService.InputBegan:connect(function(Input, Processed)
+		if Input.UserInputType == Enum.UserInputType.Keyboard then
+			if Input.KeyCode == Enum.KeyCode.LeftControl then
+				HoldingControl = true
+			elseif Input.KeyCode == Enum.KeyCode.RightControl then
+				HoldingControl = true 
+			end
+		end
+	end)
+
+	UserInputService.InputEnded:connect(function(Input, Processed)
+		if Input.UserInputType == Enum.UserInputType.Keyboard then
+			if Input.KeyCode == Enum.KeyCode.LeftControl then
+				HoldingControl = false
+			elseif Input.KeyCode == Enum.KeyCode.RightControl then
+				HoldingControl = false
+			end
+		end
+	end)
+
+	characterTab['5_clickTeleport'].checkBox.checkedBox.MouseButton1Click:Connect(function()
+		if clickTpEnabled == false 
+		then clickTpEnabled = true 
+			checkboxHandler(characterTab['5_clickTeleport'].checkBox.checkedBox, true)
+		else clickTpEnabled = false 
+			checkboxHandler(characterTab['5_clickTeleport'].checkBox.checkedBox, false)
+		end
+	end)
+
+
+--CharacterTab>InfiniteJump
+	infiniteJumpEnabled = false
+	plrMouse.KeyDown:connect(function(k)
+		if infiniteJumpEnabled then
+			if k:byte() == 32 then
+				local Humanoid = game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid")
+				Humanoid:ChangeState("Jumping")
+				wait(0.1)
+				Humanoid:ChangeState("Seated")
+			end
+		end
+	end)
+	characterTab['6_infiniteJump'].checkBox.checkedBox.MouseButton1Click:Connect(function()
+		if infiniteJumpEnabled == false 
+		then infiniteJumpEnabled = true 
+			checkboxHandler(characterTab['6_infiniteJump'].checkBox.checkedBox, true)
+		else infiniteJumpEnabled = false 
+			checkboxHandler(characterTab['6_infiniteJump'].checkBox.checkedBox, false)
+		end
+	end)
+
+
+--CharacterTab>FishOutaWatuh
+	local currentlySwimming = false
+	function startSwim()
+		workspace.Gravity = 0
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,false)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,false)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,false)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,false)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,false)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,false)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,false)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,false)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,false)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,false)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,false)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,false)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,false)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,false)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,false)
+		localPlr.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Swimming)
+	end
+
+
+	function endSwim()
+		workspace.Gravity = 198.2
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Climbing,true)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.FallingDown,true)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Flying,true)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Freefall,true)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.GettingUp,true)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Jumping,true)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Landed,true)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Physics,true)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding,true)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Ragdoll,true)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Running,true)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics,true)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Seated,true)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics,true)
+		localPlr.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Swimming,true)
+		localPlr.Character.Humanoid:ChangeState(Enum.HumanoidStateType.RunningNoPhysics)
+	end
+
+	characterTab['7_swimInAir'].checkBox.checkedBox.MouseButton1Click:Connect(function()
+		if currentlySwimming == false 
+		then currentlySwimming = true 
+			checkboxHandler(characterTab['7_swimInAir'].checkBox.checkedBox, true)
+			startSwim()
+		else currentlySwimming = false 
+			checkboxHandler(characterTab['7_swimInAir'].checkBox.checkedBox, false)
+			endSwim()
+		end
+	end)
+
+
+
+--CharacterTab>RandomSettings
+	characterTab['99_randomSettings'].noFaceBtnBackground.noFaceBtnMain.MouseButton1Click:Connect(function()
+		for i,v in pairs(localPlr.Character:GetDescendants()) do
+			if v:IsA("Decal") and v.Name == 'face' then
+				v:Destroy()
+			end
+		end
+		rippleEffect(characterTab['99_randomSettings'].noFaceBtnBackground)
+	end)
+
+	characterTab['99_randomSettings'].squareHatBtnBackground.squareHatBtnMain.MouseButton1Click:Connect(function()
+		for _,v in pairs(Player.Character.Humanoid:GetAccessories()) do
+			for i,c in pairs(v:GetDescendants()) do
+				if c:IsA("SpecialMesh") then
+					c:Destroy()
+				end
+			end
+		end
+		rippleEffect(characterTab['99_randomSettings'].squareHatBtnBackground)
+	end)
+
+	characterTab['99_randomSettings'].squareHeadBtnBackground.squareHeadBtnMain.MouseButton1Click:Connect(function()
+		Player.Character.Head:FindFirstChildOfClass("SpecialMesh"):Destroy()
+		rippleEffect(characterTab['99_randomSettings'].squareHeadBtnBackground)
+	end)	
+
+
+
+
+
+--ToolConfig Scripts
+	local Slider = toolConfigTab['3_transparencyEditor'].Slider
+	local UserInputService = game:GetService("UserInputService")
+	local TweenService = game:GetService("TweenService")
+	local Dragging = false
+
+	local Player = game.Players.LocalPlayer
+
+	local MaxValue = 1
+	local MinValue = 0
+
+	local currentSlideValue = Instance.new("NumberValue")
+	currentSlideValue.Value = 0
+	currentSlideValue.Parent = Slider
+
+	local function Update()
+		local Character = Player.Character
+		if Dragging == true then
+			local MousePos = UserInputService:GetMouseLocation()
+			local MinPoint = (Slider.AbsolutePosition.X)
+			local MaxPoint = (Slider.AbsolutePosition.X + Slider.AbsoluteSize.X)
+
+			if MousePos.X < MinPoint then
+				Slider.Indicator:TweenSize(UDim2.fromScale(0, 1), "Out", "Sine", 0.1, true)
+			elseif MousePos.X > MaxPoint then
+				Slider.Indicator:TweenSize(UDim2.fromScale(1, 1), "Out", "Sine", 0.1, true)
+			else
+				Slider.Indicator:TweenSize(UDim2.fromScale((MousePos.X - Slider.AbsolutePosition.X) / Slider.AbsoluteSize.X, 1), "Out", "Sine", 0.1, true)
+			end
+
+			wait(0.1)
+
+			local Percent = (Slider.Indicator.HolderButton.AbsolutePosition.X - Slider.AbsolutePosition.X) / (Slider.AbsoluteSize.X - Slider.Indicator.HolderButton.Size.X.Offset) * MaxValue
+
+			Slider.Value.Value = Percent
+
+			if round(Slider.Value.Value, 1) < MinValue then
+				Slider.Value.Value = MinValue
+			elseif round(Slider.Value.Value, 1) > MaxValue then
+				Slider.Value.Value = MaxValue
+			end
+
+
+			Slider.Indicator.HolderButton.Value.Text = round(currentSlideValue.Value, 1) 
+			Slider.Parent.Value.Text = tostring(round(Slider.Value.Value, 1)).." | "..MaxValue
+
+
+		end
+	end
+
+	Slider.MouseEnter:Connect(function()
+		if Dragging == false then
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 130, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(200, 200, 200)}):Play()
+		end
+	end)
+
+	Slider.MouseLeave:Connect(function()
+		if Dragging == false then
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 170, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+		end	
+	end)
+
+	Slider.MouseButton1Down:Connect(function()
+		Dragging = true
+		TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 190, 0)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
+		Update()
+	end)
+
+	UserInputService.InputEnded:Connect(function(Input)
+		if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+			Dragging = false
+			TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 170, 0)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+			TweenService:Create(Slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
+		end
+	end)
+
+	UserInputService.InputChanged:Connect(Update)
+
+	local Percent = (Slider.Indicator.HolderButton.AbsolutePosition.X - Slider.AbsolutePosition.X) / (Slider.AbsoluteSize.X - Slider.Indicator.HolderButton.Size.X.Offset) * MaxValue
+
+	Slider.Value.Value = Percent
+
+	if round(Slider.Value.Value, 1) < MinValue then
+		Slider.Value.Value = MinValue
+	elseif round(Slider.Value.Value, 1) > MaxValue then
+		Slider.Value.Value = MaxValue
+	end
+
+	Slider.Indicator.HolderButton.Value.Text = tostring(round(Slider.Value.Value), 1)
+	Slider.Parent.Value.Text = tostring(round(Slider.Value.Value, 1)).." | "..MaxValue
+
+	local selectedToolFrame = toolConfigTab['1_selectedTool']
+	local propertyEditorFrame = toolConfigTab['2_propertyEditor']
+	local appearanceEditorFrame = toolConfigTab['4_appearanceEditor']
+
+	selectedTool = nil
+	selectedToolHandle = nil
+
+
+localPlr.Character.ChildAdded:Connect(function(NewChild)
+	--print('child added')
+	if NewChild:IsA("Tool") then
+
+		selectedTool = NewChild
+
+		for partsInTool, partInTool in pairs(selectedTool:GetDescendants()) do
+			if partInTool.Name == 'Handle' then selectedToolHandle = partInTool
+			end 
+		end
+
+		selectedToolFrame.nameLabel.Text = 'Selected Tool: ' .. NewChild.Name
+
+		if selectedToolHandle ~= nil then 
+
+			propertyEditorFrame.sizeEditor.SizeXTextBox.PlaceholderText = round(selectedToolHandle.Size.X)
+			propertyEditorFrame.sizeEditor.SizeYTextBox.PlaceholderText = round(selectedToolHandle.Size.Y)
+			propertyEditorFrame.sizeEditor.SizeZTextBox.PlaceholderText = round(selectedToolHandle.Size.Z)
+
+		end
+	end
+end)
+
+	localPlr.Character.ChildRemoved:Connect(function(RemovedChild)
+		--print('child removed')
+		if RemovedChild:IsA("Tool") then
+
+			selectedTool = nil
+			selectedToolHandle = nil
+
+			propertyEditorFrame.sizeEditor.SizeXTextBox.PlaceholderText = 1
+			propertyEditorFrame.sizeEditor.SizeYTextBox.PlaceholderText = 1
+			propertyEditorFrame.sizeEditor.SizeZTextBox.PlaceholderText = 1
+
+			selectedToolFrame.nameLabel.Text = 'Selected Tool: None'
+
+		end
+	end)
+
+
+
+	localPlr.CharacterAdded:Connect(function()
+		localPlr.Character.ChildAdded:Connect(function(NewChild)
+			--print('child added')
+			if NewChild:IsA("Tool") then
+
+				selectedTool = NewChild
+
+				for partsInTool, partInTool in pairs(selectedTool:GetDescendants()) do
+					if partInTool.Name == 'Handle' then selectedToolHandle = partInTool
+					end 
+				end
+
+				selectedToolFrame.nameLabel.Text = 'Selected Tool: ' .. NewChild.Name
+
+				if selectedToolHandle ~= nil then 
+
+					propertyEditorFrame.sizeEditor.SizeXTextBox.PlaceholderText = round(selectedToolHandle.Size.X)
+					propertyEditorFrame.sizeEditor.SizeYTextBox.PlaceholderText = round(selectedToolHandle.Size.Y)
+					propertyEditorFrame.sizeEditor.SizeZTextBox.PlaceholderText = round(selectedToolHandle.Size.Z)
+
+				end
+			end
+		end)
+
+		localPlr.Character.ChildRemoved:Connect(function(RemovedChild)
+			--print('child removed')
+			if RemovedChild:IsA("Tool") then
+
+				selectedTool = nil
+				selectedToolHandle = nil
+
+				propertyEditorFrame.sizeEditor.SizeXTextBox.PlaceholderText = 1
+				propertyEditorFrame.sizeEditor.SizeYTextBox.PlaceholderText = 1
+				propertyEditorFrame.sizeEditor.SizeZTextBox.PlaceholderText = 1
+
+				selectedToolFrame.nameLabel.Text = 'Selected Tool: None'
+
+			end
+		end)
+	end)
+
+
+	toolConfigTab['1_selectedTool'].refreshBtn.MouseButton1Click:Connect(function()
+		for i, v in pairs(localPlr.Character:GetDescendants()) do
+			if v:IsA('Tool') then
+				selectedTool = v
+
+				for partsInTool, partInTool in pairs(selectedTool:GetDescendants()) do
+					if partInTool.Name == 'Handle' then selectedToolHandle = partInTool
+					end 
+				end
+
+				selectedToolFrame.nameLabel.Text = 'Selected Tool: ' .. selectedTool.Name
+
+				if selectedToolHandle ~= nil then 
+
+					propertyEditorFrame.sizeEditor.SizeXTextBox.PlaceholderText = round(selectedToolHandle.Size.X)
+					propertyEditorFrame.sizeEditor.SizeYTextBox.PlaceholderText = round(selectedToolHandle.Size.Y)
+					propertyEditorFrame.sizeEditor.SizeZTextBox.PlaceholderText = round(selectedToolHandle.Size.Z)
+
+				end
+				
+				selectedTool.Unequipped:Connect(function()
+					selectedTool = nil
+					selectedToolHandle = nil
+
+					propertyEditorFrame.sizeEditor.SizeXTextBox.PlaceholderText = 1
+					propertyEditorFrame.sizeEditor.SizeYTextBox.PlaceholderText = 1
+					propertyEditorFrame.sizeEditor.SizeZTextBox.PlaceholderText = 1
+
+					selectedToolFrame.nameLabel.Text = 'Selected Tool: None'
+				end)
+			
+			end
+		end	
+	end)
+
+	toolConfigTab['2_propertyEditor'].otherProperties.canCollideBackground.checkBox.checkedBox.MouseButton1Click:Connect(function()
+		if toolConfigTab['2_propertyEditor'].otherProperties.canCollideBackground.checkBox.checkedBox.ImageTransparency == 1 then
+			checkboxHandler(toolConfigTab['2_propertyEditor'].otherProperties.canCollideBackground.checkBox.checkedBox, true)
+		else
+			checkboxHandler(toolConfigTab['2_propertyEditor'].otherProperties.canCollideBackground.checkBox.checkedBox, false)
+		end
+	end)
+
+	toolConfigTab['2_propertyEditor'].otherProperties.castShadowBackground.checkBox.checkedBox.MouseButton1Click:Connect(function()
+		if toolConfigTab['2_propertyEditor'].otherProperties.castShadowBackground.checkBox.checkedBox.ImageTransparency == 1 then
+			checkboxHandler(toolConfigTab['2_propertyEditor'].otherProperties.castShadowBackground.checkBox.checkedBox, true)
+		else
+			checkboxHandler(toolConfigTab['2_propertyEditor'].otherProperties.castShadowBackground.checkBox.checkedBox, false)
+		end
+	end)
+
+	toolConfigTab['2_propertyEditor'].otherProperties.masslessBackground.checkBox.checkedBox.MouseButton1Click:Connect(function()
+		if toolConfigTab['2_propertyEditor'].otherProperties.masslessBackground.checkBox.checkedBox.ImageTransparency == 1 then
+			checkboxHandler(toolConfigTab['2_propertyEditor'].otherProperties.masslessBackground.checkBox.checkedBox, true)
+		else
+			checkboxHandler(toolConfigTab['2_propertyEditor'].otherProperties.masslessBackground.checkBox.checkedBox, false)
+		end
+	end)
+
+	toolConfigTab['3_transparencyEditor'].Slider:WaitForChild('Value'):GetPropertyChangedSignal("Value"):Connect(function()
+		if selectedTool ~= nil and selectedToolHandle ~= nil then
+			selectedToolHandle.Transparency = round(toolConfigTab['3_transparencyEditor'].Slider:WaitForChild('Value').Value, 1)
+			print('handle transparency updated')
+		end
+	end)
+
+	propertyEditorFrame.sizeEditor.applyBtnBackground.applyBtnMain.MouseButton1Click:Connect(function()
+		if selectedTool ~= nil then
+			local desiredXSize = nil
+			local desiredYSize = nil
+			local desiredZSize = nil
+
+			if propertyEditorFrame.sizeEditor.SizeXTextBox.Text ~= '' 
+			then desiredXSize = tonumber(propertyEditorFrame.sizeEditor.SizeXTextBox.Text)
+			else
+				desiredXSize = tonumber(propertyEditorFrame.sizeEditor.SizeXTextBox.PlaceholderText)
+			end
+			if propertyEditorFrame.sizeEditor.SizeYTextBox.Text ~= '' 
+			then desiredYSize = tonumber(propertyEditorFrame.sizeEditor.SizeYTextBox.Text)
+			else
+				desiredYSize = tonumber(propertyEditorFrame.sizeEditor.SizeYTextBox.PlaceholderText)
+			end
+			if propertyEditorFrame.sizeEditor.SizeZTextBox.Text ~= '' 
+			then desiredZSize = tonumber(propertyEditorFrame.sizeEditor.SizeZTextBox.Text)
+			else
+				desiredZSize = tonumber(propertyEditorFrame.sizeEditor.SizeZTextBox.PlaceholderText)
+			end
+			selectedToolHandle.Size = Vector3.new(desiredXSize, desiredYSize, desiredZSize)
+		end
+		rippleEffect(propertyEditorFrame.sizeEditor.applyBtnBackground)
+	end)
+
+	propertyEditorFrame.otherProperties.applyBtnBackground.applyBtnMain.MouseButton1Click:Connect(function()
+		if selectedTool ~= nil then
+			if propertyEditorFrame.otherProperties.masslessBackground.checkBox.checkedBox.ImageTransparency == 1 
+			then selectedToolHandle.Massless = false else selectedToolHandle.Massless = true
+			end
+			if propertyEditorFrame.otherProperties.canCollideBackground.checkBox.checkedBox.ImageTransparency == 1 
+			then selectedToolHandle.CanCollide = false else selectedToolHandle.CanCollide = true
+			end
+			if propertyEditorFrame.otherProperties.castShadowBackground.checkBox.checkedBox.ImageTransparency == 1 
+			then selectedToolHandle.CastShadow = false else selectedToolHandle.CastShadow = true
+			end
+		end
+		rippleEffect(propertyEditorFrame.otherProperties.applyBtnBackground)
+	end)
+
+	appearanceEditorFrame.removeMeshBtnBackground.removeMeshBtnMain.MouseButton1Click:Connect(function()
+		if selectedTool ~= nil and selectedToolHandle ~= nil then
+			for partsInTool, partInTool in pairs(selectedTool:GetDescendants()) do
+				if partInTool:IsA('SpecialMesh') or partInTool:IsA('BlockMesh') then partInTool:Destroy()
+				end
+			end
+		end
+		rippleEffect(appearanceEditorFrame.removeMeshBtnBackground)
+	end)
+
+	appearanceEditorFrame.removeDecalBtnBackground.removeDecalBtnMain.MouseButton1Click:Connect(function()
+		if selectedTool ~= nil then
+			for partsInTool, partInTool in pairs(selectedTool:GetDescendants()) do
+				if partInTool:IsA('Decal') then partInTool:Destroy()
+				end
+			end
+		end
+		rippleEffect(appearanceEditorFrame.removeDecalBtnBackground)
+	end)
+--ToolConfig Scripts
+
+
+
+
+--PlayerTab Scripts
+	local currentPlayersInGame = Players:GetPlayers()
+	local plrTemp = playersTab.playersHolder.UIListLayout.plrTemp
+	currentlySpectacting = nil
+
+wait(1.5)
+
+function createPlrTab(player)
+			--if player.Name ~= localPlr.Name then 
+
+				local plrTempClone = plrTemp:Clone()
+
+				plrTempClone.Name = player.Name .. ' ' .. player.DisplayName
+				plrTempClone.playerRealName.Text = '@' .. player.Name
+				plrTempClone.playerDisplayName.Text = player.DisplayName
+		
+				local playerRealNameVal = Instance.new('StringValue')
+				playerRealNameVal.Name = player.Name
+				playerRealNameVal.Parent = plrTempClone
+		
+				if player.AccountAge == '69' then plrTempClone.avatarBackground.plrAccAge.Text = '69 Days Old, Nice'
+				elseif player.AccountAge == '420' then plrTempClone.avatarBackground.plrAccAge.Text = '420 Days Old, Drippy'	
+				else plrTempClone.avatarBackground.plrAccAge.Text = player.AccountAge .. ' Days Old'
+				end
+	
+				if player:IsFriendsWith(localPlr.UserId) then plrTempClone.btnHolder.friendBtnMAIN.Image = 'rbxassetid://6034287515' else plrTempClone.btnHolder.friendBtnMAIN.Image = 'rbxassetid://6034287519' end		
+
+				if player.MembershipType == Enum.MembershipType.Premium then plrTempClone.avatarBackground.premiumLogo.Visible = true else plrTempClone.avatarBackground.premiumLogo.Visible = false end
+
+				plrTempClone.Parent = playersTab.playersHolder
+
+				local userId = player.UserId
+				local thumbType = Enum.ThumbnailType.AvatarBust
+				local thumbSize = Enum.ThumbnailSize.Size420x420
+				local content, isReady = Players:GetUserThumbnailAsync(userId, thumbType, thumbSize)
+
+
+				plrTempClone.avatarBackground.playerAvatarBustImage.Image = content
+				plrTempClone.avatarBackground.playerAvatarBustImageDS.Image = content
+		
+		
+				for _, instance in pairs(plrTempClone:GetDescendants()) do
+			
+			
+					if instance.Name == 'teleportToBtnMAIN' then
+						instance.MouseButton1Click:Connect(function()
+							local victimChar = workspace[instance.Parent.Parent.Parent:FindFirstChildOfClass('StringValue').Name]
+							if victimChar.HumanoidRootPart == nil then
+								print('nil')  
+							else
+							localPlr.Character:SetPrimaryPartCFrame(victimChar.HumanoidRootPart.CFrame*CFrame.new(Vector3.new(0,0,3)))
+							--	rippleEffect(instance.Parent)
+								--instance.Parent.Text = 'Nil HRP' wait(1) instance.Parent.Text = 'Teleport To'
+							end
+							rippleEffect(instance.Parent)
+						end)
+					end 
+			
+			
+					if instance.Name == 'spectateBtnMAIN' then
+						instance.MouseButton1Click:Connect(function()
+							local victimChar = workspace[instance.Parent.Parent.Parent:FindFirstChildOfClass('StringValue').Name]
+							if victimChar ~= nil then
+								if instance.Text == 'Spectate' then
+									workspace.CurrentCamera.CameraSubject = victimChar:FindFirstChildWhichIsA('Humanoid')
+									instance.Text = 'Unsepctate'
+									currentlySpectacting = instance.Parent.Parent.Parent.Name
+								else 
+									resetCamera()
+									currentlySpectacting = nil
+									instance.Text = 'Spectate'
+								end end
+							rippleEffect(instance.Parent)
+						end)
+					end 
+			
+			
+					if instance.Name == 'locateBtnMAIN' then
+						instance.MouseButton1Click:Connect(function()
+							local victimChar = workspace[instance.Parent.Parent.Parent:FindFirstChildOfClass('StringValue').Name]
+							local victimPlr = Players[instance.Parent.Parent.Parent:FindFirstChildOfClass('StringValue').Name]
+							if victimPlr ~= nil then
+								if instance.Text == 'Locate' then
+									Locate(victimPlr)
+									instance.Text = 'Unlocate'
+								else 
+									if victimChar then
+										for i,v in pairs(game.Players:GetPlayers()) do
+											for i,c in pairs(COREGUI:GetChildren()) do
+												if c.Name == victimChar.Name..'_LC' then
+													c:Destroy()
+												end
+											end
+										end
+									else
+										for i,c in pairs(COREGUI:GetChildren()) do
+											if string.sub(c.Name, -3) == '_LC' then
+												c:Destroy()
+											end
+										end
+									end
+									instance.Text = 'Locate'
+								end end
+							rippleEffect(instance.Parent)
+						end)
+					end 
+				
+		
+				if instance.Name == 'balloonBtnMAIN' then
+					instance.MouseButton1Click:Connect(function()
+						local victimChar = workspace[instance.Parent.Parent.Parent:FindFirstChildOfClass('StringValue').Name]
+						if victimChar ~= nil then
+							if instance.Text == 'R4pe' then
+								instance.Text = 'Unr4pe'
+									if not r15(localPlr) then
+										wait()
+										--for i,v in pairs(players)do
+										bangAnim = Instance.new("Animation")
+										bangAnim.AnimationId = "rbxassetid://148840371"
+										bang = localPlr.Character.Humanoid:LoadAnimation(bangAnim)
+										bang:Play(.1, 1, 1)
+										bang:AdjustSpeed(3)
+										local bangplr = victimChar.Name
+										bangDied = localPlr.Character:FindFirstChildOfClass'Humanoid'.Died:Connect(function()
+											bangLoop:Disconnect()
+											bang:Stop()
+											bangAnim:Destroy()
+											bangDied:Disconnect()
+										end)
+										bangLoop = game:GetService('RunService').Stepped:Connect(function()
+											pcall(function()
+										getRoot(Players.LocalPlayer.Character).CFrame = getRoot(Players[bangplr].Character).CFrame * CFrame.new(Vector3.new(0,0,1.69))
+											end)
+										end)
+										--end
+									else
+										rippleEffect(instance.Parent)
+										instance.Text = 'R6 Only' wait(1) instance.Text = 'R4pe'
+									end
+							else 
+								if bangLoop then
+									bangLoop:Disconnect()
+									bangDied:Disconnect()
+									bang:Stop()
+									bangAnim:Destroy()
+								end
+								instance.Text = 'R4pe'
+							end end
+						rippleEffect(instance.Parent)
+					end)
+				end 
+			
+			
+				if instance.Name == 'toolKillBtnMAIN' then
+					instance.MouseButton1Click:Connect(function()
+						local victimChar = workspace[instance.Parent.Parent.Parent:FindFirstChildOfClass('StringValue').Name]
+						if victimChar ~= nil then
+							kill(localPlr,game:GetService('Players')[victimChar])
+						end
+						rippleEffect(instance.Parent)
+					end)
+				end
+		
+		
+				if instance.Name == 'toolBringBtnMAIN' then
+					instance.MouseButton1Click:Connect(function()
+						local victimChar = workspace[instance.Parent.Parent.Parent:FindFirstChildOfClass('StringValue').Name]
+						if victimChar ~= nil then
+							bring(localPlr,game:GetService('Players')[victimChar])
+						end
+					rippleEffect(instance.Parent)
+				end)
+				end
+		
+		
+				if instance.Name == 'whisperBtnMAIN' then
+					instance.MouseButton1Click:Connect(function()
+						local victimPlr = Players[instance.Parent.Parent:FindFirstChildOfClass('StringValue').Name]
+						if victimPlr ~= nil then
+						local chatBar = localPlr.PlayerGui.Chat.Frame.ChatBarParentFrame.Frame.BoxFrame.Frame
+						chatBar.ChatBar.Text = "/w "..victimPlr.Name.." "
+						chatBar.TextLabel.Text = ''
+						end
+					end)
+			
+			
+				if instance.Name == 'friendBtnMAIN' then
+					instance.MouseButton1Click:Connect(function()
+						local victimPlr = Players[instance.Parent.Parent:FindFirstChildOfClass('StringValue').Name]
+						if victimPlr ~= nil then
+							--if victimPlr:IsFriendsWith(localPlr.UserId) then
+								--localPlr:RevokeFriendship(victimPlr)
+								--instance.Image = 'rbxassetid://6034287519'
+							--else
+								localPlr:RequestFriendship(victimPlr)
+								--instance.Image = 'rbxassetid://6034287515'
+							--end
+						end
+					end)
+			
+			
+				end 
+			--end
+			
+		end
+	end
+end
+
+		
+
+for _, player in pairs(currentPlayersInGame) do
+	createPlrTab(player)	
+end
+
+
+Players.PlayerAdded:Connect(function(player)
+	createPlrTab(player)
+end)
+
+Players.PlayerRemoving:Connect(function(player)
+	playersTab.playersHolder[player.Name .. ' ' .. player.DisplayName]:Destroy()
+	if currentlySpectacting == player.Name 
+	then 
+		resetCamera() 
+		currentlySpectacting = nil
+	end
+end)
+
+		
+
+
+--GameTab Scripts
+
+
+
+--GameTab>xRay
+
+	local obj = game.workspace
+
+	function XrayOn(obj) --Enables xray
+
+		for _,v in pairs(obj:GetChildren()) do
+			if (v:IsA("BasePart")) and not v.Parent:FindFirstChild("Humanoid") then
+				v.LocalTransparencyModifier = 0.75
+			end
+			XrayOn(v)
+		end
+	end
+
+	function XrayOff(obj) --Disables xray
+
+		for _,v in pairs(obj:GetChildren()) do
+			if (v:IsA("BasePart")) and not v.Parent:FindFirstChild("Humanoid") then
+				v.LocalTransparencyModifier = 0
+			end XrayOff(v)
+		end
+	end
+
+	local partxraytoggle = false
+
+	gameTab['1_xRay'].partXRayCheckbox.checkedBox.MouseButton1Click:Connect(function()
+		if partxraytoggle == false 
+		then partxraytoggle = true 
+			checkboxHandler(gameTab['1_xRay'].partXRayCheckbox.checkedBox, true)
+			XrayOn(obj)
+		else partxraytoggle = false 
+			XrayOff(obj)
+			checkboxHandler(gameTab['1_xRay'].partXRayCheckbox.checkedBox, false)
+		end
+	end)
+		
+	function enableEsp()
+		ESPenabled = false
+		CHMSenabled = false
+
+		function round(num, numDecimalPlaces)
+			local mult = 10^(numDecimalPlaces or 0)
+			return math.floor(num * mult + 0.5) / mult
+		end
+
+		function ESP(plr)
+			spawn(function()
+				for i,v in pairs(COREGUI:GetChildren()) do
+					if v.Name == plr.Name..'_ESP' then
+						v:Destroy()
+					end
+				end
+				wait()
+				if plr.Character and plr.Name ~= Players.LocalPlayer.Name and not COREGUI:FindFirstChild(plr.Name..'_ESP') then
+					local ESPholder = Instance.new("Folder")
+					ESPholder.Name = plr.Name..'_ESP'
+					ESPholder.Parent = COREGUI
+					repeat wait(1) until plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChild('Humanoid')
+					for b,n in pairs (plr.Character:GetChildren()) do
+						if (n:IsA("BasePart")) then
+							local a = Instance.new("BoxHandleAdornment")
+							a.Name = plr.Name
+							a.Parent = ESPholder
+							a.Adornee = n
+							a.AlwaysOnTop = true
+							a.ZIndex = 10
+							a.Size = n.Size
+							a.Transparency = 0.3
+							a.Color = plr.TeamColor
+						end
+					end
+					if plr.Character and plr.Character:FindFirstChild('Head') then
+						local BillboardGui = Instance.new("BillboardGui")
+						local TextLabel = Instance.new("TextLabel")
+						BillboardGui.Adornee = plr.Character.Head
+						BillboardGui.Name = plr.Name
+						BillboardGui.Parent = ESPholder
+						BillboardGui.Size = UDim2.new(0, 100, 0, 150)
+						BillboardGui.StudsOffset = Vector3.new(0, 1, 0)
+						BillboardGui.AlwaysOnTop = true
+						TextLabel.Parent = BillboardGui
+						TextLabel.BackgroundTransparency = 1
+						TextLabel.Position = UDim2.new(0, 0, 0, -50)
+						TextLabel.Size = UDim2.new(0, 100, 0, 100)
+						TextLabel.Font = Enum.Font.SourceSansSemibold
+						TextLabel.TextSize = 20
+						TextLabel.TextColor3 = Color3.new(1, 1, 1)
+						TextLabel.TextStrokeTransparency = 0
+						TextLabel.TextYAlignment = Enum.TextYAlignment.Bottom
+						TextLabel.Text = 'Name: '..plr.Name
+						TextLabel.ZIndex = 10
+						local espLoopFunc
+						local teamChange
+						local addedFunc
+						addedFunc = plr.CharacterAdded:Connect(function()
+							if ESPenabled then
+								espLoopFunc:Disconnect()
+								teamChange:Disconnect()
+								ESPholder:Destroy()
+								repeat wait(1) until getRoot(plr.Character) and plr.Character:FindFirstChild('Humanoid')
+								ESP(plr)
+								addedFunc:Disconnect()
+							else
+								teamChange:Disconnect()
+								addedFunc:Disconnect()
+							end
+						end)
+						teamChange = plr:GetPropertyChangedSignal("TeamColor"):Connect(function()
+							if ESPenabled then
+								espLoopFunc:Disconnect()
+								addedFunc:Disconnect()
+								ESPholder:Destroy()
+								repeat wait(1) until getRoot(plr.Character) and plr.Character:FindFirstChild('Humanoid')
+								ESP(plr)
+								teamChange:Disconnect()
+							else
+								teamChange:Disconnect()
+							end
+						end)
+						local function espLoop()
+							if COREGUI:FindFirstChild(plr.Name..'_ESP') then
+								if plr.Character and getRoot(plr.Character) and plr.Character:FindFirstChild('Humanoid') and Players.LocalPlayer.Character and getRoot(Players.LocalPlayer.Character) and Players.LocalPlayer.Character:FindFirstChild('Humanoid') then
+									local pos = math.floor((getRoot(Players.LocalPlayer.Character).Position - getRoot(plr.Character).Position).magnitude)
+									TextLabel.Text = 'Name: '..plr.Name..' | Health: '..round(plr.Character:FindFirstChildOfClass('Humanoid').Health, 1)..' | Studs: '..pos
+								end
+							else
+								teamChange:Disconnect()
+								addedFunc:Disconnect()
+								espLoopFunc:Disconnect()
+							end
+						end
+						espLoopFunc = game:GetService("RunService").RenderStepped:Connect(espLoop)
+					end
+				end
+			end)
+		end
+	end
+
+	function disableEsp()
+		ESPenabled = false
+		for i,c in pairs(COREGUI:GetChildren()) do
+			if string.sub(c.Name, -4) == '_ESP' then
+				c:Destroy()
+			end
+		end
+	end
+
+	local espEnabledXRAYCB = false
+
+	gameTab['1_xRay'].plrXRayCheckbox.checkedBox.MouseButton1Click:Connect(function()
+		if espEnabledXRAYCB == false 
+		then espEnabledXRAYCB = true 
+			checkboxHandler(gameTab['1_xRay'].plrXRayCheckbox.checkedBox, true)
+			enableEsp()
+		else espEnabledXRAYCB = false 
+			disableEsp()
+			checkboxHandler(gameTab['1_xRay'].plrXRayCheckbox.checkedBox, false)
+		end
+	end)
+
+
+	local shownParts = {}
+	function showInvisParts()
+		for i,v in pairs(workspace:GetDescendants()) do
+			if v:IsA("BasePart") and v.Transparency == 1 then
+				if not table.find(shownParts,v) then
+					table.insert(shownParts,v)
+				end
+				v.Transparency = 0
+			end
+		end
+	end
+
+	function hideInvisParts()
+		for i,v in pairs(shownParts) do
+			v.Transparency = 1
+		end
+		shownParts = {}
+	end
+
+	local invispartstoggle = false
+
+	gameTab['1_xRay'].showInvisPartsCheckbox.checkedBox.MouseButton1Click:Connect(function()
+		if invispartstoggle == false 
+		then invispartstoggle = true 
+			checkboxHandler(gameTab['1_xRay'].showInvisPartsCheckbox.checkedBox, true)
+			showInvisParts()
+			gameTab['1_xRay'].invisPartCount.Text = 'Showing ' .. tostring(#shownParts) .. ' Invisible Parts'
+		else invispartstoggle = false 
+			hideInvisParts()
+			gameTab['1_xRay'].invisPartCount.Text = 'Showing 0 Invisible Parts'
+			checkboxHandler(gameTab['1_xRay'].showInvisPartsCheckbox.checkedBox, false)
+		end
+	end)
+
+
+--GameTab>FreeCam
+
+local Slider = gameTab['2_freeCam'].Slider
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+local Dragging = false
+
+local Player = game.Players.LocalPlayer
+local Character = Player.Character
+
+local MaxValue = 25
+local MinValue = 1
+
+local currentSlideValue = Instance.new("NumberValue")
+currentSlideValue.Value = 1
+currentSlideValue.Parent = Slider
+
+local function Update_FREECAM()
+	local Character = Player.Character
+	if Dragging == true then
+		local MousePos = UserInputService:GetMouseLocation()
+		local MinPoint = (Slider.AbsolutePosition.X)
+		local MaxPoint = (Slider.AbsolutePosition.X + Slider.AbsoluteSize.X)
+
+		if MousePos.X < MinPoint then
+			Slider.Indicator:TweenSize(UDim2.fromScale(0, 1), "Out", "Sine", 0.1, true)
+		elseif MousePos.X > MaxPoint then
+			Slider.Indicator:TweenSize(UDim2.fromScale(1, 1), "Out", "Sine", 0.1, true)
+		else
+			Slider.Indicator:TweenSize(UDim2.fromScale((MousePos.X - Slider.AbsolutePosition.X) / Slider.AbsoluteSize.X, 1), "Out", "Sine", 0.1, true)
+		end
+
+		wait(0.1)
+
+		local Percent = (Slider.Indicator.HolderButton.AbsolutePosition.X - Slider.AbsolutePosition.X) / (Slider.AbsoluteSize.X - Slider.Indicator.HolderButton.Size.X.Offset) * MaxValue
+
+		Slider.Value.Value = Percent
+
+		if math.floor(Slider.Value.Value) < MinValue then
+			Slider.Value.Value = MinValue
+		elseif math.floor(Slider.Value.Value) > MaxValue then
+			Slider.Value.Value = MaxValue
+		end
+
+
+		Slider.Indicator.HolderButton.Value.Text = tostring(math.floor(Slider.Value.Value))
+
+	end
+end
+
+Slider.MouseEnter:Connect(function()
+	if Dragging == false then
+		TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 130, 0)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(200, 200, 200)}):Play()
+	end
+end)
+
+Slider.MouseLeave:Connect(function()
+	if Dragging == false then
+		TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 170, 0)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+	end	
+end)
+
+Slider.MouseButton1Down:Connect(function()
+	Dragging = true
+	TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 190, 0)}):Play()
+	TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+	TweenService:Create(Slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 0, TextTransparency = 0}):Play()
+	Update_FREECAM()
+end)
+
+UserInputService.InputEnded:Connect(function(Input)
+	if Input.UserInputType == Enum.UserInputType.MouseButton1 then
+		Dragging = false
+		TweenService:Create(Slider.Indicator, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(85, 170, 0)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(190, 190, 190)}):Play()
+		TweenService:Create(Slider.Indicator.HolderButton.Value, TweenInfo.new(0.1, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {BackgroundTransparency = 1, TextTransparency = 1}):Play()
+	end
+end)
+
+UserInputService.InputChanged:Connect(Update_FREECAM)
+
+local Percent = (Slider.Indicator.HolderButton.AbsolutePosition.X - Slider.AbsolutePosition.X) / (Slider.AbsoluteSize.X - Slider.Indicator.HolderButton.Size.X.Offset) * MaxValue
+
+
+
+if math.floor(Slider.Value.Value) < MinValue then
+	Slider.Value.Value = MinValue
+elseif math.floor(Slider.Value.Value) > MaxValue then
+	Slider.Value.Value = MaxValue
+end
+
+Slider.Indicator.HolderButton.Value.Text = tostring(math.floor(Slider.Value.Value))
+
+
+fcRunning = false
+local Camera = workspace.CurrentCamera
+workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+	local newCamera = workspace.CurrentCamera
+	if newCamera then
+		Camera = newCamera
+	end
+end)
+
+local INPUT_PRIORITY = Enum.ContextActionPriority.High.Value
+
+Spring = {} do
+	Spring.__index = Spring
+
+	function Spring.new(freq, pos)
+		local self = setmetatable({}, Spring)
+		self.f = freq
+		self.p = pos
+		self.v = pos*0
+		return self
+	end
+
+	function Spring:Update(dt, goal)
+		local f = self.f*2*math.pi
+		local p0 = self.p
+		local v0 = self.v
+
+		local offset = goal - p0
+		local decay = math.exp(-f*dt)
+
+		local p1 = goal + (v0*dt - offset*(f*dt + 1))*decay
+		local v1 = (f*dt*(offset*f - v0) + v0)*decay
+
+		self.p = p1
+		self.v = v1
+
+		return p1
+	end
+
+	function Spring:Reset(pos)
+		self.p = pos
+		self.v = pos*0
+	end
+end
+
+local cameraPos = Vector3.new()
+local cameraRot = Vector2.new()
+
+local velSpring = Spring.new(5, Vector3.new())
+local panSpring = Spring.new(5, Vector2.new())
+
+Input = {} do
+
+	keyboard = {
+		W = 0,
+		A = 0,
+		S = 0,
+		D = 0,
+		E = 0,
+		Q = 0,
+		Up = 0,
+		Down = 0,
+		LeftShift = 0,
+	}
+
+	mouse = {
+		Delta = Vector2.new(),
+	}
+
+	NAV_KEYBOARD_SPEED = Vector3.new(1,1,1)
+	
+	local sliderVal = gameTab['2_freeCam'].Slider.Value
+	sliderVal:GetPropertyChangedSignal("Value"):Connect(function()
+		if sliderVal.Value ~= nil and sliderVal ~= nil then
+			NAV_KEYBOARD_SPEED = Vector3.new(sliderVal.Value, sliderVal.Value, sliderVal.Value)
+		else 
+			NAV_KEYBOARD_SPEED = Vector3.new(1,1,1)
+		end
+	end)
+
+	PAN_MOUSE_SPEED = Vector2.new(1, 1)*(math.pi/64)
+	NAV_ADJ_SPEED = 0.75
+	NAV_SHIFT_MUL = 0.25
+
+	navSpeed = 1
+
+	function Input.Vel(dt)
+		navSpeed = math.clamp(navSpeed + dt*(keyboard.Up - keyboard.Down)*NAV_ADJ_SPEED, 0.01, 4)
+
+		local kKeyboard = Vector3.new(
+			keyboard.D - keyboard.A,
+			keyboard.E - keyboard.Q,
+			keyboard.S - keyboard.W
+		)*NAV_KEYBOARD_SPEED
+
+		local shift = UserInputService:IsKeyDown(Enum.KeyCode.LeftShift)
+
+		return (kKeyboard)*(navSpeed*(shift and NAV_SHIFT_MUL or 1))
+	end
+
+	function Input.Pan(dt)
+		local kMouse = mouse.Delta*PAN_MOUSE_SPEED
+		mouse.Delta = Vector2.new()
+		return kMouse
+	end
+
+	do
+		function Keypress(action, state, input)
+			keyboard[input.KeyCode.Name] = state == Enum.UserInputState.Begin and 1 or 0
+			return Enum.ContextActionResult.Sink
+		end
+
+		function MousePan(action, state, input)
+			local delta = input.Delta
+			mouse.Delta = Vector2.new(-delta.y, -delta.x)
+			return Enum.ContextActionResult.Sink
+		end
+
+		function Zero(t)
+			for k, v in pairs(t) do
+				t[k] = v*0
+			end
+		end
+
+		function Input.StartCapture()
+			game:GetService("ContextActionService"):BindActionAtPriority("FreecamKeyboard",Keypress,false,INPUT_PRIORITY,
+				Enum.KeyCode.W,
+				Enum.KeyCode.A,
+				Enum.KeyCode.S,
+				Enum.KeyCode.D,
+				Enum.KeyCode.E,
+				Enum.KeyCode.Q,
+				Enum.KeyCode.Up,
+				Enum.KeyCode.Down
+			)
+			game:GetService("ContextActionService"):BindActionAtPriority("FreecamMousePan",MousePan,false,INPUT_PRIORITY,Enum.UserInputType.MouseMovement)
+		end
+
+		function Input.StopCapture()
+			navSpeed = 1
+			Zero(keyboard)
+			Zero(mouse)
+			game:GetService("ContextActionService"):UnbindAction("FreecamKeyboard")
+			game:GetService("ContextActionService"):UnbindAction("FreecamMousePan")
+		end
+	end
+end
+
+function GetFocusDistance(cameraFrame)
+	local znear = 0.1
+	local viewport = Camera.ViewportSize
+	local projy = 2*math.tan(cameraFov/2)
+	local projx = viewport.x/viewport.y*projy
+	local fx = cameraFrame.rightVector
+	local fy = cameraFrame.upVector
+	local fz = cameraFrame.lookVector
+
+	local minVect = Vector3.new()
+	local minDist = 512
+
+	for x = 0, 1, 0.5 do
+		for y = 0, 1, 0.5 do
+			local cx = (x - 0.5)*projx
+			local cy = (y - 0.5)*projy
+			local offset = fx*cx - fy*cy + fz
+			local origin = cameraFrame.p + offset*znear
+			local _, hit = workspace:FindPartOnRay(Ray.new(origin, offset.unit*minDist))
+			local dist = (hit - origin).magnitude
+			if minDist > dist then
+				minDist = dist
+				minVect = offset.unit
+			end
+		end
+	end
+
+	return fz:Dot(minVect)*minDist
+end
+
+local function StepFreecam(dt)
+	local vel = velSpring:Update(dt, Input.Vel(dt))
+	local pan = panSpring:Update(dt, Input.Pan(dt))
+
+	local zoomFactor = math.sqrt(math.tan(math.rad(70/2))/math.tan(math.rad(cameraFov/2)))
+
+	cameraRot = cameraRot + pan*Vector2.new(0.75, 1)*8*(dt/zoomFactor)
+	cameraRot = Vector2.new(math.clamp(cameraRot.x, -math.rad(90), math.rad(90)), cameraRot.y%(2*math.pi))
+
+	local cameraCFrame = CFrame.new(cameraPos)*CFrame.fromOrientation(cameraRot.x, cameraRot.y, 0)*CFrame.new(vel*Vector3.new(1, 1, 1)*64*dt)
+	cameraPos = cameraCFrame.p
+
+	Camera.CFrame = cameraCFrame
+	Camera.Focus = cameraCFrame*CFrame.new(0, 0, -GetFocusDistance(cameraCFrame))
+	Camera.FieldOfView = cameraFov
+end
+
+local PlayerState = {} do
+	mouseBehavior = ""
+	mouseIconEnabled = ""
+	cameraType = ""
+	cameraFocus = ""
+	cameraCFrame = ""
+	cameraFieldOfView = ""
+
+	function PlayerState.Push()
+		cameraFieldOfView = Camera.FieldOfView
+		Camera.FieldOfView = 70
+
+		cameraType = Camera.CameraType
+		Camera.CameraType = Enum.CameraType.Custom
+
+		cameraCFrame = Camera.CFrame
+		cameraFocus = Camera.Focus
+
+		mouseIconEnabled = UserInputService.MouseIconEnabled
+		UserInputService.MouseIconEnabled = true
+
+		mouseBehavior = UserInputService.MouseBehavior
+		UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+	end
+
+	function PlayerState.Pop()
+		Camera.FieldOfView = 70
+
+		Camera.CameraType = cameraType
+		cameraType = nil
+
+		Camera.CFrame = cameraCFrame
+		cameraCFrame = nil
+
+		Camera.Focus = cameraFocus
+		cameraFocus = nil
+
+		UserInputService.MouseIconEnabled = mouseIconEnabled
+		mouseIconEnabled = nil
+
+		UserInputService.MouseBehavior = mouseBehavior
+		mouseBehavior = nil
+	end
+end
+
+function StartFreecam(pos)
+	if fcRunning then
+		StopFreecam()
+	end
+	local cameraCFrame = Camera.CFrame
+	if pos then
+		cameraCFrame = pos
+	end
+	cameraRot = Vector2.new()
+	cameraPos = cameraCFrame.p
+	cameraFov = Camera.FieldOfView
+
+	velSpring:Reset(Vector3.new())
+	panSpring:Reset(Vector2.new())
+
+	PlayerState.Push()
+	game:GetService("RunService"):BindToRenderStep("Freecam", Enum.RenderPriority.Camera.Value, StepFreecam)
+	Input.StartCapture()
+	fcRunning = true
+end
+
+function StopFreecam()
+	if not fcRunning then return end
+	Input.StopCapture()
+	game:GetService("RunService"):UnbindFromRenderStep("Freecam")
+	PlayerState.Pop()
+	workspace.Camera.FieldOfView = 70
+	fcRunning = false
+end 
+
+local fcEnabledTGCB = false
+gameTab['2_freeCam'].checkBox.checkedBox.MouseButton1Click:Connect(function()
+	if fcEnabledTGCB == false 
+	then fcEnabledTGCB = true 
+		StartFreecam()
+		checkboxHandler(gameTab['2_freeCam'].checkBox.checkedBox, true)
+	else fcEnabledTGCB = false 
+		checkboxHandler(gameTab['2_freeCam'].checkBox.checkedBox, false)
+		StopFreecam()
+end end)
+
+
+--GameTab>FullBright
+
+origsettings = {abt = game:GetService("Lighting").Ambient, oabt = game:GetService("Lighting").OutdoorAmbient, brt = game:GetService("Lighting").Brightness, time = game:GetService("Lighting").ClockTime, fe = game:GetService("Lighting").FogEnd, fs = game:GetService("Lighting").FogStart, gs = game:GetService("Lighting").GlobalShadows}
+
+function oldLighting()
+	game:GetService("Lighting").Ambient = origsettings.abt
+	game:GetService("Lighting").OutdoorAmbient = origsettings.oabt
+	game:GetService("Lighting").Brightness = origsettings.brt
+	game:GetService("Lighting").ClockTime = origsettings.time
+	game:GetService("Lighting").FogEnd = origsettings.fe
+	game:GetService("Lighting").FogStart = origsettings.fs
+	game:GetService("Lighting").GlobalShadows = origsettings.gs
+end
+
+function fullBrightLighting()
+	game:GetService("Lighting").Brightness = 2
+	game:GetService("Lighting").ClockTime = 14
+	game:GetService("Lighting").FogEnd = 100000
+	game:GetService("Lighting").GlobalShadows = false
+	game:GetService("Lighting").OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+end
+
+local fbEnabledTGCB = false
+gameTab['3_fullBright'].checkBox.checkedBox.MouseButton1Click:Connect(function()
+	if fbEnabledTGCB == false 
+	then fbEnabledTGCB = true 
+		fullBrightLighting()
+		checkboxHandler(gameTab['3_fullBright'].checkBox.checkedBox, true)
+	else fbEnabledTGCB = false 
+		checkboxHandler(gameTab['3_fullBright'].checkBox.checkedBox, false)
+		oldLighting()
+	end end)
+
+
+--GameTab>DisablePurchasePrompts
+
+disablingPurchasePrompts = false
+gameTab['3_purchasePrompts'].checkBox.checkedBox.MouseButton1Click:Connect(function()
+	if disablingPurchasePrompts == false 
+	then disablingPurchasePrompts = true 
+		COREGUI.PurchasePromptApp.Enabled = false
+		checkboxHandler(gameTab['3_purchasePrompts'].checkBox.checkedBox, true)
+	else disablingPurchasePrompts = false 
+		COREGUI.PurchasePromptApp.Enabled = true
+		checkboxHandler(gameTab['3_purchasePrompts'].checkBox.checkedBox, false)
+	end
+end)
+
+
+--GameTab>HoverName
+
+PARENT = nil
+function disableHoverName()
+	if nbUpdateFunc then
+		nbUpdateFunc:Disconnect()
+		nameBox:Destroy()
+		nbSelection:Destroy()
+	end
+end
+
+function enableHoverName()
+	disableHoverName()
+	wait()
+	nameBox = Instance.new("TextLabel")
+	nameBox.Name = randomString()
+	nameBox.Parent = PARENT
+	nameBox.BackgroundTransparency = 1
+	nameBox.Size = UDim2.new(0,200,0,30)
+	nameBox.Font = Enum.Font.Code
+	nameBox.TextSize = 16
+	nameBox.Text = ""
+	nameBox.TextColor3 = Color3.new(1, 1, 1)
+	nameBox.TextStrokeTransparency = 0
+	nameBox.TextXAlignment = Enum.TextXAlignment.Left
+	nameBox.ZIndex = 10
+	nbSelection = Instance.new('SelectionBox')
+	nbSelection.Name = randomString()
+	nbSelection.LineThickness = 0.03
+	nbSelection.Color3 = Color3.new(1, 1, 1)
+	local function updateNameBox()
+		local t
+		local target = plrMouse.Target
+
+		if target then
+			local humanoid = target.Parent:FindFirstChild('Humanoid') or target.Parent.Parent:FindFirstChild('Humanoid')
+			if humanoid then
+				t = humanoid.Parent
+			end
+		end
+
+		if t ~= nil then
+			local x = plrMouse.X
+			local y = plrMouse.Y
+			local xP
+			local yP
+			if plrMouse.X > 200 then
+				xP = x - 205
+				nameBox.TextXAlignment = Enum.TextXAlignment.Right
+			else
+				xP = x + 25
+				nameBox.TextXAlignment = Enum.TextXAlignment.Left
+			end
+			nameBox.Position = UDim2.new(0, xP, 0, y)
+			nameBox.Text = t.Name
+			nameBox.Visible = true
+			nbSelection.Parent = t
+			nbSelection.Adornee = t
+		else
+			nameBox.Visible = false
+			nbSelection.Parent = nil
+			nbSelection.Adornee = nil
+		end
+	end
+	nbUpdateFunc = plrMouse.Move:Connect(updateNameBox)
+end
+
+hoverNamesEnabled = false
+gameTab['4_hoverName'].checkBox.checkedBox.MouseButton1Click:Connect(function()
+	if hoverNamesEnabled == false 
+	then hoverNamesEnabled = true 
+		enableHoverName()
+		checkboxHandler(gameTab['4_hoverName'].checkBox.checkedBox, true)
+	else hoverNamesEnabled = false 
+		disableHoverName()
+		checkboxHandler(gameTab['4_hoverName'].checkBox.checkedBox, false)
+	end
+end)
+
+
+--GameTab>DisableChat
+
+
+chatEnabled = true
+gameTab['3_chatOptions'].checkboxHolder.chatEnabledCheckBox.chatEnabledCheckBox.checkedBox.MouseButton1Click:Connect(function()
+	local startergui = game:GetService('StarterGui')
+	if chatEnabled == false 
+	then chatEnabled = true 
+		startergui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, true)
+		checkboxHandler(gameTab['3_chatOptions'].checkboxHolder.chatEnabledCheckBox.chatEnabledCheckBox.checkedBox, true)
+	else chatEnabled = false 
+		startergui:SetCoreGuiEnabled(Enum.CoreGuiType.Chat, false)
+		checkboxHandler(gameTab['3_chatOptions'].checkboxHolder.chatEnabledCheckBox.chatEnabledCheckBox.checkedBox, false)
+	end
+end)
+
+draggableChatEnabled = false
+gameTab['3_chatOptions'].checkboxHolder.dragChatEnabledCheckBox.dragChatEnabledCheckBox.checkedBox.MouseButton1Click:Connect(function()
+	local chatSettings = require(game:GetService("Chat").ClientChatModules.ChatSettings)
+	local chatFrame = game:GetService("Players").LocalPlayer.PlayerGui.Chat.Frame
+	
+	if draggableChatEnabled == false 
+	then draggableChatEnabled = true 
+		chatSettings.WindowResizable = true
+		chatSettings.WindowDraggable = true
+		chatFrame.ChatChannelParentFrame.Visible=true
+		chatFrame.ChatBarParentFrame.Position = chatFrame.ChatChannelParentFrame.Position+UDim2.new(UDim.new(),chatFrame.ChatChannelParentFrame.Size.Y)
+		checkboxHandler(gameTab['3_chatOptions'].checkboxHolder.dragChatEnabledCheckBox.dragChatEnabledCheckBox.checkedBox, true)
+	else draggableChatEnabled = false 
+		chatSettings.WindowResizable = false
+		chatSettings.WindowDraggable = false
+		chatFrame.Position = UDim2.new(0,0,0,0)
+		chatFrame.Size = UDim2.new(0.3, 0,0.279, 0)
+		chatFrame.ChatBarParentFrame.Position = UDim2.new(0, 0,1, -42)
+		checkboxHandler(gameTab['3_chatOptions'].checkboxHolder.dragChatEnabledCheckBox.dragChatEnabledCheckBox.checkedBox, false)
+	end
+end)
+
+
+--GameTab>AntiClientKick
+
+
+gameTab['96_antiClientKick'].antiClientKickBtnBackground.antiClientKickBtnMain.MouseButton1Click:Connect(function()
+
+	rippleEffect(gameTab['96_antiClientKick'].antiClientKickBtnbackground)
+
+	local mt = getrawmetatable(game)
+	local old = mt.__namecall
+	local protect = newcclosure or protect_function
+
+	if not protect then
+
+		protect = function(f) return f end
+	end
+
+	setreadonly(mt, false)
+	mt.__namecall = protect(function(self, ...)
+		local method = getnamecallmethod()
+		if method == "Kick" then
+			wait(9e9)
+			return
+		end
+		return old(self, ...)
+	end)
+	hookfunction(Players.LocalPlayer.Kick,protect(function() wait(9e9) end))
+
+
+end)
+
+
+--GameTab>NoZoomLimit
+
+
+gameTab['98_noClickDetectorLimit'].noClickDetectorLimitBackground.noClickDetectorLimitBtn.MouseButton1Click:Connect(function()
+
+	rippleEffect(gameTab['98_noClickDetectorLimit'].noClickDetectorLimitBackground)
+
+	for i,v in pairs(workspace:GetDescendants()) do
+		if v:IsA("ClickDetector") then
+			v.MaxActivationDistance = math.huge
+		end
+	end
+
+end)
+
+
+--GameTab>ServerStuff
+
+
+gameTab['99_serverStuff'].serverHopBtnBackground.serverHopBtnMain.MouseButton1Click:Connect(function()
+
+	rippleEffect(script.Parent.serverHopBtnBackground)
+
+	local x = {}
+	for _, v in ipairs(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+		if type(v) == "table" and v.maxPlayers > v.playing and v.id ~= game.JobId then
+			x[#x + 1] = v.id
+		end
+	end
+	if #x > 0 then
+		game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, x[math.random(1, #x)])
+	else
+		gameTab['99_serverStuff'].serverHopBtnBackground.serverHopBtnMain.Text = "Couldn't Find A Server"
+		wait(2)
+		gameTab['99_serverStuff'].serverHopBtnBackground.serverHopBtnMain.Text = "Server Hop"
+	end
+
+end)
+
+
+gameTab['99_serverStuff'].rejoinServerBtnBackground.rejoinServerBtnMain.MouseButton1Click:Connect(function()
+
+	rippleEffect(script.Parent.rejoinServerBtnBackground)
+
+	if #Players:GetPlayers() <= 1 then
+		Players.LocalPlayer:Kick("\nRejoining...")
+		wait()
+		game:GetService('TeleportService'):Teleport(game.PlaceId, Players.LocalPlayer)
+	else
+		game:GetService('TeleportService'):TeleportToPlaceInstance(game.PlaceId, game.JobId, Players.LocalPlayer)
+	end
+
+end)
