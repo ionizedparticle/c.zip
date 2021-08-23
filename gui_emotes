@@ -1,0 +1,823 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local Emotes = Instance.new("Frame")
+local r6emotes = Instance.new("Frame")
+local roundBackground_r6sb = Instance.new("ImageLabel")
+local SearchBar = Instance.new("TextBox")
+local searchBarIcon = Instance.new("ImageLabel")
+local r6emotesHolder = Instance.new("ScrollingFrame")
+local UIGridLayout = Instance.new("UIGridLayout")
+local emoteTemplate = Instance.new("ImageLabel")
+local emoteName = Instance.new("TextLabel")
+local selectedImg = Instance.new("ImageLabel")
+local clickBtn = Instance.new("ImageButton")
+local r15emotes = Instance.new("Frame")
+local r15emotesHolder = Instance.new("ScrollingFrame")
+local UIGridLayout_2 = Instance.new("UIGridLayout")
+local emoteTemplate_2 = Instance.new("ImageLabel")
+local emoteName_2 = Instance.new("TextLabel")
+local selectedImg_2 = Instance.new("ImageLabel")
+local clickBtn_2 = Instance.new("ImageButton")
+local roundBackground_r15sb = Instance.new("ImageLabel")
+local SearchBar_2 = Instance.new("TextBox")
+local searchBarIcon_2 = Instance.new("ImageLabel")
+local btnHolder = Instance.new("Frame")
+local r6BtnBG = Instance.new("ImageLabel")
+local r6BtnMAIN = Instance.new("TextButton")
+local r15BtnBG = Instance.new("ImageLabel")
+local r15BtnMAIN = Instance.new("TextButton")
+local animSettingsBG = Instance.new("ImageLabel")
+local animSettingsMain = Instance.new("ImageButton")
+local animSettings = Instance.new("Frame")
+local animSettingsHolder = Instance.new("ScrollingFrame")
+local UIListLayout = Instance.new("UIListLayout")
+local _2_emoteSpeed = Instance.new("Frame")
+local Slider = Instance.new("TextButton")
+local Indicator = Instance.new("Frame")
+local HolderButton = Instance.new("TextLabel")
+local UICorner = Instance.new("UICorner")
+local Value = Instance.new("TextLabel")
+local UICorner_2 = Instance.new("UICorner")
+local SliderImg = Instance.new("ImageLabel")
+local UICorner_3 = Instance.new("UICorner")
+local Sliderbg = Instance.new("ImageLabel")
+local Value_2 = Instance.new("TextLabel")
+local roundBackground_WSS = Instance.new("ImageLabel")
+local roundBackgroundDark_WSS = Instance.new("ImageLabel")
+local sliderLabel = Instance.new("TextLabel")
+local _3_bundleCustomize = Instance.new("Frame")
+local roundBackground = Instance.new("ImageLabel")
+local titleLabel = Instance.new("TextLabel")
+local animPackDisplayBG = Instance.new("ImageLabel")
+local animPackDisplayImage = Instance.new("ImageLabel")
+local currentLabel = Instance.new("TextLabel")
+local cursorPresetsBackground = Instance.new("ImageLabel")
+local ScrollingFrame = Instance.new("ScrollingFrame")
+local UIGridLayout_3 = Instance.new("UIGridLayout")
+local animationPackBackground = Instance.new("ImageLabel")
+local animationPackImage = Instance.new("ImageButton")
+local packNameLabel = Instance.new("TextLabel")
+local animSettingsLabel = Instance.new("ImageLabel")
+local animSettingsText = Instance.new("TextLabel")
+
+--Properties:
+
+Emotes.Name = "Emotes"
+Emotes.Parent = game.Players.LocalPlayer.PlayerGui.dietLib.mainFrame.tabHolder
+Emotes.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+Emotes.BackgroundTransparency = 1.000
+Emotes.Position = UDim2.new(0.00847569946, 0, 0.0153375855, 0)
+Emotes.Size = UDim2.new(0.991524398, 0, 0.984662414, 0)
+Emotes.Visible = false
+
+r6emotes.Name = "r6emotes"
+r6emotes.Parent = Emotes
+r6emotes.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+r6emotes.BackgroundTransparency = 1.000
+r6emotes.Position = UDim2.new(-2.50231238e-07, 0, -9.96557361e-08, 0)
+r6emotes.Size = UDim2.new(1.00148821, 0, 1.00000012, 0)
+
+roundBackground_r6sb.Name = "roundBackground_r6sb"
+roundBackground_r6sb.Parent = r6emotes
+roundBackground_r6sb.AnchorPoint = Vector2.new(0.5, 0.5)
+roundBackground_r6sb.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+roundBackground_r6sb.BackgroundTransparency = 1.000
+roundBackground_r6sb.Position = UDim2.new(0.354744405, 0, 0.0860301033, 0)
+roundBackground_r6sb.Size = UDim2.new(0.655839145, 0, 0.110276565, 0)
+roundBackground_r6sb.ZIndex = 0
+roundBackground_r6sb.Image = "rbxassetid://3570695787"
+roundBackground_r6sb.ImageColor3 = Color3.fromRGB(25, 25, 25)
+roundBackground_r6sb.ImageTransparency = 0.100
+roundBackground_r6sb.ScaleType = Enum.ScaleType.Slice
+roundBackground_r6sb.SliceCenter = Rect.new(100, 100, 100, 100)
+roundBackground_r6sb.SliceScale = 0.120
+
+SearchBar.Name = "SearchBar"
+SearchBar.Parent = roundBackground_r6sb
+SearchBar.BackgroundColor3 = Color3.fromRGB(200, 185, 255)
+SearchBar.BackgroundTransparency = 1.000
+SearchBar.BorderSizePixel = 0
+SearchBar.Position = UDim2.new(0.104378402, 0, 0, 0)
+SearchBar.Size = UDim2.new(0.895621598, 0, 1, 0)
+SearchBar.Font = Enum.Font.ArialBold
+SearchBar.PlaceholderColor3 = Color3.fromRGB(85, 85, 85)
+SearchBar.PlaceholderText = "Search"
+SearchBar.Text = ""
+SearchBar.TextColor3 = Color3.fromRGB(255, 255, 255)
+SearchBar.TextScaled = true
+SearchBar.TextSize = 14.000
+SearchBar.TextWrapped = true
+
+searchBarIcon.Name = "searchBarIcon"
+searchBarIcon.Parent = roundBackground_r6sb
+searchBarIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+searchBarIcon.BackgroundTransparency = 1.000
+searchBarIcon.Position = UDim2.new(0.0335000008, 0, 0, 0)
+searchBarIcon.Size = UDim2.new(0, 33, 0, 33)
+searchBarIcon.ZIndex = 25
+searchBarIcon.Image = "rbxassetid://3192528333"
+
+r6emotesHolder.Name = "r6emotesHolder"
+r6emotesHolder.Parent = r6emotes
+r6emotesHolder.Active = true
+r6emotesHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+r6emotesHolder.BackgroundTransparency = 1.000
+r6emotesHolder.BorderSizePixel = 0
+r6emotesHolder.Position = UDim2.new(0.0268247817, 0, 0.176109418, 0)
+r6emotesHolder.Size = UDim2.new(0.973175466, 0, 0.823890567, 0)
+r6emotesHolder.ZIndex = 6
+r6emotesHolder.CanvasSize = UDim2.new(0, 0, 6, 0)
+
+UIGridLayout.Parent = r6emotesHolder
+UIGridLayout.CellSize = UDim2.new(0, 150, 0, 35)
+
+emoteTemplate.Name = "emoteTemplate"
+emoteTemplate.Parent = UIGridLayout
+emoteTemplate.AnchorPoint = Vector2.new(0.5, 0.5)
+emoteTemplate.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+emoteTemplate.BackgroundTransparency = 1.000
+emoteTemplate.Position = UDim2.new(0.404892236, 0, 0.0860301107, 0)
+emoteTemplate.Size = UDim2.new(0.756134748, 0, 0.110276565, 0)
+emoteTemplate.ZIndex = 0
+emoteTemplate.Image = "rbxassetid://3570695787"
+emoteTemplate.ImageColor3 = Color3.fromRGB(25, 25, 25)
+emoteTemplate.ImageTransparency = 0.100
+emoteTemplate.ScaleType = Enum.ScaleType.Slice
+emoteTemplate.SliceCenter = Rect.new(100, 100, 100, 100)
+emoteTemplate.SliceScale = 0.120
+
+emoteName.Name = "emoteName"
+emoteName.Parent = emoteTemplate
+emoteName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+emoteName.BackgroundTransparency = 1.000
+emoteName.Position = UDim2.new(0, 0, 0.120635122, 0)
+emoteName.Size = UDim2.new(1, 0, 0.771753907, 0)
+emoteName.ZIndex = 4
+emoteName.Font = Enum.Font.ArialBold
+emoteName.Text = "emote"
+emoteName.TextColor3 = Color3.fromRGB(100, 100, 100)
+emoteName.TextScaled = true
+emoteName.TextSize = 14.000
+emoteName.TextWrapped = true
+
+selectedImg.Name = "selectedImg"
+selectedImg.Parent = emoteTemplate
+selectedImg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+selectedImg.BackgroundTransparency = 1.000
+selectedImg.Size = UDim2.new(1, 0, 1, 0)
+selectedImg.Visible = false
+selectedImg.ZIndex = 5
+selectedImg.Image = "rbxassetid://6950096769"
+
+clickBtn.Name = "clickBtn"
+clickBtn.Parent = emoteTemplate
+clickBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+clickBtn.BackgroundTransparency = 1.000
+clickBtn.Size = UDim2.new(1, 0, 1, 0)
+clickBtn.ZIndex = 25
+clickBtn.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+clickBtn.ImageTransparency = 1.000
+
+r15emotes.Name = "r15emotes"
+r15emotes.Parent = Emotes
+r15emotes.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+r15emotes.BackgroundTransparency = 1.000
+r15emotes.Position = UDim2.new(-2.50231238e-07, 0, -9.96557361e-08, 0)
+r15emotes.Size = UDim2.new(1.00148821, 0, 1.00000012, 0)
+r15emotes.Visible = false
+
+r15emotesHolder.Name = "r15emotesHolder"
+r15emotesHolder.Parent = r15emotes
+r15emotesHolder.Active = true
+r15emotesHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+r15emotesHolder.BackgroundTransparency = 1.000
+r15emotesHolder.BorderSizePixel = 0
+r15emotesHolder.Position = UDim2.new(0.0268247817, 0, 0.176109418, 0)
+r15emotesHolder.Size = UDim2.new(0.973175466, 0, 0.823890567, 0)
+r15emotesHolder.ZIndex = 6
+r15emotesHolder.CanvasSize = UDim2.new(0, 0, 6, 0)
+
+UIGridLayout_2.Parent = r15emotesHolder
+UIGridLayout_2.CellSize = UDim2.new(0, 150, 0, 35)
+
+emoteTemplate_2.Name = "emoteTemplate"
+emoteTemplate_2.Parent = UIGridLayout_2
+emoteTemplate_2.AnchorPoint = Vector2.new(0.5, 0.5)
+emoteTemplate_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+emoteTemplate_2.BackgroundTransparency = 1.000
+emoteTemplate_2.Position = UDim2.new(0.404892236, 0, 0.0860301107, 0)
+emoteTemplate_2.Size = UDim2.new(0.756134748, 0, 0.110276565, 0)
+emoteTemplate_2.ZIndex = 0
+emoteTemplate_2.Image = "rbxassetid://3570695787"
+emoteTemplate_2.ImageColor3 = Color3.fromRGB(25, 25, 25)
+emoteTemplate_2.ImageTransparency = 0.100
+emoteTemplate_2.ScaleType = Enum.ScaleType.Slice
+emoteTemplate_2.SliceCenter = Rect.new(100, 100, 100, 100)
+emoteTemplate_2.SliceScale = 0.120
+
+emoteName_2.Name = "emoteName"
+emoteName_2.Parent = emoteTemplate_2
+emoteName_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+emoteName_2.BackgroundTransparency = 1.000
+emoteName_2.Position = UDim2.new(0, 0, 0.120635122, 0)
+emoteName_2.Size = UDim2.new(1, 0, 0.771753907, 0)
+emoteName_2.ZIndex = 4
+emoteName_2.Font = Enum.Font.ArialBold
+emoteName_2.Text = "emote"
+emoteName_2.TextColor3 = Color3.fromRGB(100, 100, 100)
+emoteName_2.TextScaled = true
+emoteName_2.TextSize = 14.000
+emoteName_2.TextWrapped = true
+
+selectedImg_2.Name = "selectedImg"
+selectedImg_2.Parent = emoteTemplate_2
+selectedImg_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+selectedImg_2.BackgroundTransparency = 1.000
+selectedImg_2.Size = UDim2.new(1, 0, 1, 0)
+selectedImg_2.Visible = false
+selectedImg_2.ZIndex = 5
+selectedImg_2.Image = "rbxassetid://6950096769"
+
+clickBtn_2.Name = "clickBtn"
+clickBtn_2.Parent = emoteTemplate_2
+clickBtn_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+clickBtn_2.BackgroundTransparency = 1.000
+clickBtn_2.Size = UDim2.new(1, 0, 1, 0)
+clickBtn_2.ZIndex = 25
+clickBtn_2.Image = "rbxasset://textures/ui/GuiImagePlaceholder.png"
+clickBtn_2.ImageTransparency = 1.000
+
+roundBackground_r15sb.Name = "roundBackground_r15sb"
+roundBackground_r15sb.Parent = r15emotes
+roundBackground_r15sb.AnchorPoint = Vector2.new(0.5, 0.5)
+roundBackground_r15sb.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+roundBackground_r15sb.BackgroundTransparency = 1.000
+roundBackground_r15sb.Position = UDim2.new(0.354744405, 0, 0.0860301033, 0)
+roundBackground_r15sb.Size = UDim2.new(0.655839145, 0, 0.110276565, 0)
+roundBackground_r15sb.ZIndex = 0
+roundBackground_r15sb.Image = "rbxassetid://3570695787"
+roundBackground_r15sb.ImageColor3 = Color3.fromRGB(25, 25, 25)
+roundBackground_r15sb.ImageTransparency = 0.100
+roundBackground_r15sb.ScaleType = Enum.ScaleType.Slice
+roundBackground_r15sb.SliceCenter = Rect.new(100, 100, 100, 100)
+roundBackground_r15sb.SliceScale = 0.120
+
+SearchBar_2.Name = "SearchBar"
+SearchBar_2.Parent = roundBackground_r15sb
+SearchBar_2.BackgroundColor3 = Color3.fromRGB(200, 185, 255)
+SearchBar_2.BackgroundTransparency = 1.000
+SearchBar_2.BorderSizePixel = 0
+SearchBar_2.Position = UDim2.new(0.104378402, 0, 0, 0)
+SearchBar_2.Size = UDim2.new(0.895621598, 0, 1, 0)
+SearchBar_2.Font = Enum.Font.ArialBold
+SearchBar_2.PlaceholderColor3 = Color3.fromRGB(85, 85, 85)
+SearchBar_2.PlaceholderText = "Search"
+SearchBar_2.Text = ""
+SearchBar_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+SearchBar_2.TextScaled = true
+SearchBar_2.TextSize = 14.000
+SearchBar_2.TextWrapped = true
+
+searchBarIcon_2.Name = "searchBarIcon"
+searchBarIcon_2.Parent = roundBackground_r15sb
+searchBarIcon_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+searchBarIcon_2.BackgroundTransparency = 1.000
+searchBarIcon_2.Position = UDim2.new(0.0335000008, 0, 0, 0)
+searchBarIcon_2.Size = UDim2.new(0, 33, 0, 33)
+searchBarIcon_2.ZIndex = 25
+searchBarIcon_2.Image = "rbxassetid://3192528333"
+
+btnHolder.Name = "btnHolder"
+btnHolder.Parent = Emotes
+btnHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+btnHolder.BackgroundTransparency = 1.000
+btnHolder.Position = UDim2.new(0.800801218, 0, 0.0308916848, 0)
+btnHolder.Size = UDim2.new(0, 90, 0, 33)
+
+r6BtnBG.Name = "r6BtnBG"
+r6BtnBG.Parent = btnHolder
+r6BtnBG.AnchorPoint = Vector2.new(0.5, 0.5)
+r6BtnBG.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+r6BtnBG.BackgroundTransparency = 1.000
+r6BtnBG.Position = UDim2.new(0.235635042, 0, 0.494167447, 0)
+r6BtnBG.Size = UDim2.new(0.484286785, 0, 1.0583303, 0)
+r6BtnBG.ZIndex = 0
+r6BtnBG.Image = "rbxassetid://3570695787"
+r6BtnBG.ImageColor3 = Color3.fromRGB(25, 25, 25)
+r6BtnBG.ImageTransparency = 0.100
+r6BtnBG.ScaleType = Enum.ScaleType.Slice
+r6BtnBG.SliceCenter = Rect.new(100, 100, 100, 100)
+r6BtnBG.SliceScale = 0.120
+
+r6BtnMAIN.Name = "r6BtnMAIN"
+r6BtnMAIN.Parent = r6BtnBG
+r6BtnMAIN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+r6BtnMAIN.BackgroundTransparency = 1.000
+r6BtnMAIN.Position = UDim2.new(0, 0, 0.200430065, 0)
+r6BtnMAIN.Size = UDim2.new(1, 0, 0.627774417, 0)
+r6BtnMAIN.ZIndex = 45
+r6BtnMAIN.Font = Enum.Font.ArialBold
+r6BtnMAIN.Text = "R6"
+r6BtnMAIN.TextColor3 = Color3.fromRGB(255, 255, 255)
+r6BtnMAIN.TextScaled = true
+r6BtnMAIN.TextSize = 14.000
+r6BtnMAIN.TextWrapped = true
+
+r15BtnBG.Name = "r15BtnBG"
+r15BtnBG.Parent = btnHolder
+r15BtnBG.AnchorPoint = Vector2.new(0.5, 0.5)
+r15BtnBG.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+r15BtnBG.BackgroundTransparency = 1.000
+r15BtnBG.Position = UDim2.new(0.768968344, 0, 0.494167447, 0)
+r15BtnBG.Size = UDim2.new(0.484286785, 0, 1.0583303, 0)
+r15BtnBG.ZIndex = 0
+r15BtnBG.Image = "rbxassetid://3570695787"
+r15BtnBG.ImageColor3 = Color3.fromRGB(25, 25, 25)
+r15BtnBG.ImageTransparency = 0.100
+r15BtnBG.ScaleType = Enum.ScaleType.Slice
+r15BtnBG.SliceCenter = Rect.new(100, 100, 100, 100)
+r15BtnBG.SliceScale = 0.120
+
+r15BtnMAIN.Name = "r15BtnMAIN"
+r15BtnMAIN.Parent = r15BtnBG
+r15BtnMAIN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+r15BtnMAIN.BackgroundTransparency = 1.000
+r15BtnMAIN.Position = UDim2.new(0, 0, 0.200430065, 0)
+r15BtnMAIN.Size = UDim2.new(1, 0, 0.627774417, 0)
+r15BtnMAIN.ZIndex = 45
+r15BtnMAIN.Font = Enum.Font.ArialBold
+r15BtnMAIN.Text = "R15"
+r15BtnMAIN.TextColor3 = Color3.fromRGB(122, 122, 122)
+r15BtnMAIN.TextScaled = true
+r15BtnMAIN.TextSize = 14.000
+r15BtnMAIN.TextWrapped = true
+
+animSettingsBG.Name = "animSettingsBG"
+animSettingsBG.Parent = btnHolder
+animSettingsBG.AnchorPoint = Vector2.new(0.5, 0.5)
+animSettingsBG.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+animSettingsBG.BackgroundTransparency = 1.000
+animSettingsBG.Position = UDim2.new(-0.31992051, 0, 0.494167447, 0)
+animSettingsBG.Size = UDim2.new(0.484286785, 0, 1.0583303, 0)
+animSettingsBG.ZIndex = 0
+animSettingsBG.Image = "rbxassetid://3570695787"
+animSettingsBG.ImageColor3 = Color3.fromRGB(25, 25, 25)
+animSettingsBG.ImageTransparency = 0.100
+animSettingsBG.ScaleType = Enum.ScaleType.Slice
+animSettingsBG.SliceCenter = Rect.new(100, 100, 100, 100)
+animSettingsBG.SliceScale = 0.120
+
+animSettingsMain.Name = "animSettingsMain"
+animSettingsMain.Parent = animSettingsBG
+animSettingsMain.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+animSettingsMain.BackgroundTransparency = 1.000
+animSettingsMain.Position = UDim2.new(0.175758645, 0, 0.114531465, 0)
+animSettingsMain.Size = UDim2.new(0.625539482, 0, 0.770938814, 0)
+animSettingsMain.ZIndex = 50
+animSettingsMain.Image = "rbxassetid://7072721682"
+animSettingsMain.ImageColor3 = Color3.fromRGB(122, 122, 122)
+
+animSettings.Name = "animSettings"
+animSettings.Parent = Emotes
+animSettings.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+animSettings.BackgroundTransparency = 1.000
+animSettings.Position = UDim2.new(-2.50231238e-07, 0, -9.96557361e-08, 0)
+animSettings.Size = UDim2.new(1.00148821, 0, 1.00000012, 0)
+animSettings.Visible = false
+
+animSettingsHolder.Name = "animSettingsHolder"
+animSettingsHolder.Parent = animSettings
+animSettingsHolder.Active = true
+animSettingsHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+animSettingsHolder.BackgroundTransparency = 1.000
+animSettingsHolder.BorderSizePixel = 0
+animSettingsHolder.Position = UDim2.new(0.0268247817, 0, 0.176109418, 0)
+animSettingsHolder.Size = UDim2.new(0.973175466, 0, 0.823890567, 0)
+animSettingsHolder.ZIndex = 6
+animSettingsHolder.CanvasSize = UDim2.new(0, 0, 6, 0)
+
+UIListLayout.Parent = animSettingsHolder
+UIListLayout.Padding = UDim.new(0, 4)
+
+_2_emoteSpeed.Name = "2_emoteSpeed"
+_2_emoteSpeed.Parent = animSettingsHolder
+_2_emoteSpeed.AnchorPoint = Vector2.new(0.5, 0.5)
+_2_emoteSpeed.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+_2_emoteSpeed.BackgroundTransparency = 1.000
+_2_emoteSpeed.BorderSizePixel = 0
+_2_emoteSpeed.Position = UDim2.new(0.5, 0, 0.0489999987, 0)
+_2_emoteSpeed.Size = UDim2.new(0.939999998, 0, 0.0299999993, 0)
+_2_emoteSpeed.ZIndex = 25
+
+Slider.Name = "Slider"
+Slider.Parent = _2_emoteSpeed
+Slider.BackgroundColor3 = Color3.fromRGB(120, 120, 120)
+Slider.BackgroundTransparency = 1.000
+Slider.BorderSizePixel = 0
+Slider.Position = UDim2.new(0.0370844379, 0, 0.399999827, 0)
+Slider.Size = UDim2.new(0, 416, 0, 22)
+Slider.ZIndex = 12
+Slider.AutoButtonColor = false
+Slider.Font = Enum.Font.SourceSans
+Slider.Text = ""
+Slider.TextColor3 = Color3.fromRGB(0, 0, 0)
+Slider.TextSize = 14.000
+
+Indicator.Name = "Indicator"
+Indicator.Parent = Slider
+Indicator.BackgroundColor3 = Color3.fromRGB(85, 170, 0)
+Indicator.BackgroundTransparency = 1.000
+Indicator.BorderSizePixel = 0
+Indicator.Position = UDim2.new(-0.00131055492, 0, 0, 0)
+Indicator.Size = UDim2.new(0.00999999978, 0, 1.03043532, 0)
+Indicator.ZIndex = 5
+
+HolderButton.Name = "HolderButton"
+HolderButton.Parent = Indicator
+HolderButton.AnchorPoint = Vector2.new(0.5, 0.5)
+HolderButton.BackgroundColor3 = Color3.fromRGB(190, 190, 190)
+HolderButton.BackgroundTransparency = 1.000
+HolderButton.Position = UDim2.new(1, 0, 0.5, 0)
+HolderButton.Size = UDim2.new(0, 13, 0, 25)
+HolderButton.ZIndex = 5
+HolderButton.Font = Enum.Font.SourceSans
+HolderButton.Text = ""
+HolderButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+HolderButton.TextSize = 14.000
+HolderButton.TextTransparency = 2.000
+
+UICorner.CornerRadius = UDim.new(0, 3)
+UICorner.Parent = HolderButton
+
+Value.Name = "Value"
+Value.Parent = HolderButton
+Value.AnchorPoint = Vector2.new(0.5, 0.5)
+Value.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+Value.BackgroundTransparency = 1.000
+Value.Position = UDim2.new(0.5, 0, -0.360000014, 0)
+Value.Size = UDim2.new(0, 36, 0, 18)
+Value.Font = Enum.Font.GothamBold
+Value.Text = "0"
+Value.TextColor3 = Color3.fromRGB(122, 122, 122)
+Value.TextSize = 14.000
+Value.TextTransparency = 1.000
+
+UICorner_2.CornerRadius = UDim.new(0, 3)
+UICorner_2.Parent = Value
+
+SliderImg.Name = "SliderImg"
+SliderImg.Parent = HolderButton
+SliderImg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+SliderImg.BackgroundTransparency = 1.000
+SliderImg.Position = UDim2.new(-0.449999988, 0, 0, 0)
+SliderImg.Size = UDim2.new(0, 24, 0, 24)
+SliderImg.Image = "rbxassetid://3886466329"
+SliderImg.ImageColor3 = Color3.fromRGB(38, 38, 38)
+
+UICorner_3.CornerRadius = UDim.new(0, 2)
+UICorner_3.Parent = Indicator
+
+Sliderbg.Name = "Sliderbg"
+Sliderbg.Parent = Slider
+Sliderbg.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Sliderbg.BackgroundTransparency = 1.000
+Sliderbg.Position = UDim2.new(-0.0207495056, 0, 0.326593578, 0)
+Sliderbg.Size = UDim2.new(1.01900005, 0, 0.270000011, 0)
+Sliderbg.ZIndex = 3
+Sliderbg.Image = "rbxassetid://6597213248"
+Sliderbg.ImageColor3 = Color3.fromRGB(68, 68, 68)
+
+Value_2.Name = "Value"
+Value_2.Parent = _2_emoteSpeed
+Value_2.AnchorPoint = Vector2.new(0.5, 0.5)
+Value_2.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+Value_2.BackgroundTransparency = 1.000
+Value_2.Position = UDim2.new(0.51308763, 0, 0.428963125, 0)
+Value_2.Size = UDim2.new(0, 229, 0, 23)
+Value_2.Font = Enum.Font.Ubuntu
+Value_2.Text = "Val | Max"
+Value_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+Value_2.TextScaled = true
+Value_2.TextSize = 18.000
+Value_2.TextStrokeTransparency = 0.500
+Value_2.TextTransparency = 1.000
+Value_2.TextWrapped = true
+
+roundBackground_WSS.Name = "roundBackground_WSS"
+roundBackground_WSS.Parent = _2_emoteSpeed
+roundBackground_WSS.AnchorPoint = Vector2.new(0.5, 0.5)
+roundBackground_WSS.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+roundBackground_WSS.BackgroundTransparency = 1.000
+roundBackground_WSS.Position = UDim2.new(0.5, 0, 0.449999988, 0)
+roundBackground_WSS.Size = UDim2.new(1, 0, 0.899999976, 0)
+roundBackground_WSS.ZIndex = 0
+roundBackground_WSS.Image = "rbxassetid://3570695787"
+roundBackground_WSS.ImageColor3 = Color3.fromRGB(25, 25, 25)
+roundBackground_WSS.ImageTransparency = 0.100
+roundBackground_WSS.ScaleType = Enum.ScaleType.Slice
+roundBackground_WSS.SliceCenter = Rect.new(100, 100, 100, 100)
+roundBackground_WSS.SliceScale = 0.120
+
+roundBackgroundDark_WSS.Name = "roundBackgroundDark_WSS"
+roundBackgroundDark_WSS.Parent = _2_emoteSpeed
+roundBackgroundDark_WSS.AnchorPoint = Vector2.new(0.5, 0.5)
+roundBackgroundDark_WSS.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+roundBackgroundDark_WSS.BackgroundTransparency = 1.000
+roundBackgroundDark_WSS.Position = UDim2.new(0.497775435, 0, 0.590925097, 0)
+roundBackgroundDark_WSS.Size = UDim2.new(0.976970911, 0, 0.423365802, 0)
+roundBackgroundDark_WSS.Image = "rbxassetid://3570695787"
+roundBackgroundDark_WSS.ImageColor3 = Color3.fromRGB(34, 34, 34)
+roundBackgroundDark_WSS.ImageTransparency = 0.100
+roundBackgroundDark_WSS.ScaleType = Enum.ScaleType.Slice
+roundBackgroundDark_WSS.SliceCenter = Rect.new(100, 100, 100, 100)
+roundBackgroundDark_WSS.SliceScale = 0.120
+
+sliderLabel.Name = "sliderLabel"
+sliderLabel.Parent = _2_emoteSpeed
+sliderLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+sliderLabel.BackgroundTransparency = 1.000
+sliderLabel.Position = UDim2.new(0.00928999018, 0, 0.00821716897, 0)
+sliderLabel.Size = UDim2.new(0, 442, 0, 20)
+sliderLabel.ZIndex = 4
+sliderLabel.Font = Enum.Font.ArialBold
+sliderLabel.Text = "Emote Speed"
+sliderLabel.TextColor3 = Color3.fromRGB(122, 122, 122)
+sliderLabel.TextScaled = true
+sliderLabel.TextSize = 14.000
+sliderLabel.TextWrapped = true
+sliderLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+_3_bundleCustomize.Name = "3_bundleCustomize"
+_3_bundleCustomize.Parent = animSettingsHolder
+_3_bundleCustomize.AnchorPoint = Vector2.new(0.5, 0.5)
+_3_bundleCustomize.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+_3_bundleCustomize.BackgroundTransparency = 1.000
+_3_bundleCustomize.BorderSizePixel = 0
+_3_bundleCustomize.Position = UDim2.new(0.5, 0, 0.0489999987, 0)
+_3_bundleCustomize.Size = UDim2.new(0.939999998, 0, 0.0500000007, 0)
+_3_bundleCustomize.ZIndex = 25
+
+roundBackground.Name = "roundBackground"
+roundBackground.Parent = _3_bundleCustomize
+roundBackground.AnchorPoint = Vector2.new(0.5, 0.5)
+roundBackground.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+roundBackground.BackgroundTransparency = 1.000
+roundBackground.Position = UDim2.new(0.49999997, 0, 0.50179553, 0)
+roundBackground.Size = UDim2.new(1, 0, 0.996409357, 0)
+roundBackground.ZIndex = 0
+roundBackground.Image = "rbxassetid://3570695787"
+roundBackground.ImageColor3 = Color3.fromRGB(25, 25, 25)
+roundBackground.ImageTransparency = 0.100
+roundBackground.ScaleType = Enum.ScaleType.Slice
+roundBackground.SliceCenter = Rect.new(100, 100, 100, 100)
+roundBackground.SliceScale = 0.120
+
+titleLabel.Name = "titleLabel"
+titleLabel.Parent = _3_bundleCustomize
+titleLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+titleLabel.BackgroundTransparency = 1.000
+titleLabel.Position = UDim2.new(0.00928999018, 0, 0.0439438596, 0)
+titleLabel.Size = UDim2.new(0, 346, 0, 20)
+titleLabel.ZIndex = 4
+titleLabel.Font = Enum.Font.ArialBold
+titleLabel.Text = "R15 Animation Packs"
+titleLabel.TextColor3 = Color3.fromRGB(122, 122, 122)
+titleLabel.TextScaled = true
+titleLabel.TextSize = 14.000
+titleLabel.TextWrapped = true
+titleLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+animPackDisplayBG.Name = "animPackDisplayBG"
+animPackDisplayBG.Parent = _3_bundleCustomize
+animPackDisplayBG.AnchorPoint = Vector2.new(0.5, 0.5)
+animPackDisplayBG.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+animPackDisplayBG.BackgroundTransparency = 1.000
+animPackDisplayBG.Position = UDim2.new(0.895007312, 0, 0.499517441, 0)
+animPackDisplayBG.Size = UDim2.new(0.189999998, 0, 0.933000028, 0)
+animPackDisplayBG.ZIndex = 101
+animPackDisplayBG.Image = "rbxassetid://3570695787"
+animPackDisplayBG.ImageColor3 = Color3.fromRGB(34, 34, 34)
+animPackDisplayBG.ImageTransparency = 0.100
+animPackDisplayBG.ScaleType = Enum.ScaleType.Slice
+animPackDisplayBG.SliceCenter = Rect.new(100, 100, 100, 100)
+animPackDisplayBG.SliceScale = 0.120
+
+animPackDisplayImage.Name = "animPackDisplayImage"
+animPackDisplayImage.Parent = _3_bundleCustomize
+animPackDisplayImage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+animPackDisplayImage.BackgroundTransparency = 1.000
+animPackDisplayImage.Position = UDim2.new(0.79904747, 0, 0.0284030139, 0)
+animPackDisplayImage.Size = UDim2.new(0.189999998, 0, 0.933000028, 0)
+animPackDisplayImage.ZIndex = 105
+animPackDisplayImage.Image = "rbxassetid://36516281"
+
+currentLabel.Name = "currentLabel"
+currentLabel.Parent = _3_bundleCustomize
+currentLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+currentLabel.BackgroundTransparency = 1.000
+currentLabel.Position = UDim2.new(0.79871738, 0, 0.0439438596, 0)
+currentLabel.Size = UDim2.new(0, 87, 0, 12)
+currentLabel.ZIndex = 120
+currentLabel.Font = Enum.Font.ArialBold
+currentLabel.Text = "Current:"
+currentLabel.TextColor3 = Color3.fromRGB(139, 139, 139)
+currentLabel.TextScaled = true
+currentLabel.TextSize = 14.000
+currentLabel.TextWrapped = true
+
+cursorPresetsBackground.Name = "cursorPresetsBackground"
+cursorPresetsBackground.Parent = _3_bundleCustomize
+cursorPresetsBackground.AnchorPoint = Vector2.new(0.5, 0.5)
+cursorPresetsBackground.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+cursorPresetsBackground.BackgroundTransparency = 1.000
+cursorPresetsBackground.Position = UDim2.new(0.400007516, 0, 0.608452022, 0)
+cursorPresetsBackground.Size = UDim2.new(0.771250665, 0, 0.705445051, 0)
+cursorPresetsBackground.ZIndex = 101
+cursorPresetsBackground.Image = "rbxassetid://3570695787"
+cursorPresetsBackground.ImageColor3 = Color3.fromRGB(34, 34, 34)
+cursorPresetsBackground.ImageTransparency = 0.100
+cursorPresetsBackground.ScaleType = Enum.ScaleType.Slice
+cursorPresetsBackground.SliceCenter = Rect.new(100, 100, 100, 100)
+cursorPresetsBackground.SliceScale = 0.120
+
+ScrollingFrame.Parent = _3_bundleCustomize
+ScrollingFrame.Active = true
+ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ScrollingFrame.BackgroundTransparency = 1.000
+ScrollingFrame.BorderSizePixel = 0
+ScrollingFrame.Position = UDim2.new(0.0197922885, 0, 0.255729556, 0)
+ScrollingFrame.Size = UDim2.new(0, 342, 0, 64)
+ScrollingFrame.ZIndex = 150
+
+UIGridLayout_3.Parent = ScrollingFrame
+UIGridLayout_3.SortOrder = Enum.SortOrder.LayoutOrder
+UIGridLayout_3.CellSize = UDim2.new(0, 42, 0, 42)
+
+animationPackBackground.Name = "animationPackBackground"
+animationPackBackground.Parent = UIGridLayout_3
+animationPackBackground.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+animationPackBackground.BackgroundTransparency = 1.000
+animationPackBackground.Size = UDim2.new(0, 100, 0, 100)
+animationPackBackground.Image = "rbxassetid://7249221418"
+animationPackBackground.ImageColor3 = Color3.fromRGB(139, 139, 139)
+
+animationPackImage.Name = "animationPackImage"
+animationPackImage.Parent = animationPackBackground
+animationPackImage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+animationPackImage.BackgroundTransparency = 1.000
+animationPackImage.Size = UDim2.new(1, 0, 1, 0)
+animationPackImage.ZIndex = 200
+animationPackImage.Image = "rbxassetid://7166972269"
+
+packNameLabel.Name = "packNameLabel"
+packNameLabel.Parent = _3_bundleCustomize
+packNameLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+packNameLabel.BackgroundTransparency = 1.000
+packNameLabel.Position = UDim2.new(0.79871738, 0, 0.827668428, 0)
+packNameLabel.Size = UDim2.new(0, 87, 0, 12)
+packNameLabel.ZIndex = 220
+packNameLabel.Font = Enum.Font.ArialBold
+packNameLabel.Text = "None"
+packNameLabel.TextColor3 = Color3.fromRGB(139, 139, 139)
+packNameLabel.TextScaled = true
+packNameLabel.TextSize = 14.000
+packNameLabel.TextWrapped = true
+
+animSettingsLabel.Name = "animSettingsLabel"
+animSettingsLabel.Parent = animSettings
+animSettingsLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+animSettingsLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+animSettingsLabel.BackgroundTransparency = 1.000
+animSettingsLabel.Position = UDim2.new(0.354744405, 0, 0.0860301033, 0)
+animSettingsLabel.Size = UDim2.new(0.655839145, 0, 0.110276565, 0)
+animSettingsLabel.ZIndex = 0
+animSettingsLabel.Image = "rbxassetid://3570695787"
+animSettingsLabel.ImageColor3 = Color3.fromRGB(25, 25, 25)
+animSettingsLabel.ImageTransparency = 0.100
+animSettingsLabel.ScaleType = Enum.ScaleType.Slice
+animSettingsLabel.SliceCenter = Rect.new(100, 100, 100, 100)
+animSettingsLabel.SliceScale = 0.120
+
+animSettingsText.Name = "animSettingsText"
+animSettingsText.Parent = animSettingsLabel
+animSettingsText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+animSettingsText.BackgroundTransparency = 1.000
+animSettingsText.Position = UDim2.new(-0.00126386434, 0, -0.0190417841, 0)
+animSettingsText.Size = UDim2.new(1, 0, 1, 0)
+animSettingsText.ZIndex = 4
+animSettingsText.Font = Enum.Font.ArialBold
+animSettingsText.Text = "Emote Settings"
+animSettingsText.TextColor3 = Color3.fromRGB(100, 100, 100)
+animSettingsText.TextScaled = true
+animSettingsText.TextSize = 14.000
+animSettingsText.TextWrapped = true
+
+-- Scripts:
+
+local function ISPXM_fake_script() -- SearchBar.searchBarHandler 
+	local script = Instance.new('LocalScript', SearchBar)
+
+	--[[ Made by @LuaBearyGood ]]--
+	
+	local ObjectHolder = script.Parent.Parent.Parent.r6emotesHolder
+	local Objects = {['TextLabel'] = true, ['ImageLabel'] = true, ['Frame'] = true}
+	local Type = 1
+	--[[
+		Types:
+		1 - Makes objects that do not fit search invisible
+		2 - makes objects that fit search move higher on list, and those that don't go to the bottom
+		
+		
+	--]]
+		
+	
+	
+	function Filter(Text)
+		for i,v in pairs(ObjectHolder:GetChildren()) do
+			if Objects[v.ClassName] then
+				if string.match(string.lower(v.Name), Text) then
+					if Type == 1 then
+						v.Visible = true
+					end
+					v.LayoutOrder = 1
+				else
+					if Type == 1 then
+						v.Visible = false
+					end
+					v.LayoutOrder = 0
+				end
+			end
+		end
+	end
+	
+	
+	script.Parent:GetPropertyChangedSignal('Text'):Connect(function()
+		local CurrentText = script.Parent.Text
+		
+		if CurrentText == "" then
+			for i,v in pairs(ObjectHolder:GetChildren()) do
+				if Objects[v.ClassName] then
+					v.Visible = true
+				end
+			end
+		else
+			Filter(string.lower(CurrentText))
+		end
+	end)
+end
+coroutine.wrap(ISPXM_fake_script)()
+local function PXTGJ_fake_script() -- SearchBar_2.searchBarHandler 
+	local script = Instance.new('LocalScript', SearchBar_2)
+
+	--[[ Made by @LuaBearyGood ]]--
+	
+	local ObjectHolder = script.Parent.Parent.Parent.r15emotesHolder
+	local Objects = {['TextLabel'] = true, ['ImageLabel'] = true, ['Frame'] = true}
+	local Type = 1
+	--[[
+		Types:
+		1 - Makes objects that do not fit search invisible
+		2 - makes objects that fit search move higher on list, and those that don't go to the bottom
+		
+		
+	--]]
+		
+	
+	
+	function Filter(Text)
+		for i,v in pairs(ObjectHolder:GetChildren()) do
+			if Objects[v.ClassName] then
+				if string.match(string.lower(v.Name), Text) then
+					if Type == 1 then
+						v.Visible = true
+					end
+					v.LayoutOrder = 1
+				else
+					if Type == 1 then
+						v.Visible = false
+					end
+					v.LayoutOrder = 0
+				end
+			end
+		end
+	end
+	
+	
+	script.Parent:GetPropertyChangedSignal('Text'):Connect(function()
+		local CurrentText = script.Parent.Text
+		
+		if CurrentText == "" then
+			for i,v in pairs(ObjectHolder:GetChildren()) do
+				if Objects[v.ClassName] then
+					v.Visible = true
+				end
+			end
+		else
+			Filter(string.lower(CurrentText))
+		end
+	end)
+end
+coroutine.wrap(PXTGJ_fake_script)()
