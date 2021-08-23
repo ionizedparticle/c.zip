@@ -20,7 +20,7 @@ local searchBarIcon = Instance.new("ImageLabel")
 --Properties:
 
 GuiHub.Name = "Gui Hub"
-GuiHub.Parent = game.StarterGui.dietLib.mainFrame.tabHolder
+GuiHub.Parent = game.Players.LocalPlayer.PlayerGui.dietLib.mainFrame.tabHolder
 GuiHub.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
 GuiHub.BackgroundTransparency = 1.000
 GuiHub.Position = UDim2.new(0.00847569946, 0, 0.0153375855, 0)
