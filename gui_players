@@ -1,0 +1,522 @@
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local Players = Instance.new("Frame")
+local playersHolder = Instance.new("ScrollingFrame")
+local UIListLayout = Instance.new("UIListLayout")
+local plrTemp = Instance.new("Frame")
+local roundBackground_PT = Instance.new("ImageLabel")
+local playerDisplayName = Instance.new("TextLabel")
+local playerRealName = Instance.new("TextLabel")
+local avatarBackground = Instance.new("ImageLabel")
+local playerAvatarBustImage = Instance.new("ImageLabel")
+local playerAvatarBustImageDS = Instance.new("ImageLabel")
+local premiumLogo = Instance.new("ImageLabel")
+local plrAccAge = Instance.new("TextLabel")
+local btnHolder = Instance.new("Frame")
+local teleportToBtnBG = Instance.new("ImageLabel")
+local teleportToBtnMAIN = Instance.new("TextButton")
+local spectateBtnBG = Instance.new("ImageLabel")
+local spectateBtnMAIN = Instance.new("TextButton")
+local locateBtnBG = Instance.new("ImageLabel")
+local locateBtnMAIN = Instance.new("TextButton")
+local balloonBtnBG = Instance.new("ImageLabel")
+local balloonBtnMAIN = Instance.new("TextButton")
+local toolKillBtnBG = Instance.new("ImageLabel")
+local toolKillBtnMAIN = Instance.new("TextButton")
+local toolBringBtnBG = Instance.new("ImageLabel")
+local toolKillBtnMAIN_2 = Instance.new("TextButton")
+local CarpetBtnBG = Instance.new("ImageLabel")
+local CarpetBtnMAIN = Instance.new("TextButton")
+local blankBtn = Instance.new("ImageLabel")
+local blankBtnMain = Instance.new("TextButton")
+local whisperBtnMAIN = Instance.new("ImageButton")
+local friendBtnMAIN = Instance.new("ImageButton")
+local roundBackground_PTSF = Instance.new("ImageLabel")
+local SearchBar = Instance.new("TextBox")
+local searchBarIcon = Instance.new("ImageLabel")
+
+--Properties:
+
+Players.Name = "Players"
+Players.Parent = game.StarterGui.dietLib.mainFrame.tabHolder
+Players.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
+Players.BackgroundTransparency = 1.000
+Players.Position = UDim2.new(0.00847569946, 0, 0.0153375855, 0)
+Players.Size = UDim2.new(0.991524398, 0, 0.984662414, 0)
+Players.Visible = false
+
+playersHolder.Name = "playersHolder"
+playersHolder.Parent = Players
+playersHolder.Active = true
+playersHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+playersHolder.BackgroundTransparency = 1.000
+playersHolder.BorderSizePixel = 0
+playersHolder.Position = UDim2.new(-1.87673436e-07, 0, 0.176109433, 0)
+playersHolder.Size = UDim2.new(1.00000036, 0, 0.823890567, 0)
+playersHolder.ZIndex = 6
+playersHolder.CanvasSize = UDim2.new(0, 0, 6, 0)
+
+UIListLayout.Parent = playersHolder
+UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+UIListLayout.Padding = UDim.new(0, 5)
+
+plrTemp.Name = "plrTemp"
+plrTemp.Parent = UIListLayout
+plrTemp.AnchorPoint = Vector2.new(0.5, 0.5)
+plrTemp.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+plrTemp.BackgroundTransparency = 1.000
+plrTemp.BorderSizePixel = 0
+plrTemp.Position = UDim2.new(0.483600855, 0, 0.107235089, 0)
+plrTemp.Size = UDim2.new(0.939999998, 0, 0.0599999987, 0)
+plrTemp.ZIndex = 25
+
+roundBackground_PT.Name = "roundBackground_PT"
+roundBackground_PT.Parent = plrTemp
+roundBackground_PT.AnchorPoint = Vector2.new(0.5, 0.5)
+roundBackground_PT.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+roundBackground_PT.BackgroundTransparency = 1.000
+roundBackground_PT.Position = UDim2.new(0.497819245, 0, 0.505919874, 0)
+roundBackground_PT.Size = UDim2.new(1, 0, 0.986908913, 0)
+roundBackground_PT.ZIndex = 0
+roundBackground_PT.Image = "rbxassetid://3570695787"
+roundBackground_PT.ImageColor3 = Color3.fromRGB(25, 25, 25)
+roundBackground_PT.ImageTransparency = 0.100
+roundBackground_PT.ScaleType = Enum.ScaleType.Slice
+roundBackground_PT.SliceCenter = Rect.new(100, 100, 100, 100)
+roundBackground_PT.SliceScale = 0.120
+
+playerDisplayName.Name = "playerDisplayName"
+playerDisplayName.Parent = plrTemp
+playerDisplayName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+playerDisplayName.BackgroundTransparency = 1.000
+playerDisplayName.Position = UDim2.new(0.2299615, 0, 0.0398741998, 0)
+playerDisplayName.Size = UDim2.new(0, 284, 0, 27)
+playerDisplayName.ZIndex = 4
+playerDisplayName.Font = Enum.Font.ArialBold
+playerDisplayName.Text = "PlayerDisplayName"
+playerDisplayName.TextColor3 = Color3.fromRGB(171, 171, 171)
+playerDisplayName.TextScaled = true
+playerDisplayName.TextSize = 14.000
+playerDisplayName.TextWrapped = true
+playerDisplayName.TextXAlignment = Enum.TextXAlignment.Left
+
+playerRealName.Name = "playerRealName"
+playerRealName.Parent = plrTemp
+playerRealName.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+playerRealName.BackgroundTransparency = 1.000
+playerRealName.Position = UDim2.new(0.229961455, 0, 0.281031728, 0)
+playerRealName.Size = UDim2.new(0, 350, 0, 16)
+playerRealName.ZIndex = 4
+playerRealName.Font = Enum.Font.ArialBold
+playerRealName.Text = "@Player"
+playerRealName.TextColor3 = Color3.fromRGB(95, 95, 95)
+playerRealName.TextScaled = true
+playerRealName.TextSize = 14.000
+playerRealName.TextWrapped = true
+playerRealName.TextXAlignment = Enum.TextXAlignment.Left
+
+avatarBackground.Name = "avatarBackground"
+avatarBackground.Parent = plrTemp
+avatarBackground.AnchorPoint = Vector2.new(0.5, 0.5)
+avatarBackground.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+avatarBackground.BackgroundTransparency = 1.000
+avatarBackground.ClipsDescendants = true
+avatarBackground.Position = UDim2.new(0.113890305, 0, 0.505919755, 0)
+avatarBackground.Size = UDim2.new(0.232142136, 0, 0.986908913, 0)
+avatarBackground.ZIndex = 26
+avatarBackground.Image = "rbxassetid://3570695787"
+avatarBackground.ImageColor3 = Color3.fromRGB(90, 90, 90)
+avatarBackground.ScaleType = Enum.ScaleType.Slice
+avatarBackground.SliceCenter = Rect.new(100, 100, 100, 100)
+avatarBackground.SliceScale = 0.120
+
+playerAvatarBustImage.Name = "playerAvatarBustImage"
+playerAvatarBustImage.Parent = avatarBackground
+playerAvatarBustImage.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+playerAvatarBustImage.BackgroundTransparency = 1.000
+playerAvatarBustImage.Size = UDim2.new(1, 0, 1, 0)
+playerAvatarBustImage.Image = "rbxassetid://6951275198"
+
+playerAvatarBustImageDS.Name = "playerAvatarBustImageDS"
+playerAvatarBustImageDS.Parent = avatarBackground
+playerAvatarBustImageDS.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+playerAvatarBustImageDS.BackgroundTransparency = 1.000
+playerAvatarBustImageDS.Position = UDim2.new(0.0199999996, 0, 0.0199999996, 0)
+playerAvatarBustImageDS.Size = UDim2.new(1, 0, 1, 0)
+playerAvatarBustImageDS.ZIndex = 0
+playerAvatarBustImageDS.Image = "rbxassetid://6951275198"
+playerAvatarBustImageDS.ImageColor3 = Color3.fromRGB(0, 0, 0)
+
+premiumLogo.Name = "premiumLogo"
+premiumLogo.Parent = avatarBackground
+premiumLogo.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+premiumLogo.BackgroundTransparency = 1.000
+premiumLogo.Position = UDim2.new(-0.018787954, 0, -0.0183824301, 0)
+premiumLogo.Size = UDim2.new(0, 30, 0, 30)
+premiumLogo.ZIndex = 30
+premiumLogo.Image = "rbxassetid://5217928125"
+
+plrAccAge.Name = "plrAccAge"
+plrAccAge.Parent = avatarBackground
+plrAccAge.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+plrAccAge.BackgroundTransparency = 1.000
+plrAccAge.Position = UDim2.new(0.0200000424, 0, 0.907685518, 0)
+plrAccAge.Size = UDim2.new(0, 106, 0, 9)
+plrAccAge.ZIndex = 4
+plrAccAge.Font = Enum.Font.ArialBold
+plrAccAge.Text = "69 Days Old"
+plrAccAge.TextColor3 = Color3.fromRGB(172, 172, 172)
+plrAccAge.TextScaled = true
+plrAccAge.TextSize = 14.000
+plrAccAge.TextStrokeTransparency = 0.500
+plrAccAge.TextWrapped = true
+plrAccAge.TextXAlignment = Enum.TextXAlignment.Left
+
+btnHolder.Name = "btnHolder"
+btnHolder.Parent = plrTemp
+btnHolder.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+btnHolder.BackgroundTransparency = 1.000
+btnHolder.Position = UDim2.new(0.229961365, 0, 0.434768081, 0)
+btnHolder.Size = UDim2.new(0, 350, 0, 62)
+
+teleportToBtnBG.Name = "teleportToBtnBG"
+teleportToBtnBG.Parent = btnHolder
+teleportToBtnBG.AnchorPoint = Vector2.new(0.5, 0.5)
+teleportToBtnBG.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+teleportToBtnBG.BackgroundTransparency = 1.000
+teleportToBtnBG.ClipsDescendants = true
+teleportToBtnBG.Position = UDim2.new(0.124455392, 0, 0.359677225, 0)
+teleportToBtnBG.Size = UDim2.new(0.238956451, 0, 0.302069843, 0)
+teleportToBtnBG.ZIndex = 11
+teleportToBtnBG.Image = "rbxassetid://3570695787"
+teleportToBtnBG.ImageColor3 = Color3.fromRGB(0, 0, 0)
+teleportToBtnBG.ImageTransparency = 0.100
+teleportToBtnBG.ScaleType = Enum.ScaleType.Slice
+teleportToBtnBG.SliceCenter = Rect.new(100, 100, 100, 100)
+teleportToBtnBG.SliceScale = 0.120
+
+teleportToBtnMAIN.Name = "teleportToBtnMAIN"
+teleportToBtnMAIN.Parent = teleportToBtnBG
+teleportToBtnMAIN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+teleportToBtnMAIN.BackgroundTransparency = 1.000
+teleportToBtnMAIN.Size = UDim2.new(1, 0, 1, 0)
+teleportToBtnMAIN.Font = Enum.Font.ArialBold
+teleportToBtnMAIN.Text = "TP To"
+teleportToBtnMAIN.TextColor3 = Color3.fromRGB(122, 122, 122)
+teleportToBtnMAIN.TextScaled = true
+teleportToBtnMAIN.TextSize = 14.000
+teleportToBtnMAIN.TextWrapped = true
+
+spectateBtnBG.Name = "spectateBtnBG"
+spectateBtnBG.Parent = btnHolder
+spectateBtnBG.AnchorPoint = Vector2.new(0.5, 0.5)
+spectateBtnBG.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+spectateBtnBG.BackgroundTransparency = 1.000
+spectateBtnBG.ClipsDescendants = true
+spectateBtnBG.Position = UDim2.new(0.374713838, 0, 0.359677225, 0)
+spectateBtnBG.Size = UDim2.new(0.238956451, 0, 0.302069843, 0)
+spectateBtnBG.ZIndex = 11
+spectateBtnBG.Image = "rbxassetid://3570695787"
+spectateBtnBG.ImageColor3 = Color3.fromRGB(0, 0, 0)
+spectateBtnBG.ImageTransparency = 0.100
+spectateBtnBG.ScaleType = Enum.ScaleType.Slice
+spectateBtnBG.SliceCenter = Rect.new(100, 100, 100, 100)
+spectateBtnBG.SliceScale = 0.120
+
+spectateBtnMAIN.Name = "spectateBtnMAIN"
+spectateBtnMAIN.Parent = spectateBtnBG
+spectateBtnMAIN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+spectateBtnMAIN.BackgroundTransparency = 1.000
+spectateBtnMAIN.Size = UDim2.new(1, 0, 1, 0)
+spectateBtnMAIN.Font = Enum.Font.ArialBold
+spectateBtnMAIN.Text = "Spectate"
+spectateBtnMAIN.TextColor3 = Color3.fromRGB(122, 122, 122)
+spectateBtnMAIN.TextScaled = true
+spectateBtnMAIN.TextSize = 14.000
+spectateBtnMAIN.TextWrapped = true
+
+locateBtnBG.Name = "locateBtnBG"
+locateBtnBG.Parent = btnHolder
+locateBtnBG.AnchorPoint = Vector2.new(0.5, 0.5)
+locateBtnBG.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+locateBtnBG.BackgroundTransparency = 1.000
+locateBtnBG.ClipsDescendants = true
+locateBtnBG.Position = UDim2.new(0.629250467, 0, 0.359677225, 0)
+locateBtnBG.Size = UDim2.new(0.238956451, 0, 0.302069843, 0)
+locateBtnBG.ZIndex = 11
+locateBtnBG.Image = "rbxassetid://3570695787"
+locateBtnBG.ImageColor3 = Color3.fromRGB(0, 0, 0)
+locateBtnBG.ImageTransparency = 0.100
+locateBtnBG.ScaleType = Enum.ScaleType.Slice
+locateBtnBG.SliceCenter = Rect.new(100, 100, 100, 100)
+locateBtnBG.SliceScale = 0.120
+
+locateBtnMAIN.Name = "locateBtnMAIN"
+locateBtnMAIN.Parent = locateBtnBG
+locateBtnMAIN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+locateBtnMAIN.BackgroundTransparency = 1.000
+locateBtnMAIN.Size = UDim2.new(1, 0, 1, 0)
+locateBtnMAIN.Font = Enum.Font.ArialBold
+locateBtnMAIN.Text = "Locate"
+locateBtnMAIN.TextColor3 = Color3.fromRGB(122, 122, 122)
+locateBtnMAIN.TextScaled = true
+locateBtnMAIN.TextSize = 14.000
+locateBtnMAIN.TextWrapped = true
+
+balloonBtnBG.Name = "balloonBtnBG"
+balloonBtnBG.Parent = btnHolder
+balloonBtnBG.AnchorPoint = Vector2.new(0.5, 0.5)
+balloonBtnBG.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+balloonBtnBG.BackgroundTransparency = 1.000
+balloonBtnBG.ClipsDescendants = true
+balloonBtnBG.Position = UDim2.new(0.124455392, 0, 0.795161068, 0)
+balloonBtnBG.Size = UDim2.new(0.238956451, 0, 0.302069843, 0)
+balloonBtnBG.ZIndex = 11
+balloonBtnBG.Image = "rbxassetid://3570695787"
+balloonBtnBG.ImageColor3 = Color3.fromRGB(0, 0, 0)
+balloonBtnBG.ImageTransparency = 0.100
+balloonBtnBG.ScaleType = Enum.ScaleType.Slice
+balloonBtnBG.SliceCenter = Rect.new(100, 100, 100, 100)
+balloonBtnBG.SliceScale = 0.120
+
+balloonBtnMAIN.Name = "balloonBtnMAIN"
+balloonBtnMAIN.Parent = balloonBtnBG
+balloonBtnMAIN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+balloonBtnMAIN.BackgroundTransparency = 1.000
+balloonBtnMAIN.Size = UDim2.new(1, 0, 1, 0)
+balloonBtnMAIN.Font = Enum.Font.ArialBold
+balloonBtnMAIN.Text = "R4pe"
+balloonBtnMAIN.TextColor3 = Color3.fromRGB(122, 122, 122)
+balloonBtnMAIN.TextScaled = true
+balloonBtnMAIN.TextSize = 14.000
+balloonBtnMAIN.TextWrapped = true
+
+toolKillBtnBG.Name = "toolKillBtnBG"
+toolKillBtnBG.Parent = btnHolder
+toolKillBtnBG.AnchorPoint = Vector2.new(0.5, 0.5)
+toolKillBtnBG.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+toolKillBtnBG.BackgroundTransparency = 1.000
+toolKillBtnBG.ClipsDescendants = true
+toolKillBtnBG.Position = UDim2.new(0.374713838, 0, 0.795161068, 0)
+toolKillBtnBG.Size = UDim2.new(0.238956451, 0, 0.302069843, 0)
+toolKillBtnBG.ZIndex = 11
+toolKillBtnBG.Image = "rbxassetid://3570695787"
+toolKillBtnBG.ImageColor3 = Color3.fromRGB(0, 0, 0)
+toolKillBtnBG.ImageTransparency = 0.100
+toolKillBtnBG.ScaleType = Enum.ScaleType.Slice
+toolKillBtnBG.SliceCenter = Rect.new(100, 100, 100, 100)
+toolKillBtnBG.SliceScale = 0.120
+
+toolKillBtnMAIN.Name = "toolKillBtnMAIN"
+toolKillBtnMAIN.Parent = toolKillBtnBG
+toolKillBtnMAIN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+toolKillBtnMAIN.BackgroundTransparency = 1.000
+toolKillBtnMAIN.Size = UDim2.new(1, 0, 1, 0)
+toolKillBtnMAIN.Font = Enum.Font.ArialBold
+toolKillBtnMAIN.Text = "TKill"
+toolKillBtnMAIN.TextColor3 = Color3.fromRGB(122, 122, 122)
+toolKillBtnMAIN.TextScaled = true
+toolKillBtnMAIN.TextSize = 14.000
+toolKillBtnMAIN.TextWrapped = true
+
+toolBringBtnBG.Name = "toolBringBtnBG"
+toolBringBtnBG.Parent = btnHolder
+toolBringBtnBG.AnchorPoint = Vector2.new(0.5, 0.5)
+toolBringBtnBG.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+toolBringBtnBG.BackgroundTransparency = 1.000
+toolBringBtnBG.ClipsDescendants = true
+toolBringBtnBG.Position = UDim2.new(0.629250467, 0, 0.795161068, 0)
+toolBringBtnBG.Size = UDim2.new(0.238956451, 0, 0.302069843, 0)
+toolBringBtnBG.ZIndex = 11
+toolBringBtnBG.Image = "rbxassetid://3570695787"
+toolBringBtnBG.ImageColor3 = Color3.fromRGB(0, 0, 0)
+toolBringBtnBG.ImageTransparency = 0.100
+toolBringBtnBG.ScaleType = Enum.ScaleType.Slice
+toolBringBtnBG.SliceCenter = Rect.new(100, 100, 100, 100)
+toolBringBtnBG.SliceScale = 0.120
+
+toolKillBtnMAIN_2.Name = "toolKillBtnMAIN"
+toolKillBtnMAIN_2.Parent = toolBringBtnBG
+toolKillBtnMAIN_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+toolKillBtnMAIN_2.BackgroundTransparency = 1.000
+toolKillBtnMAIN_2.Size = UDim2.new(1, 0, 1, 0)
+toolKillBtnMAIN_2.Font = Enum.Font.ArialBold
+toolKillBtnMAIN_2.Text = "TBring"
+toolKillBtnMAIN_2.TextColor3 = Color3.fromRGB(122, 122, 122)
+toolKillBtnMAIN_2.TextScaled = true
+toolKillBtnMAIN_2.TextSize = 14.000
+toolKillBtnMAIN_2.TextWrapped = true
+
+CarpetBtnBG.Name = "CarpetBtnBG"
+CarpetBtnBG.Parent = btnHolder
+CarpetBtnBG.AnchorPoint = Vector2.new(0.5, 0.5)
+CarpetBtnBG.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CarpetBtnBG.BackgroundTransparency = 1.000
+CarpetBtnBG.ClipsDescendants = true
+CarpetBtnBG.Position = UDim2.new(0.880521953, 0, 0.359677225, 0)
+CarpetBtnBG.Size = UDim2.new(0.238956451, 0, 0.302069843, 0)
+CarpetBtnBG.ZIndex = 11
+CarpetBtnBG.Image = "rbxassetid://3570695787"
+CarpetBtnBG.ImageColor3 = Color3.fromRGB(0, 0, 0)
+CarpetBtnBG.ImageTransparency = 0.100
+CarpetBtnBG.ScaleType = Enum.ScaleType.Slice
+CarpetBtnBG.SliceCenter = Rect.new(100, 100, 100, 100)
+CarpetBtnBG.SliceScale = 0.120
+
+CarpetBtnMAIN.Name = "CarpetBtnMAIN"
+CarpetBtnMAIN.Parent = CarpetBtnBG
+CarpetBtnMAIN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+CarpetBtnMAIN.BackgroundTransparency = 1.000
+CarpetBtnMAIN.Size = UDim2.new(1, 0, 1, 0)
+CarpetBtnMAIN.Font = Enum.Font.ArialBold
+CarpetBtnMAIN.Text = "Carpet"
+CarpetBtnMAIN.TextColor3 = Color3.fromRGB(122, 122, 122)
+CarpetBtnMAIN.TextScaled = true
+CarpetBtnMAIN.TextSize = 14.000
+CarpetBtnMAIN.TextWrapped = true
+
+blankBtn.Name = "blankBtn"
+blankBtn.Parent = btnHolder
+blankBtn.AnchorPoint = Vector2.new(0.5, 0.5)
+blankBtn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+blankBtn.BackgroundTransparency = 1.000
+blankBtn.ClipsDescendants = true
+blankBtn.Position = UDim2.new(0.880521953, 0, 0.795161068, 0)
+blankBtn.Size = UDim2.new(0.238956451, 0, 0.302069843, 0)
+blankBtn.ZIndex = 11
+blankBtn.Image = "rbxassetid://3570695787"
+blankBtn.ImageColor3 = Color3.fromRGB(0, 0, 0)
+blankBtn.ImageTransparency = 0.100
+blankBtn.ScaleType = Enum.ScaleType.Slice
+blankBtn.SliceCenter = Rect.new(100, 100, 100, 100)
+blankBtn.SliceScale = 0.120
+
+blankBtnMain.Name = "blankBtnMain"
+blankBtnMain.Parent = blankBtn
+blankBtnMain.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+blankBtnMain.BackgroundTransparency = 1.000
+blankBtnMain.Size = UDim2.new(1, 0, 1, 0)
+blankBtnMain.Font = Enum.Font.ArialBold
+blankBtnMain.Text = "tbd"
+blankBtnMain.TextColor3 = Color3.fromRGB(122, 122, 122)
+blankBtnMain.TextScaled = true
+blankBtnMain.TextSize = 14.000
+blankBtnMain.TextWrapped = true
+
+whisperBtnMAIN.Name = "whisperBtnMAIN"
+whisperBtnMAIN.Parent = btnHolder
+whisperBtnMAIN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+whisperBtnMAIN.BackgroundTransparency = 1.000
+whisperBtnMAIN.Position = UDim2.new(0.904285908, 0, -0.70216471, 0)
+whisperBtnMAIN.Size = UDim2.new(0, 26, 0, 26)
+whisperBtnMAIN.ZIndex = 45
+whisperBtnMAIN.Image = "rbxassetid://7104823555"
+whisperBtnMAIN.ImageColor3 = Color3.fromRGB(185, 185, 185)
+
+friendBtnMAIN.Name = "friendBtnMAIN"
+friendBtnMAIN.Parent = btnHolder
+friendBtnMAIN.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+friendBtnMAIN.BackgroundTransparency = 1.000
+friendBtnMAIN.Position = UDim2.new(0.81285733, 0, -0.70216471, 0)
+friendBtnMAIN.Size = UDim2.new(0, 26, 0, 26)
+friendBtnMAIN.ZIndex = 45
+friendBtnMAIN.Image = "rbxassetid://6034287515"
+friendBtnMAIN.ImageColor3 = Color3.fromRGB(185, 185, 185)
+
+roundBackground_PTSF.Name = "roundBackground_PTSF"
+roundBackground_PTSF.Parent = Players
+roundBackground_PTSF.AnchorPoint = Vector2.new(0.5, 0.5)
+roundBackground_PTSF.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+roundBackground_PTSF.BackgroundTransparency = 1.000
+roundBackground_PTSF.Position = UDim2.new(0.498162419, 0, 0.0860301107, 0)
+roundBackground_PTSF.Size = UDim2.new(0.942675173, 0, 0.110276565, 0)
+roundBackground_PTSF.ZIndex = 0
+roundBackground_PTSF.Image = "rbxassetid://3570695787"
+roundBackground_PTSF.ImageColor3 = Color3.fromRGB(25, 25, 25)
+roundBackground_PTSF.ImageTransparency = 0.100
+roundBackground_PTSF.ScaleType = Enum.ScaleType.Slice
+roundBackground_PTSF.SliceCenter = Rect.new(100, 100, 100, 100)
+roundBackground_PTSF.SliceScale = 0.120
+
+SearchBar.Name = "SearchBar"
+SearchBar.Parent = roundBackground_PTSF
+SearchBar.BackgroundColor3 = Color3.fromRGB(200, 185, 255)
+SearchBar.BackgroundTransparency = 1.000
+SearchBar.BorderSizePixel = 0
+SearchBar.Position = UDim2.new(0.104378402, 0, 0, 0)
+SearchBar.Size = UDim2.new(0.895621598, 0, 1, 0)
+SearchBar.Font = Enum.Font.ArialBold
+SearchBar.PlaceholderColor3 = Color3.fromRGB(85, 85, 85)
+SearchBar.PlaceholderText = "Search"
+SearchBar.Text = ""
+SearchBar.TextColor3 = Color3.fromRGB(255, 255, 255)
+SearchBar.TextScaled = true
+SearchBar.TextSize = 14.000
+SearchBar.TextWrapped = true
+
+searchBarIcon.Name = "searchBarIcon"
+searchBarIcon.Parent = roundBackground_PTSF
+searchBarIcon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+searchBarIcon.BackgroundTransparency = 1.000
+searchBarIcon.Position = UDim2.new(0.0335000008, 0, 0, 0)
+searchBarIcon.Size = UDim2.new(0, 33, 0, 33)
+searchBarIcon.ZIndex = 25
+searchBarIcon.Image = "rbxassetid://3192528333"
+
+-- Scripts:
+
+local function HRERJO_fake_script() -- SearchBar.searchBarHandler 
+	local script = Instance.new('LocalScript', SearchBar)
+
+	--[[ Made by @LuaBearyGood ]]--
+	
+	local ObjectHolder = script.Parent.Parent.Parent.playersHolder
+	local Objects = {['TextLabel'] = true, ['ImageButton'] = true, ['Frame'] = true}
+	local Type = 1
+	--[[
+		Types:
+		1 - Makes objects that do not fit search invisible
+		2 - makes objects that fit search move higher on list, and those that don't go to the bottom
+		
+		
+	--]]
+		
+	
+	
+	function Filter(Text)
+		for i,v in pairs(ObjectHolder:GetChildren()) do
+			if Objects[v.ClassName] then
+				if string.match(string.lower(v.Name), Text) then
+					if Type == 1 then
+						v.Visible = true
+					end
+					v.LayoutOrder = 1
+				else
+					if Type == 1 then
+						v.Visible = false
+					end
+					v.LayoutOrder = 0
+				end
+			end
+		end
+	end
+	
+	
+	script.Parent:GetPropertyChangedSignal('Text'):Connect(function()
+		local CurrentText = script.Parent.Text
+		
+		if CurrentText == "" then
+			for i,v in pairs(ObjectHolder:GetChildren()) do
+				if Objects[v.ClassName] then
+					v.Visible = true
+				end
+			end
+		else
+			Filter(string.lower(CurrentText))
+		end
+	end)
+end
+coroutine.wrap(HRERJO_fake_script)()
