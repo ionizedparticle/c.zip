@@ -41,7 +41,7 @@ local searchBarIcon = Instance.new("ImageLabel")
 --Properties:
 
 Players.Name = "Players"
-Players.Parent = game.StarterGui.dietLib.mainFrame.tabHolder
+Players.Parent = game.Players.LocalPlayer.PlayerGui.dietLib.mainFrame.tabHolder
 Players.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
 Players.BackgroundTransparency = 1.000
 Players.Position = UDim2.new(0.00847569946, 0, 0.0153375855, 0)
